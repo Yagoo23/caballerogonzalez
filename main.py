@@ -1,6 +1,14 @@
 import sys,var, eventos
 
 from window import *
+from windowaviso import *
+
+class DialogAviso(QtWidgets.QDialog):
+    def __init__(self):
+        super(DialogAviso,self).__init__()
+        var.dlgaviso=Ui_windowaviso()
+        var.dlgaviso.setupUi(self)
+
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main,self).__init__()
@@ -20,5 +28,6 @@ class Main(QtWidgets.QMainWindow):
 if __name__ == '__main__':
     app=QtWidgets.QApplication([])
     window=Main()
+    var.dlgaviso=DialogAviso()
     window.show()
     sys.exit(app.exec())
