@@ -1,4 +1,4 @@
-import sys,var, eventos
+import sys,var, eventos,clients
 
 from window import *
 from windowaviso import *
@@ -25,6 +25,10 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.Salir)
 
+        '''
+        Eventos caja de texto
+        '''
+        var.ui.txtDNI.editingFinished.connect(clients.Clientes.validarDNI)
 if __name__ == '__main__':
     app=QtWidgets.QApplication([])
     window=Main()
