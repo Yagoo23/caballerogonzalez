@@ -19,6 +19,8 @@ class Main(QtWidgets.QMainWindow):
         Eventos de botón
         '''
         var.ui.btnSalir.clicked.connect(eventos.Eventos.Salir)
+        var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.SelSexo)
+        var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.SelPago)
         '''
         Eventos de la barra del menú
         '''
@@ -29,6 +31,8 @@ class Main(QtWidgets.QMainWindow):
         Eventos caja de texto
         '''
         var.ui.txtDNI.editingFinished.connect(clients.Clientes.validarDNI)
+
+
 if __name__ == '__main__':
     app=QtWidgets.QApplication([])
     window=Main()

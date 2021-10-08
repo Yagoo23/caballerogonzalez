@@ -24,13 +24,61 @@ class Clientes():
                     var.ui.lblValidoDNI.setText('V')
 
                 else:
-                    var.ui.lblValidoDNI.setStyleSheet('QLabel {color:red}')
+                    var.ui.lblValidoDNI.setStyleSheet('QLabel {color:red;}')
                     var.ui.lblValidoDNI.setText('X')
+                    var.ui.txtDNI.setStyleSheet('background-color:pink;')
             else:
-                var.ui.lblValidoDNI.setStyleSheet('QLabel {color:red}')
+                var.ui.lblValidoDNI.setStyleSheet('QLabel {color:red;}')
                 var.ui.lblValidoDNI.setText('X')
-
+                var.ui.txtDNI.setStyleSheet('background-color:pink;')
 
         except Exception as error:
             print('Error en módulo validar DNI',error)
+
+    def SelSexo(self):
+        try:
+            if var.ui.rbtFem.isChecked():
+                print('Marcado femenino. ')
+            if var.ui.rbtHom.isChecked():
+                print('Marcado masculino. ')
+        except Exception as error:
+            print('Error en módulo seleccionar sexo. ',error)
+
+    def SelPago(self):
+        try:
+            if var.ui.chkEfectivo.isChecked():
+                print('Seleccionaste efectivo. ')
+            if var.ui.chkTarjeta.isChecked():
+                print('Seleccionaste tarjeta. ')
+            if var.ui.chkCargocuenta.isChecked():
+                print('Seleccionaste cargo en cuenta. ')
+            if var.ui.chkTransfer.isChecked():
+                print('Seleccionaste transferencia. ')
+        except Exception as error:
+            print('Error en módulo seleccionar forma de pago ',error)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
