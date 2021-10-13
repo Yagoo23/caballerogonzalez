@@ -32,6 +32,11 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.txtDNI.editingFinished.connect(clients.Clientes.validarDNI)
 
+        '''
+        Eventos de comboBox 
+        '''
+        clients.Clientes.cargaProv_(self)
+        var.ui.cmbProv.activated[str].connect(clients.Clientes.selProv)
 
 if __name__ == '__main__':
     app=QtWidgets.QApplication([])
