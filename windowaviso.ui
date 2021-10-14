@@ -87,7 +87,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="img/warning.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>btnBoxAviso</sender>
