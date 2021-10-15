@@ -74,8 +74,27 @@ class Clientes():
             print('Seleccionaste la provincia de',prov)
             return prov
         except Exception as error:
-            print('Error selección provincia',error)
+            print('Error en módulo seleccionar provincia',error)
 
+    def cargarFecha(qDate):
+        try:
+            data= ('{0}/{1}/{2}'.format(qDate.day(),qDate.month(),qDate.year()))
+            var.ui.txtAltaCli.setText(str(data))
+            var.dlgcalendar.hide()
+        except Exception as error:
+            print('Error cargar fecha en txtFecha ',error)
+
+    def letracapital():
+        try:
+            nome = var.ui.txtNome.text()
+            var.ui.txtNome.setText(nome.title())
+            apelido = var.ui.txtApel.text()
+            var.ui.txtApel.setText(apelido.title())
+            direccion = var.ui.txtDir.text()
+            var.ui.txtDir.setText(direccion.title())
+
+        except Exception as error:
+            print('Error en módulo dirección ', error)
 
 
 

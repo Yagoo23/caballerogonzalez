@@ -17,7 +17,7 @@ class Ui_windowcal(object):
         windowcal.setWindowModality(QtCore.Qt.WindowModal)
         windowcal.setEnabled(True)
         windowcal.resize(315, 182)
-        windowcal.setModal(True)
+        windowcal.setModal(False)
         self.Calendar = QtWidgets.QCalendarWidget(windowcal)
         self.Calendar.setGeometry(QtCore.QRect(0, 0, 312, 183))
         self.Calendar.setObjectName("Calendar")
