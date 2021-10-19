@@ -96,8 +96,41 @@ class Clientes():
         except Exception as error:
             print('Error en módulo dirección ', error)
 
+    def guardaCli(self):
+        try:
+            #preparamos el registro
+            newcli=[]
+            client =[var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli]
+            for i in client:
+                newcli.append(i.text())
+            #cargamos en la tabla
+            row=0
+            column=0
+            var.ui.tabClientes.insertRow(row)
+            for campo in newcli:
+                cell=QtWidgets.QTableWidgetItem(campo)
+                var.ui.tabClientes.setItem(row,column,cell)
+                column +=1
+        except Exception as error:
+            print('Error en guardar clientes ', error)
 
-
+    def limpiaFormCLi(self):
+        try:
+            cajas=[var.ui.txtDNI,var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli,var.ui.txtDir]
+            for i in cajas:
+                i.setText('')
+            var.ui.rbtGroupSex.setExclusive(False)
+            var.ui.rbtFem.setChecked(False)
+            var.ui.rbtHom.setChecked(False)
+            var.ui.rbtGroupSex.setExclusive(True)
+            var.ui.chkTarjeta.setChecked(False)
+            var.ui.chkTransfer.setChecked(False)
+            var.ui.chkEfectivo.setChecked(False)
+            var.ui.chkCargocuenta.setChecked(False)
+            var.ui.cmbProv.setCurrentIndex(0)
+            var.ui.cmbMun.setCurrentIndex(0)
+        except Exception as error:
+            print('Error en limpiar clientes ',error)
 
 
 

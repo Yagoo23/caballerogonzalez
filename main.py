@@ -38,6 +38,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.SelSexo)
         var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.SelPago)
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrircal)
+        var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
+        var.ui.btnRecarga.clicked.connect(clients.Clientes.limpiaFormCLi)
         '''
         Eventos de la barra del menú
         '''
@@ -57,6 +59,11 @@ class Main(QtWidgets.QMainWindow):
         '''
         clients.Clientes.cargaProv_(self)
         var.ui.cmbProv.activated[str].connect(clients.Clientes.selProv)
+
+        '''
+        Eventos de QTabWidget
+        '''
+        eventos.Eventos.ResizeTabClientes(self);
 
 if __name__ == '__main__':
     app=QtWidgets.QApplication([])

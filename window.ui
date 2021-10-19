@@ -67,7 +67,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>40</y>
+      <y>30</y>
       <width>781</width>
       <height>341</height>
      </rect>
@@ -87,7 +87,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
        <x>50</x>
        <y>40</y>
        <width>237</width>
-       <height>27</height>
+       <height>31</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -169,7 +169,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
        <height>25</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QHBoxLayout" name="GroupSex">
       <item>
        <widget class="QLabel" name="lblSexo">
         <property name="font">
@@ -217,10 +217,10 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>410</x>
        <y>40</y>
        <width>280</width>
        <height>30</height>
@@ -643,7 +643,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnAceptar">
+    <widget class="QPushButton" name="btnGrabaCli">
      <property name="geometry">
       <rect>
        <x>250</x>
@@ -653,7 +653,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       </rect>
      </property>
      <property name="text">
-      <string>Aceptar</string>
+      <string>Guardar</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btnSalir">
@@ -669,6 +669,23 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <string>Salir</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="btnRecarga">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>40</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>img/recarga.png</normaloff>img/recarga.png</iconset>
+     </property>
+    </widget>
    </widget>
    <widget class="QTableWidget" name="tabClientes">
     <property name="geometry">
@@ -678,6 +695,12 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <width>781</width>
       <height>261</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <column>
      <property name="text">
