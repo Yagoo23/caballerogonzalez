@@ -7,6 +7,8 @@ from window import *
 class Clientes():
     def validarDNI():
         try:
+            global dnivalido
+            dnivalido=False
             dni=var.ui.txtDNI.text()
             var.ui.txtDNI.setText(dni.upper())
             tabla='TRWAGMYFPDXBNJZSQVHLCKE' #Letras DNI
@@ -22,7 +24,7 @@ class Clientes():
                 if len(dni)==len([n for n in dni if n in numeros]) and tabla[int(dni)%23]== dig_control:
                     var.ui.lblValidoDNI.setStyleSheet('QLabel {color:green;}')
                     var.ui.lblValidoDNI.setText('V')
-
+                    dnivalido=True
                 else:
                     var.ui.lblValidoDNI.setStyleSheet('QLabel {color:red;}')
                     var.ui.lblValidoDNI.setText('X')
@@ -61,7 +63,7 @@ class Clientes():
     def cargaProv_(self):
         try:
             var.ui.cmbProv.clear()
-            prov=['','A Coruña','Lugo','Ourense','Pontevedra','Vigo']
+            prov=['','A Coruña','Lugo','Ourense','Pontevedra']
             for i in prov:
                 var.ui.cmbProv.addItem(i)
 
@@ -99,38 +101,42 @@ class Clientes():
     def guardaCli(self):
         try:
             #preparamos el registro
-            newcli=[]
-            client =[var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli]
+            newcli=[] #para la base de datos
+            tabCli=[] #para la tableWidget
+            client = [var.ui.txtDNI, var.ui.txtApel, var.ui.txtNome, var.ui.txtAltaCli]
             for i in client:
-                newcli.append(i.text())
-            #cargamos en la tabla
-            row=0
-            column=0
-            var.ui.tabClientes.insertRow(row)
-            for campo in newcli:
-                cell=QtWidgets.QTableWidgetItem(campo)
-                var.ui.tabClientes.setItem(row,column,cell)
-                column +=1
+                tabCli.append(i.text())
+          #codigo para cargar la tabla
+            pagos=[]
+            if var.ui.chkCargocuenta.isChecked():
+                pagos.append('Cargo cuenta')
+            if var.ui.chkEfectivo.isChecked():
+                pagos.append('Efectivo')
+            if var.ui.chkTransfer.isChecked():
+                pagos.append('Transferencia')
+            if var.ui.chkTarjeta.isChecked():
+                pagos.append('Tarjeta')
+            pagos=set(pagos)
+            tabCli.append(', '.join(pagos))
+
+            # cargamos en la tabla
+            if dnivalido:
+                row = 0
+                column = 0
+                var.ui.tabClientes.insertRow(row)
+                for campo in tabCli:
+                    cell=QtWidgets.QTableWidgetItem(str(campo))
+                    var.ui.tabClientes.setItem(row,column,cell)
+                    column +=1
+            else:
+                msg=QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText('DNI no válido')
+                msg.exec()
+            #codigo para grabar la base de datos
         except Exception as error:
             print('Error en guardar clientes ', error)
-
-    def limpiaFormCLi(self):
-        try:
-            cajas=[var.ui.txtDNI,var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli,var.ui.txtDir]
-            for i in cajas:
-                i.setText('')
-            var.ui.rbtGroupSex.setExclusive(False)
-            var.ui.rbtFem.setChecked(False)
-            var.ui.rbtHom.setChecked(False)
-            var.ui.rbtGroupSex.setExclusive(True)
-            var.ui.chkTarjeta.setChecked(False)
-            var.ui.chkTransfer.setChecked(False)
-            var.ui.chkEfectivo.setChecked(False)
-            var.ui.chkCargocuenta.setChecked(False)
-            var.ui.cmbProv.setCurrentIndex(0)
-            var.ui.cmbMun.setCurrentIndex(0)
-        except Exception as error:
-            print('Error en limpiar clientes ',error)
 
 
 

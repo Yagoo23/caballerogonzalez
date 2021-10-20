@@ -25,6 +25,7 @@ class DialogAviso(QtWidgets.QDialog):
         var.dlgaviso=Ui_windowaviso()
         var.dlgaviso.setupUi(self)
 
+
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main,self).__init__()
@@ -39,7 +40,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.SelPago)
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrircal)
         var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
-        var.ui.btnRecarga.clicked.connect(clients.Clientes.limpiaFormCLi)
+        var.ui.btnRecarga.clicked.connect(eventos.Eventos.limpiaFormCLi)
         '''
         Eventos de la barra del menú
         '''
