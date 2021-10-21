@@ -24,6 +24,7 @@ class Clientes():
                 if len(dni)==len([n for n in dni if n in numeros]) and tabla[int(dni)%23]== dig_control:
                     var.ui.lblValidoDNI.setStyleSheet('QLabel {color:green;}')
                     var.ui.lblValidoDNI.setText('V')
+                    var.ui.txtDNI.setStyleSheet('background-color:white;')
                     dnivalido=True
                 else:
                     var.ui.lblValidoDNI.setStyleSheet('QLabel {color:red;}')
@@ -139,7 +140,18 @@ class Clientes():
             print('Error en guardar clientes ', error)
 
 
-
+    def cargaCli(self):
+        try:
+            fila=var.ui.tabClientes.selectedItems()
+            datos=[var.ui.txtDNI,var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli]
+            if fila:
+                row=[dato.text() for dato in fila]
+            for i,dato in enumerate(datos):
+                dato.setText(row[i])
+                if i == 4:
+                    pass
+        except Exception as error:
+            print('Error en cargar datos de un cliente. ',error)
 
 
 

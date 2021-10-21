@@ -49,3 +49,4 @@ class Eventos():
             var.ui.cmbMun.setCurrentIndex(0)
         except Exception as error:
             print('Error en limpiar clientes ',error)
+
