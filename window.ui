@@ -34,11 +34,17 @@
    <widget class="QLabel" name="lblClientes">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>10</y>
-      <width>191</width>
+      <x>310</x>
+      <y>0</y>
+      <width>195</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="font">
      <font>
@@ -60,7 +66,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
 }</string>
     </property>
     <property name="text">
-     <string>XESTIÓN CLIENTES</string>
+     <string>IMPORT EXPORT VIGO</string>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
@@ -766,8 +772,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <widget class="QLabel" name="lblEnConstruccion">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>140</y>
+        <x>240</x>
+        <y>250</y>
         <width>301</width>
         <height>16</height>
        </rect>
@@ -784,8 +790,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <widget class="QLabel" name="lblEnConstruccion2">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>110</y>
+        <x>250</x>
+        <y>260</y>
         <width>281</width>
         <height>16</height>
        </rect>

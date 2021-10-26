@@ -1,6 +1,7 @@
 '''
 Funciones gestión clientes
 '''
+import conexion
 import var
 from window import *
 
@@ -102,12 +103,21 @@ class Clientes():
     def guardaCli(self):
         try:
             #preparamos el registro
-            newcli=[] #para la base de datos
+            newcli=[] # Base de datos
+            cliente=[var.ui.txtDNI, var.ui.txtAltaCli,var.ui.txtApel, var.ui.txtNome,var.ui.txtDir] #para la base de datos
             tabCli=[] #para la tableWidget
             client = [var.ui.txtDNI, var.ui.txtApel, var.ui.txtNome, var.ui.txtAltaCli]
+            for i in cliente:
+                newcli.append(i.text())
             for i in client:
                 tabCli.append(i.text())
+            newcli.append(var.ui.cmbProv.currentText())
+            newcli.append(var.ui.cmbMun.currentText())
           #codigo para cargar la tabla
+            if var.ui.rbtHom.isChecked():
+                newcli.append('Hombre')
+            elif var.ui.rbtFem.isChecked():
+                newcli.append('Mujer')
             pagos=[]
             if var.ui.chkCargocuenta.isChecked():
                 pagos.append('Cargo cuenta')
@@ -117,8 +127,10 @@ class Clientes():
                 pagos.append('Transferencia')
             if var.ui.chkTarjeta.isChecked():
                 pagos.append('Tarjeta')
-            pagos=set(pagos)
+            pagos=set(pagos) #evita duplicados
+            newcli.append(', '.join(pagos))
             tabCli.append(', '.join(pagos))
+            print(newcli)
 
             # cargamos en la tabla
             if dnivalido:
@@ -129,6 +141,7 @@ class Clientes():
                     cell=QtWidgets.QTableWidgetItem(str(campo))
                     var.ui.tabClientes.setItem(row,column,cell)
                     column +=1
+                conexion.Conexion.altaCli(newcli)
             else:
                 msg=QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
@@ -150,6 +163,9 @@ class Clientes():
                 dato.setText(row[i])
                 if i == 4:
                     pass
+            #pagos=[var.ui.chkEfectivo,var.ui.chkTarjeta,var.ui.chkCargocuenta,var.ui.chkTransfer]
+            #for i,pago in enumerate(pagos):
+                #pagos.set
         except Exception as error:
             print('Error en cargar datos de un cliente. ',error)
 
