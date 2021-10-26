@@ -16,8 +16,8 @@ class Conexion():
     '''
     Módulos gestión de base de datos cliente
     '''
-    def altaCli(selfnewcli):
-        try:
-            pass
-        except Exception as error:
-            print('Problemas en alta de cliente. ',error)
+    #def altaCli(selfnewcli):
+        #try:
+
+        #except Exception as error:
+            #print('Problemas en alta de cliente. ',error)

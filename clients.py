@@ -103,7 +103,7 @@ class Clientes():
     def guardaCli(self):
         try:
             #preparamos el registro
-            newcli=[] # Base de datos
+            newcli=[]#Base de datos
             cliente=[var.ui.txtDNI, var.ui.txtAltaCli,var.ui.txtApel, var.ui.txtNome,var.ui.txtDir] #para la base de datos
             tabCli=[] #para la tableWidget
             client = [var.ui.txtDNI, var.ui.txtApel, var.ui.txtNome, var.ui.txtAltaCli]
