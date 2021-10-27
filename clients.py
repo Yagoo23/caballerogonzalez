@@ -39,28 +39,34 @@ class Clientes():
         except Exception as error:
             print('Error en módulo validar DNI',error)
 
-    def SelSexo(self):
-        try:
-            if var.ui.rbtFem.isChecked():
-                print('Marcado femenino. ')
-            if var.ui.rbtHom.isChecked():
-                print('Marcado masculino. ')
-        except Exception as error:
-            print('Error en módulo seleccionar sexo. ',error)
+    #def SelSexo(self):
+        #try:
+            #if var.ui.rbtFem.isChecked():
+                #print('Marcado femenino. ')
+            #if var.ui.rbtHom.isChecked():
+                #print('Marcado masculino. ')
+        #except Exception as error:
+            #print('Error en módulo seleccionar sexo. ',error)
 
-    def SelPago(self):
-        try:
-            if var.ui.chkEfectivo.isChecked():
-                print('Seleccionaste efectivo. ')
-            if var.ui.chkTarjeta.isChecked():
-                print('Seleccionaste tarjeta. ')
-            if var.ui.chkCargocuenta.isChecked():
-                print('Seleccionaste cargo en cuenta. ')
-            if var.ui.chkTransfer.isChecked():
-                print('Seleccionaste transferencia. ')
-        except Exception as error:
-            print('Error en módulo seleccionar forma de pago ',error)
+    # def SelPago(self):
+    #     try:
+    #         if var.ui.chkEfectivo.isChecked():
+    #             print('Seleccionaste efectivo. ')
+    #         if var.ui.chkTarjeta.isChecked():
+    #             print('Seleccionaste tarjeta. ')
+    #         if var.ui.chkCargocuenta.isChecked():
+    #             print('Seleccionaste cargo en cuenta. ')
+    #         if var.ui.chkTransfer.isChecked():
+    #             print('Seleccionaste transferencia. ')
+    #     except Exception as error:
+    #         print('Error en módulo seleccionar forma de pago ',error)
 
+    # def selProv(prov):
+    #     try:
+    #         print('Seleccionaste la provincia de',prov)
+    #         return prov
+    #     except Exception as error:
+    #         print('Error en módulo seleccionar provincia',error)
 
     def cargaProv_(self):
         try:
@@ -72,13 +78,6 @@ class Clientes():
 
         except Exception as error:
             print('Error en módulo cargar provincias,error')
-
-    def selProv(prov):
-        try:
-            print('Seleccionaste la provincia de',prov)
-            return prov
-        except Exception as error:
-            print('Error en módulo seleccionar provincia',error)
 
     def cargarFecha(qDate):
         try:
@@ -154,18 +153,25 @@ class Clientes():
 
 
     def cargaCli(self):
+        '''
+        Carga los datos del cliente al seleccionar en tabla
+        '''
         try:
             fila=var.ui.tabClientes.selectedItems()
             datos=[var.ui.txtDNI,var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli]
             if fila:
                 row=[dato.text() for dato in fila]
             for i,dato in enumerate(datos):
-                dato.setText(row[i])
-                if i == 4:
-                    pass
-            #pagos=[var.ui.chkEfectivo,var.ui.chkTarjeta,var.ui.chkCargocuenta,var.ui.chkTransfer]
-            #for i,pago in enumerate(pagos):
-                #pagos.set
+                dato.setText(row[i]) #Cargamos en la caja de texto los datos
+            #Ahora cargamos los métodos de pago
+            if 'Efectivo' in row [4]:
+                var.ui.chkEfectivo.setChecked(True)
+            if 'Transferencia' in row[4]:
+                var.ui.chkTransfer.setChecked(True)
+            if 'Tarjeta' in row[4]:
+                var.ui.chkTarjeta.setChecked(True)
+            if 'Cargo' in row[4]:
+                var.ui.chkCargocuenta.setChecked(True)
         except Exception as error:
             print('Error en cargar datos de un cliente. ',error)
 
