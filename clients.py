@@ -4,6 +4,7 @@ Funciones gestión clientes
 import conexion
 import var
 from window import *
+from PyQt5 import QtSql,QtWidgets
 
 class Clientes():
     def validarDNI():

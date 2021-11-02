@@ -74,10 +74,16 @@ class Main(QtWidgets.QMainWindow):
         Base de datos
         '''
         conexion.Conexion.db_connect(var.filedb)
+        conexion.Conexion.cargarTabCli(self)
+        conexion.Conexion.oneClie(self)
 
 if __name__ == '__main__':
     app=QtWidgets.QApplication([])
     window=Main()
+    desktop=QtWidgets.QApplication.desktop()
+    x=(desktop.width() - window.width()) //2
+    y=(desktop.height() - window.height()) //2
+    window.move(x,y)
     var.dlgaviso=DialogAviso()
     var.dlgcalendar=DialogCalendar()
     window.show()

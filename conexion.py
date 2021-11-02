@@ -1,5 +1,9 @@
 from PyQt5 import QtSql,QtWidgets
 
+import var
+
+
+
 class Conexion():
     def db_connect(filedb):
         try:
@@ -47,3 +51,41 @@ class Conexion():
 
         except Exception as error:
             print('Problemas en alta de cliente. ',error)
+
+    def cargarTabCli(self):
+        try:
+            index=0
+            query=QtSql.QSqlQuery()
+            query.prepare('select dni,apellidos,nombre,Alta,pago,direccion from clientes')
+            if query.exec_():
+                while query.next():
+                    dni=query.value(0)
+                    apellidos=query.value(1)
+                    nombre=query.value(2)
+                    Alta = query.value(3)
+                    pago=query.value(4)
+
+                    var.ui.tabClientes.setRowCount(index+1) #Creamos la fila y luego cargamos datos
+                    var.ui.tabClientes.setItem(index,0,QtWidgets.QTableWidgetItem(dni))
+                    var.ui.tabClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(apellidos))
+                    var.ui.tabClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(nombre))
+                    var.ui.tabClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(Alta))
+                    var.ui.tabClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(pago))
+                    index+=1
+
+
+        except Exception as error:
+            print('Problemas en mostrar tabla de cliente. ', error)
+
+    def oneClie(dni):
+        try:
+            direccion='a'
+            query=QtSql.QSqlQuery()
+            query.prepare('select direccion,provincia,municipio,sexo from clientes where dni= :dni')
+            query.bindValue(':dni',dni)
+            if query.exec_():
+                while query.next():
+                    direccion=query.value(0)
+            print(direccion)
+        except Exception as error:
+            print('Problemas en mostrar otros datos. ', error)
