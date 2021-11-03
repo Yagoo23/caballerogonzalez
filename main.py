@@ -43,6 +43,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrircal)
         var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
         var.ui.btnRecarga.clicked.connect(eventos.Eventos.limpiaFormCLi)
+        var.ui.btnBajaCli.clicked.connect(clients.Clientes.bajaCli)
         '''
         Eventos de la barra del menú
         '''
@@ -75,7 +76,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         conexion.Conexion.db_connect(var.filedb)
         conexion.Conexion.cargarTabCli(self)
-        conexion.Conexion.oneClie(self)
+
 
 if __name__ == '__main__':
     app=QtWidgets.QApplication([])

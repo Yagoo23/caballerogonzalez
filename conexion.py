@@ -39,7 +39,7 @@ class Conexion():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Información')
                 msg.setIcon(QtWidgets.QMessageBox.Information)
-                msg.setText('Inserción correcta')
+                msg.setText('Cliente dado de alta')
                 msg.exec()
             else:
                 print('Error. ',query.lastError().text())
@@ -52,11 +52,32 @@ class Conexion():
         except Exception as error:
             print('Problemas en alta de cliente. ',error)
 
+    def bajaCli(dni):
+        try:
+            query=QtSql.QSqlQuery()
+            query.prepare('delete from clientes where dni = :dni')
+            query.bindValue(':dni' ,str(dni))
+            if query.exec_():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Cliente dado de baja')
+                msg.exec()
+            else:
+                print('Error. ',query.lastError().text())
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+        except Exception as error:
+            print('Error baja cliente en conexión. ', error)
+
     def cargarTabCli(self):
         try:
             index=0
             query=QtSql.QSqlQuery()
-            query.prepare('select dni,apellidos,nombre,Alta,pago,direccion from clientes')
+            query.prepare('select dni,apellidos,nombre,Alta,pago,direccion from clientes order by apellidos,nombre')
             if query.exec_():
                 while query.next():
                     dni=query.value(0)
@@ -79,13 +100,14 @@ class Conexion():
 
     def oneClie(dni):
         try:
-            direccion='a'
+            record=[]
             query=QtSql.QSqlQuery()
             query.prepare('select direccion,provincia,municipio,sexo from clientes where dni= :dni')
             query.bindValue(':dni',dni)
             if query.exec_():
                 while query.next():
-                    direccion=query.value(0)
-            print(direccion)
+                    for i in range(4):
+                        record.append(query.value(i))
+            return record
         except Exception as error:
-            print('Problemas en mostrar otros datos. ', error)
+            print('Problemas mostrar tablas clientes. ', error)

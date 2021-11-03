@@ -2,6 +2,7 @@
 Funciones gestión clientes
 '''
 import conexion
+import eventos
 import var
 from window import *
 from PyQt5 import QtSql,QtWidgets
@@ -134,14 +135,15 @@ class Clientes():
 
             # cargamos en la tabla
             if dnivalido:
-                row = 0
-                column = 0
-                var.ui.tabClientes.insertRow(row)
-                for campo in tabCli:
-                    cell=QtWidgets.QTableWidgetItem(str(campo))
-                    var.ui.tabClientes.setItem(row,column,cell)
-                    column +=1
-                conexion.Conexion.altaCli(newcli)
+            #     row = 0
+            #     column = 0
+            #     var.ui.tabClientes.insertRow(row)
+            #     for campo in tabCli:
+            #         cell=QtWidgets.QTableWidgetItem(str(campo))
+            #         var.ui.tabClientes.setItem(row,column,cell)
+            #         column +=1
+                conexion.Conexion.altaCli(newcli) #graba en la tabla de la base de datos
+                conexion.Conexion.cargarTabCli(self) #recarga la tabla
             else:
                 msg=QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
@@ -152,12 +154,20 @@ class Clientes():
         except Exception as error:
             print('Error en guardar clientes ', error)
 
+    def bajaCli(self):
+        try:
+            dni=var.ui.txtDNI.text()
+            conexion.Conexion.bajaCli(dni)
+            conexion.Conexion.cargarTabCli(self)
+        except Exception as error:
+            print('Error en dar de baja al cliente. ', error)
 
     def cargaCli(self):
         '''
         Carga los datos del cliente al seleccionar en tabla
         '''
         try:
+            eventos.Eventos.limpiaFormCLi(self)
             fila=var.ui.tabClientes.selectedItems()
             datos=[var.ui.txtDNI,var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli]
             if fila:
@@ -173,8 +183,19 @@ class Clientes():
                 var.ui.chkTarjeta.setChecked(True)
             if 'Cargo' in row[4]:
                 var.ui.chkCargocuenta.setChecked(True)
+            #row 0 es el dni
+            registro=conexion.Conexion.oneClie(row[0])
+            var.ui.txtDir.setText(registro[0])
+            var.ui.cmbProv.setCurrentText(str(registro[1]))
+            var.ui.cmbMun.setCurrentText(str(registro[2]))
+            if str(registro[3]) == 'Hombre':
+                var.ui.rbtHom.setChecked(True)
+            elif str(registro[3]) == 'Mujer':
+                var.ui.rbtFem.setChecked(True)
         except Exception as error:
             print('Error en cargar datos de un cliente. ',error)
+
+
 
 
 
