@@ -61,13 +61,14 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de comboBox 
         '''
-        clients.Clientes.cargaProv_(self)
+        #clients.Clientes.cargaProv_(self)
+
         #var.ui.cmbProv.activated[str].connect(clients.Clientes.selProv)
 
         '''
         Eventos de QTabWidget
         '''
-        eventos.Eventos.ResizeTabClientes(self);
+        eventos.Eventos.ResizeTabClientes(self)
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
 
@@ -76,6 +77,9 @@ class Main(QtWidgets.QMainWindow):
         '''
         conexion.Conexion.db_connect(var.filedb)
         conexion.Conexion.cargarTabCli(self)
+        conexion.Conexion.cargarProv(self)
+        conexion.Conexion.cargarMuni(self)
+
 
 
 if __name__ == '__main__':

@@ -1,34 +1,37 @@
-from PyQt5 import QtSql,QtWidgets
+from PyQt5 import QtSql, QtWidgets
 
 import var
-
 
 
 class Conexion():
     def db_connect(filedb):
         try:
-            db=QtSql.QSqlDatabase.addDatabase('QSQLITE')
+            db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
             db.setDatabaseName(filedb)
             if not db.open():
-                QtWidgets.QMessageBox.critical(None,'No se puede abrir la base de datos. \n' 'Haz click para continuar ',QtWidgets.QMessageBox.Cancel)
+                QtWidgets.QMessageBox.critical(None,
+                                               'No se puede abrir la base de datos. \n' 'Haz click para continuar ',
+                                               QtWidgets.QMessageBox.Cancel)
                 return False
             else:
                 print('Conexión establecida. ')
                 return True
         except Exception as error:
-            print('Problemas en conexión. ',error)
+            print('Problemas en conexión. ', error)
+
     '''
     Módulos gestión de base de datos cliente
     '''
+
     def altaCli(newcli):
         try:
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             query.prepare('insert into clientes (dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago) '
                           'VALUES(:dni,:Alta,:apellidos,:nombre,:direccion,:provincia,:municipio,:sexo,:pago)')
-            query.bindValue(':dni',str(newcli[0]))
+            query.bindValue(':dni', str(newcli[0]))
             query.bindValue(':Alta', str(newcli[1]))
-            query.bindValue(':apellidos',str(newcli[2]))
-            query.bindValue(':nombre',str(newcli[3]))
+            query.bindValue(':apellidos', str(newcli[2]))
+            query.bindValue(':nombre', str(newcli[3]))
             query.bindValue(':direccion', str(newcli[4]))
             query.bindValue(':provincia', str(newcli[5]))
             query.bindValue(':municipio', str(newcli[6]))
@@ -42,7 +45,7 @@ class Conexion():
                 msg.setText('Cliente dado de alta')
                 msg.exec()
             else:
-                print('Error. ',query.lastError().text())
+                print('Error. ', query.lastError().text())
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Warning)
@@ -50,13 +53,13 @@ class Conexion():
                 msg.exec()
 
         except Exception as error:
-            print('Problemas en alta de cliente. ',error)
+            print('Problemas en alta de cliente. ', error)
 
     def bajaCli(dni):
         try:
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             query.prepare('delete from clientes where dni = :dni')
-            query.bindValue(':dni' ,str(dni))
+            query.bindValue(':dni', str(dni))
             if query.exec_():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
@@ -64,7 +67,7 @@ class Conexion():
                 msg.setText('Cliente dado de baja')
                 msg.exec()
             else:
-                print('Error. ',query.lastError().text())
+                print('Error. ', query.lastError().text())
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Warning)
@@ -75,24 +78,24 @@ class Conexion():
 
     def cargarTabCli(self):
         try:
-            index=0
-            query=QtSql.QSqlQuery()
+            index = 0
+            query = QtSql.QSqlQuery()
             query.prepare('select dni,apellidos,nombre,Alta,pago,direccion from clientes order by apellidos,nombre')
             if query.exec_():
                 while query.next():
-                    dni=query.value(0)
-                    apellidos=query.value(1)
-                    nombre=query.value(2)
+                    dni = query.value(0)
+                    apellidos = query.value(1)
+                    nombre = query.value(2)
                     Alta = query.value(3)
-                    pago=query.value(4)
+                    pago = query.value(4)
 
-                    var.ui.tabClientes.setRowCount(index+1) #Creamos la fila y luego cargamos datos
-                    var.ui.tabClientes.setItem(index,0,QtWidgets.QTableWidgetItem(dni))
+                    var.ui.tabClientes.setRowCount(index + 1)  # Creamos la fila y luego cargamos datos
+                    var.ui.tabClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(dni))
                     var.ui.tabClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(apellidos))
                     var.ui.tabClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(nombre))
                     var.ui.tabClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(Alta))
                     var.ui.tabClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(pago))
-                    index+=1
+                    index += 1
 
 
         except Exception as error:
@@ -100,10 +103,10 @@ class Conexion():
 
     def oneClie(dni):
         try:
-            record=[]
-            query=QtSql.QSqlQuery()
+            record = []
+            query = QtSql.QSqlQuery()
             query.prepare('select direccion,provincia,municipio,sexo from clientes where dni= :dni')
-            query.bindValue(':dni',dni)
+            query.bindValue(':dni', dni)
             if query.exec_():
                 while query.next():
                     for i in range(4):
@@ -111,3 +114,37 @@ class Conexion():
             return record
         except Exception as error:
             print('Problemas mostrar tablas clientes. ', error)
+
+    def cargarProv(self):
+        try:
+            prov = [""]
+            var.ui.cmbProv.clear()
+            query = QtSql.QSqlQuery()
+            query.prepare('select provincia from provincias')
+            if query.exec_():
+                while query.next():
+                    prov.append(query.value(0))
+            for i in prov:
+                var.ui.cmbProv.addItem(i)
+        except Exception as error:
+            print('Problemas al mostrar provincias. ', error)
+
+    def cargarMuni(prov):
+        try:
+            var.ui.cmbMun.clear()
+            prov=var.ui.cmbProv.currentText()
+            query = QtSql.QSqlQuery
+            query.prepare('select id from provincias where provincia = :prov')
+            query.bindValue(':prov', str(prov))
+            if query.exec_():
+                while query.next():
+                    id = query.value(0)
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('select municipio from municipios where provincia_id = :id')
+            query1.bindValue(':id', int(id))
+            if query1.exec_():
+                var.ui.cmbMun.addItem('')
+                while query1.next():
+                    var.ui.cmbMun.addItem(query1.value(0))
+        except Exception as error:
+            print('Problemas al mostrar municipios. ', error)

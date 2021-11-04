@@ -64,22 +64,22 @@ class Clientes():
     #         print('Error en módulo seleccionar forma de pago ',error)
 
     # def selProv(prov):
-    #     try:
+    #      try:
     #         print('Seleccionaste la provincia de',prov)
     #         return prov
+    #      except Exception as error:
+    #          print('Error en módulo seleccionar provincia',error)
+
+    # def cargaProv_(self):
+    #     try:
+    #         var.ui.cmbProv.clear()
+    #          prov=[""];
+    #         for i in prov:
+    #              var.ui.cmbProv.addItem(i)
+    #
+    #
     #     except Exception as error:
-    #         print('Error en módulo seleccionar provincia',error)
-
-    def cargaProv_(self):
-        try:
-            var.ui.cmbProv.clear()
-            prov=['','A Coruña','Lugo','Ourense','Pontevedra']
-            for i in prov:
-                var.ui.cmbProv.addItem(i)
-
-
-        except Exception as error:
-            print('Error en módulo cargar provincias,error')
+    #         print('Error en módulo cargar provincias,error')
 
     def cargarFecha(qDate):
         try:
