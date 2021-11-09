@@ -1,11 +1,11 @@
-import sys,var, eventos,clients
+import sys,var, eventos,clients,locale
 
 from datetime import *
-
 import conexion
 from window import *
 from windowaviso import *
 from windowcal import *
+locale.setlocale(locale.LC_ALL,'es-ES')
 
 
 class DialogCalendar(QtWidgets.QDialog):
@@ -44,6 +44,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
         var.ui.btnRecarga.clicked.connect(eventos.Eventos.limpiaFormCLi)
         var.ui.btnBajaCli.clicked.connect(clients.Clientes.bajaCli)
+        var.ui.btnModifCli.clicked.connect(clients.Clientes.modifCli)
         '''
         Eventos de la barra del menú
         '''
@@ -64,6 +65,7 @@ class Main(QtWidgets.QMainWindow):
         #clients.Clientes.cargaProv_(self)
 
         #var.ui.cmbProv.activated[str].connect(clients.Clientes.selProv)
+        var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.cargarMuni)
 
         '''
         Eventos de QTabWidget
@@ -71,6 +73,13 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.ResizeTabClientes(self)
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        '''
+        Barra de estado
+        '''
+        var.ui.statusbar.addPermanentWidget(var.ui.lblFecha,1)
+        day=datetime.now()
+        var.ui.lblFecha.setText(day.strftime('%A, %d de %B de %Y').capitalize())
+
 
         '''
         Base de datos

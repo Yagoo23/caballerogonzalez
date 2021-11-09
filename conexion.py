@@ -129,11 +129,12 @@ class Conexion():
         except Exception as error:
             print('Problemas al mostrar provincias. ', error)
 
-    def cargarMuni(prov):
+    def cargarMuni(self):
         try:
+            id=0
             var.ui.cmbMun.clear()
             prov=var.ui.cmbProv.currentText()
-            query = QtSql.QSqlQuery
+            query = QtSql.QSqlQuery()
             query.prepare('select id from provincias where provincia = :prov')
             query.bindValue(':prov', str(prov))
             if query.exec_():
@@ -148,3 +149,34 @@ class Conexion():
                     var.ui.cmbMun.addItem(query1.value(0))
         except Exception as error:
             print('Problemas al mostrar municipios. ', error)
+
+    def modifCli(modcliente):
+        try:
+            query=QtSql.QSqlQuery()
+            query.prepare('UPDATE clientes SET Alta = :Alta,apellidos = :apellidos,nombre = :nombre,direccion = :direccion,provincia= :provincia,municipio = :municipio, sexo = :sexo,pago = :pago where dni = :dni')
+            query.bindValue(':dni',str(modcliente[0]))
+            query.bindValue(':Alta',str(modcliente[1]))
+            query.bindValue(':apellidos', str(modcliente[2]))
+            query.bindValue(':nombre', str(modcliente[3]))
+            query.bindValue(':direccion', str(modcliente[4]))
+            query.bindValue(':provincia', str(modcliente[5]))
+            query.bindValue(':municipio', str(modcliente[6]))
+            query.bindValue(':sexo', str(modcliente[7]))
+            query.bindValue(':pago', str(modcliente[8]))
+            if query.exec_():
+                print('Inserción correcta. ')
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Información')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Datos modificados de cliente')
+                msg.exec()
+            else:
+                print('Error. ', query.lastError().text())
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+
+        except Exception as error:
+            print('Problemas modificar clientes. ', error)

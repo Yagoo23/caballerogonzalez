@@ -5,6 +5,7 @@ import conexion
 import eventos
 import var
 from window import *
+from datetime import date
 from PyQt5 import QtSql,QtWidgets
 
 class Clientes():
@@ -131,7 +132,6 @@ class Clientes():
             pagos=set(pagos) #evita duplicados
             newcli.append(', '.join(pagos))
             tabCli.append(', '.join(pagos))
-            print(newcli)
 
             # cargamos en la tabla
             if dnivalido:
@@ -153,6 +153,35 @@ class Clientes():
             #codigo para grabar la base de datos
         except Exception as error:
             print('Error en guardar clientes ', error)
+
+    def modifCli(self):
+        try:
+            modcliente=[]
+            cliente = [var.ui.txtDNI, var.ui.txtAltaCli, var.ui.txtApel, var.ui.txtNome, var.ui.txtDir]
+            for i in cliente:
+                modcliente.append(i.text())
+            modcliente.append(var.ui.cmbProv.currentText())
+            modcliente.append(var.ui.cmbMun.currentText())
+            if var.ui.rbtHom.isChecked():
+                modcliente.append('Hombre')
+            elif var.ui.rbtFem.isChecked():
+                modcliente.append('Mujer')
+            pagos = []
+            if var.ui.chkCargocuenta.isChecked():
+                pagos.append('Cargo cuenta')
+            if var.ui.chkEfectivo.isChecked():
+                pagos.append('Efectivo')
+            if var.ui.chkTransfer.isChecked():
+                pagos.append('Transferencia')
+            if var.ui.chkTarjeta.isChecked():
+                pagos.append('Tarjeta')
+            pagos = set(pagos)  # evita duplicados
+            modcliente.append(', '.join(pagos))
+            conexion.Conexion.modifCli(modcliente)
+            conexion.Conexion.cargarTabCli(self)
+
+        except Exception as error:
+            print('Error en modificar cliente. ', error)
 
     def bajaCli(self):
         try:

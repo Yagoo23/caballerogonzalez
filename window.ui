@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>700</height>
+    <height>702</height>
    </rect>
   </property>
   <property name="sizeIncrement">
@@ -361,7 +361,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
           <property name="icon">
            <iconset>
             <normaloff>../../.designer/backup/img/calendar.jpg</normaloff>
-            <normalon>img/calendar.jpg</normalon>../../.designer/backup/img/calendar.jpg</iconset>
+            <normalon>../../.designer/backup/img/calendar.jpg</normalon>../../.designer/backup/img/calendar.jpg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -663,7 +663,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
        <property name="icon">
         <iconset>
          <normaloff>../../.designer/backup/img/recarga.png</normaloff>
-         <normalon>img/recarga.png</normalon>../../.designer/backup/img/recarga.png</iconset>
+         <normalon>../../.designer/backup/img/recarga.png</normalon>../../.designer/backup/img/recarga.png</iconset>
        </property>
       </widget>
       <widget class="QWidget" name="layoutWidget">
@@ -874,6 +874,41 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QLabel" name="lblFecha">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>640</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblHora">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>640</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
