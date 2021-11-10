@@ -6,6 +6,12 @@ import var
 from window import *
 
 class Eventos():
+    def Abrir(self):
+        try:
+            var.dlgabrir.show()
+        except Exception as error:
+            print('Error al abrir cuadro de diálogo', error)
+
     def Salir(self):
         try:
             var.dlgaviso.show()

@@ -7,6 +7,13 @@ from windowaviso import *
 from windowcal import *
 locale.setlocale(locale.LC_ALL,'es-ES')
 
+class FileDialogAbrir(QtWidgets.QFileDialog):
+    def __init__(self):
+        '''
+        Ventana abrir explorador windows
+        '''
+        super(FileDialogAbrir,self).__init__()
+
 
 class DialogCalendar(QtWidgets.QDialog):
     def __init__(self):
@@ -50,6 +57,7 @@ class Main(QtWidgets.QMainWindow):
         '''
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.Salir)
+        var.ui.actionAbrir.triggered.connect(eventos.Eventos.Abrir)
 
         '''
         Eventos caja de texto
@@ -100,6 +108,7 @@ if __name__ == '__main__':
     window.move(x,y)
     var.dlgaviso=DialogAviso()
     var.dlgcalendar=DialogCalendar()
+    var.dlgabrir=FileDialogAbrir()
     window.show()
     sys.exit(app.exec())
 

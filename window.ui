@@ -361,7 +361,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
           <property name="icon">
            <iconset>
             <normaloff>../../.designer/backup/img/calendar.jpg</normaloff>
-            <normalon>../../.designer/backup/img/calendar.jpg</normalon>../../.designer/backup/img/calendar.jpg</iconset>
+            <normalon>img/calendar.jpg</normalon>../../.designer/backup/img/calendar.jpg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -663,7 +663,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
        <property name="icon">
         <iconset>
          <normaloff>../../.designer/backup/img/recarga.png</normaloff>
-         <normalon>../../.designer/backup/img/recarga.png</normalon>../../.designer/backup/img/recarga.png</iconset>
+         <normalon>img/recarga.png</normalon>../../.designer/backup/img/recarga.png</iconset>
        </property>
       </widget>
       <widget class="QWidget" name="layoutWidget">
@@ -863,8 +863,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <widget class="QLabel" name="lblEnConstruccion2">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>260</y>
+        <x>240</x>
+        <y>240</y>
         <width>281</width>
         <height>16</height>
        </rect>
@@ -902,12 +902,15 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <rect>
       <x>780</x>
       <y>640</y>
-      <width>47</width>
-      <height>13</height>
+      <width>91</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>
@@ -924,6 +927,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <property name="title">
      <string>Archivo</string>
     </property>
+    <addaction name="actionAbrir"/>
+    <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
    <addaction name="menuArchivo"/>
@@ -942,15 +947,20 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <string>Alt+S</string>
    </property>
   </action>
+  <action name="actionAbrir">
+   <property name="text">
+    <string>Abrir</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="rbtGroupSex"/>
   <buttongroup name="chkGroupPago">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="rbtGroupSex"/>
  </buttongroups>
 </ui>
