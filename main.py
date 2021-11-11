@@ -58,6 +58,8 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.Salir)
         var.ui.actionAbrir.triggered.connect(eventos.Eventos.Abrir)
+        var.ui.actionCrear_Backup.triggered.connect(eventos.Eventos.crearBackup)
+        var.ui.actionRestaurar_base_de_datos.triggered.connect(eventos.Eventos.restaurarBD)
 
         '''
         Eventos caja de texto

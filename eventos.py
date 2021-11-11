@@ -1,9 +1,16 @@
 '''
 Fichero de eventos generales
 '''
+import os.path
 import sys
+import zipfile
+import shutil
+
+import conexion
 import var
 from window import *
+from datetime import *
+from zipfile import ZipFile
 
 class Eventos():
     def Abrir(self):
@@ -55,4 +62,46 @@ class Eventos():
             var.ui.cmbMun.setCurrentIndex(0)
         except Exception as error:
             print('Error en limpiar clientes ',error)
+
+    def crearBackup(self):
+        try:
+            fecha=datetime.today()
+            fecha=fecha.strftime('%Y.%m.%d.%H.%M.%S')
+            var.copia=(str(fecha)+ '_backup.zip')
+            option=QtWidgets.QFileDialog.Options()
+            directorio,filename=var.dlgabrir.getSaveFileName(None,'Guardar copia',var.copia,'.zip',options=option)
+            if(var.dlgabrir.Accepted and filename !=''):
+                fichzip=zipfile.ZipFile(var.copia,'w')
+                fichzip.write(var.filedb,os.path.basename(var.filedb),zipfile.ZIP_DEFLATED)
+                fichzip.close()
+                shutil.move(str(var.copia),str(directorio))
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Información')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Copia de seguridad creada.')
+                msg.exec()
+        except Exception as error:
+            print('Error en crear Backup ', error)
+
+    def restaurarBD(self):
+        try:
+            dirpro=os.getcwd()
+            print(dirpro)
+            option=QtWidgets.QFileDialog.Options()
+            filename=var.dlgabrir.getOpenFileName(None,'Restaurar Copia de Seguridad','','*.zip',options=option)
+            if(var.dlgabrir.Accepted and filename!=''):
+                file=filename[0]
+                with zipfile.ZipFile(str(file),'r') as bbdd:
+                    bbdd.extractall()
+                bbdd.close()
+                shutil.move('bbdd.sqlite',str(dirpro))
+            conexion.Conexion.db_connect(var.filedb)
+            conexion.Conexion.cargarTabCli(self)
+
+
+
+
+        except Exception as error:
+            print('Error en restaurar base de datos ', error)
+
 
