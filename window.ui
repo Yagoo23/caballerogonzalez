@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>702</height>
+    <height>734</height>
    </rect>
   </property>
   <property name="sizeIncrement">
@@ -94,7 +94,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>-10</x>
         <y>0</y>
         <width>791</width>
         <height>311</height>
@@ -669,7 +669,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>200</x>
+         <x>230</x>
          <y>280</y>
          <width>328</width>
          <height>29</height>
@@ -709,7 +709,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>70</x>
+         <x>71</x>
          <y>160</y>
          <width>641</width>
          <height>27</height>
@@ -735,10 +735,16 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
            <bool>true</bool>
           </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>0</height>
+           </size>
           </property>
           <property name="iconSize">
            <size>
@@ -758,7 +764,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>48</width>
+            <width>28</width>
             <height>22</height>
            </size>
           </property>
@@ -878,7 +884,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
    <widget class="QLabel" name="lblFecha">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>640</y>
       <width>91</width>
       <height>16</height>
@@ -895,22 +901,6 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     </property>
     <property name="alignment">
      <set>Qt::AlignHCenter|Qt::AlignTop</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lblHora">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>640</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>
@@ -942,6 +932,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <addaction name="actionAbrir"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
+    <addaction name="separator"/>
+    <addaction name="actionbarImprimir_2"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
     <property name="font">
@@ -960,6 +952,26 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
    <addaction name="menuHerramientas"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="separator"/>
+   <addaction name="actionbarAbrir"/>
+   <addaction name="separator"/>
+   <addaction name="actionbarImprimir"/>
+   <addaction name="separator"/>
+   <addaction name="actionbarBackup"/>
+   <addaction name="actionbarRestaurarBackup"/>
+   <addaction name="separator"/>
+   <addaction name="actionbarSalir"/>
+  </widget>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
@@ -988,15 +1000,71 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <string>Restaurar base de datos</string>
    </property>
   </action>
+  <action name="actionbarSalir">
+   <property name="icon">
+    <iconset>
+     <normaloff>img/salir.jpg</normaloff>img/salir.jpg</iconset>
+   </property>
+   <property name="text">
+    <string>barSalir</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
+  </action>
+  <action name="actionbarRestaurarBackup">
+   <property name="icon">
+    <iconset>
+     <normaloff>img/restaurar.png</normaloff>img/restaurar.png</iconset>
+   </property>
+   <property name="text">
+    <string>barRestaurarBackup</string>
+   </property>
+  </action>
+  <action name="actionbarBackup">
+   <property name="icon">
+    <iconset>
+     <normaloff>img/backup2.png</normaloff>img/backup2.png</iconset>
+   </property>
+   <property name="text">
+    <string>barBackup</string>
+   </property>
+  </action>
+  <action name="actionbarAbrir">
+   <property name="icon">
+    <iconset>
+     <normaloff>img/abrir2.png</normaloff>img/abrir2.png</iconset>
+   </property>
+   <property name="text">
+    <string>barAbrir</string>
+   </property>
+  </action>
+  <action name="actionbarImprimir">
+   <property name="icon">
+    <iconset>
+     <normaloff>img/impresora.png</normaloff>img/impresora.png</iconset>
+   </property>
+   <property name="text">
+    <string>barImprimir</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionbarImprimir_2">
+   <property name="text">
+    <string>Imprimir</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="rbtGroupSex"/>
   <buttongroup name="chkGroupPago">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="rbtGroupSex"/>
  </buttongroups>
 </ui>

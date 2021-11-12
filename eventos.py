@@ -10,7 +10,8 @@ import conexion
 import var
 from window import *
 from datetime import *
-from zipfile import ZipFile
+from PyQt5 import QtPrintSupport
+
 
 class Eventos():
     def Abrir(self):
@@ -85,23 +86,30 @@ class Eventos():
 
     def restaurarBD(self):
         try:
-            dirpro=os.getcwd()
-            print(dirpro)
             option=QtWidgets.QFileDialog.Options()
             filename=var.dlgabrir.getOpenFileName(None,'Restaurar Copia de Seguridad','','*.zip',options=option)
-            if(var.dlgabrir.Accepted and filename!=''):
+            if var.dlgabrir.Accepted and filename != '':
                 file=filename[0]
                 with zipfile.ZipFile(str(file),'r') as bbdd:
-                    bbdd.extractall()
+                    bbdd.extractall(pwd=None)
                 bbdd.close()
-                shutil.move('bbdd.sqlite',str(dirpro))
             conexion.Conexion.db_connect(var.filedb)
             conexion.Conexion.cargarTabCli(self)
-
-
-
-
+            conexion.Conexion.cargarProv(self)
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Información')
+            msg.setIcon(QtWidgets.QMessageBox.Information)
+            msg.setText('Copia de seguridad restaurada.')
+            msg.exec()
         except Exception as error:
             print('Error en restaurar base de datos ', error)
+
+    def Imprimir(self):
+        try:
+            printDialog=QtPrintSupport.QPrintDialog()
+            if printDialog.exec():
+                printDialog.show()
+        except Exception as error:
+            print('Error al imprimir. ',error)
 
 

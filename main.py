@@ -89,7 +89,14 @@ class Main(QtWidgets.QMainWindow):
         var.ui.statusbar.addPermanentWidget(var.ui.lblFecha,1)
         day=datetime.now()
         var.ui.lblFecha.setText(day.strftime('%A, %d de %B de %Y').capitalize())
-
+        '''
+        Eventos menú herramientas
+        '''
+        var.ui.actionbarSalir.triggered.connect(eventos.Eventos.Salir)
+        var.ui.actionbarAbrir.triggered.connect(eventos.Eventos.Abrir)
+        var.ui.actionbarBackup.triggered.connect(eventos.Eventos.crearBackup)
+        var.ui.actionbarRestaurarBackup.triggered.connect(eventos.Eventos.restaurarBD)
+        var.ui.actionbarImprimir.triggered.connect(eventos.Eventos.Imprimir)
 
         '''
         Base de datos
