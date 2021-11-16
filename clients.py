@@ -1,6 +1,8 @@
 '''
 Funciones gestión clientes
 '''
+import xlrd
+
 import conexion
 import eventos
 import var
@@ -223,6 +225,29 @@ class Clientes():
                 var.ui.rbtFem.setChecked(True)
         except Exception as error:
             print('Error en cargar datos de un cliente. ',error)
+
+    def importarDatos(self):
+        try:
+
+            newcli = []
+            contador=0
+            option = QtWidgets.QFileDialog.Options()
+            filename = var.dlgabrir.getOpenFileName(None, 'Importar Excel', '', '*.xls', options=option)
+            if var.dlgabrir.Accepted and filename != '':
+                file = filename.sheets()[0]
+                nfilas=file.nrows
+            workbook = xlrd.open_workbook(file)
+            sheet = workbook.sheet_by_index(0)
+
+
+
+
+
+            conexion.Conexion.db_connect(var.filedb)
+            conexion.Conexion.cargarTabCli(self)
+
+        except Exception as error:
+            print('Error al importar datos desde excel. ', error)
 
 
 

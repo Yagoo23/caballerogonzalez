@@ -60,6 +60,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionAbrir.triggered.connect(eventos.Eventos.Abrir)
         var.ui.actionCrear_Backup.triggered.connect(eventos.Eventos.crearBackup)
         var.ui.actionRestaurar_base_de_datos.triggered.connect(eventos.Eventos.restaurarBD)
+        var.ui.actionImprimir.triggered.connect(eventos.Eventos.Imprimir)
+        var.ui.actionImportar_Datos.triggered.connect(clients.Clientes.importarDatos)
+
 
         '''
         Eventos caja de texto
@@ -105,6 +108,7 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargarTabCli(self)
         conexion.Conexion.cargarProv(self)
         conexion.Conexion.cargarMuni(self)
+
 
 
 

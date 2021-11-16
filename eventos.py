@@ -28,27 +28,27 @@ class Eventos():
             else:
                 var.dlgaviso.hide()
         except Exception as error:
-            print('Error en módulo salir ',error)
+            print('Error en módulo salir ', error)
 
     def abrircal(self):
         try:
             var.dlgcalendar.show()
         except Exception as error:
-            print('Error al abrir el calendario ',error)
+            print('Error al abrir el calendario ', error)
 
     def ResizeTabClientes(self):
         try:
             header = var.ui.tabClientes.horizontalHeader()
             for i in range(5):
                 header.setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
-                if i == 0 or i==3:
+                if i == 0 or i == 3:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
         except Exception as error:
-            print('Error al redimensionar la tabla Clientes. ',error)
+            print('Error al redimensionar la tabla Clientes. ', error)
 
     def limpiaFormCLi(self):
         try:
-            cajas=[var.ui.txtDNI,var.ui.txtApel,var.ui.txtNome,var.ui.txtAltaCli,var.ui.txtDir]
+            cajas = [var.ui.txtDNI, var.ui.txtApel, var.ui.txtNome, var.ui.txtAltaCli, var.ui.txtDir]
             for i in cajas:
                 i.setText('')
             var.ui.rbtGroupSex.setExclusive(False)
@@ -62,20 +62,21 @@ class Eventos():
             var.ui.cmbProv.setCurrentIndex(0)
             var.ui.cmbMun.setCurrentIndex(0)
         except Exception as error:
-            print('Error en limpiar clientes ',error)
+            print('Error en limpiar clientes ', error)
 
     def crearBackup(self):
         try:
-            fecha=datetime.today()
-            fecha=fecha.strftime('%Y.%m.%d.%H.%M.%S')
-            var.copia=(str(fecha)+ '_backup.zip')
-            option=QtWidgets.QFileDialog.Options()
-            directorio,filename=var.dlgabrir.getSaveFileName(None,'Guardar copia',var.copia,'.zip',options=option)
-            if(var.dlgabrir.Accepted and filename !=''):
-                fichzip=zipfile.ZipFile(var.copia,'w')
-                fichzip.write(var.filedb,os.path.basename(var.filedb),zipfile.ZIP_DEFLATED)
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y.%m.%d.%H.%M.%S')
+            var.copia = (str(fecha) + '_backup.zip')
+            option = QtWidgets.QFileDialog.Options()
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Guardar copia', var.copia, '.zip',
+                                                                options=option)
+            if (var.dlgabrir.Accepted and filename != ''):
+                fichzip = zipfile.ZipFile(var.copia, 'w')
+                fichzip.write(var.filedb, os.path.basename(var.filedb), zipfile.ZIP_DEFLATED)
                 fichzip.close()
-                shutil.move(str(var.copia),str(directorio))
+                shutil.move(str(var.copia), str(directorio))
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Información')
                 msg.setIcon(QtWidgets.QMessageBox.Information)
@@ -86,11 +87,11 @@ class Eventos():
 
     def restaurarBD(self):
         try:
-            option=QtWidgets.QFileDialog.Options()
-            filename=var.dlgabrir.getOpenFileName(None,'Restaurar Copia de Seguridad','','*.zip',options=option)
+            option = QtWidgets.QFileDialog.Options()
+            filename = var.dlgabrir.getOpenFileName(None, 'Restaurar Copia de Seguridad', '', '*.zip', options=option)
             if var.dlgabrir.Accepted and filename != '':
-                file=filename[0]
-                with zipfile.ZipFile(str(file),'r') as bbdd:
+                file = filename[0]
+                with zipfile.ZipFile(str(file), 'r') as bbdd:
                     bbdd.extractall(pwd=None)
                 bbdd.close()
             conexion.Conexion.db_connect(var.filedb)
@@ -106,10 +107,9 @@ class Eventos():
 
     def Imprimir(self):
         try:
-            printDialog=QtPrintSupport.QPrintDialog()
+            printDialog = QtPrintSupport.QPrintDialog()
             if printDialog.exec():
                 printDialog.show()
         except Exception as error:
-            print('Error al imprimir. ',error)
-
+            print('Error al imprimir. ', error)
 
