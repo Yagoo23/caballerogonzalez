@@ -234,8 +234,7 @@ class Clientes():
             option = QtWidgets.QFileDialog.Options()
             filename = var.dlgabrir.getOpenFileName(None, 'Importar Excel', '', '*.xls', options=option)
             if var.dlgabrir.Accepted and filename != '':
-                file = filename.sheets()[0]
-                nfilas=file.nrows
+                file = filename[0]
             workbook = xlrd.open_workbook(file)
             sheet = workbook.sheet_by_index(0)
 
