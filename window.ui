@@ -35,7 +35,7 @@
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>0</y>
+      <y>10</y>
       <width>195</width>
       <height>20</height>
      </rect>
@@ -360,8 +360,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../../.designer/backup/img/calendar.jpg</normaloff>
-            <normalon>../../.designer/backup/img/calendar.jpg</normalon>../../.designer/backup/img/calendar.jpg</iconset>
+            <normaloff>img/calendar.jpg</normaloff>img/calendar.jpg</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -662,8 +661,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../../.designer/backup/img/recarga.png</normaloff>
-         <normalon>../../.designer/backup/img/recarga.png</normalon>../../.designer/backup/img/recarga.png</iconset>
+         <normaloff>img/recarga.png</normaloff>img/recarga.png</iconset>
        </property>
       </widget>
       <widget class="QWidget" name="layoutWidget">
@@ -1006,8 +1004,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
   <action name="actionbarSalir">
    <property name="icon">
     <iconset>
-     <normaloff>../../.designer/backup/img/salir.jpg</normaloff>
-     <normalon>img/salir.jpg</normalon>../../.designer/backup/img/salir.jpg</iconset>
+     <normaloff>img/salir.jpg</normaloff>
+     <normalon>img/salir.jpg</normalon>img/salir.jpg</iconset>
    </property>
    <property name="text">
     <string>barSalir</string>
@@ -1019,8 +1017,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
   <action name="actionbarRestaurarBackup">
    <property name="icon">
     <iconset>
-     <normaloff>../../.designer/backup/img/restaurar.png</normaloff>
-     <normalon>img/restaurar.png</normalon>../../.designer/backup/img/restaurar.png</iconset>
+     <normaloff>img/restaurar.png</normaloff>
+     <normalon>img/restaurar.png</normalon>img/restaurar.png</iconset>
    </property>
    <property name="text">
     <string>barRestaurarBackup</string>
@@ -1029,8 +1027,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
   <action name="actionbarBackup">
    <property name="icon">
     <iconset>
-     <normaloff>../../.designer/backup/img/backup2.png</normaloff>
-     <normalon>img/backup2.png</normalon>../../.designer/backup/img/backup2.png</iconset>
+     <normaloff>img/backup2.png</normaloff>
+     <normalon>img/backup2.png</normalon>img/backup2.png</iconset>
    </property>
    <property name="text">
     <string>barBackup</string>
@@ -1039,8 +1037,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
   <action name="actionbarAbrir">
    <property name="icon">
     <iconset>
-     <normaloff>../../.designer/backup/img/abrir2.png</normaloff>
-     <normalon>img/abrir2.png</normalon>../../.designer/backup/img/abrir2.png</iconset>
+     <normaloff>img/abrir2.png</normaloff>img/abrir2.png</iconset>
    </property>
    <property name="text">
     <string>barAbrir</string>
@@ -1049,8 +1046,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
   <action name="actionbarImprimir">
    <property name="icon">
     <iconset>
-     <normaloff>../../.designer/backup/img/impresora.png</normaloff>
-     <normalon>img/impresora.png</normalon>../../.designer/backup/img/impresora.png</iconset>
+     <normaloff>img/impresora.png</normaloff>
+     <normalon>img/impresora.png</normalon>img/impresora.png</iconset>
    </property>
    <property name="text">
     <string>barImprimir</string>

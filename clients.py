@@ -2,6 +2,8 @@
 Funciones gestión clientes
 '''
 import xlrd
+import pandas
+import csv
 
 import conexion
 import eventos
@@ -228,25 +230,37 @@ class Clientes():
 
     def importarDatos(self):
         try:
-
             newcli = []
             contador=0
             option = QtWidgets.QFileDialog.Options()
             filename = var.dlgabrir.getOpenFileName(None, 'Importar Excel', '', '*.xls', options=option)
             if var.dlgabrir.Accepted and filename != '':
-                file = filename[0]
-            workbook = xlrd.open_workbook(file)
-            sheet = workbook.sheet_by_index(0)
-
-
-
-
-
-            conexion.Conexion.db_connect(var.filedb)
-            conexion.Conexion.cargarTabCli(self)
+                file=filename[0]
+                workbook = xlrd.open_workbook(file)
+                datos = workbook.sheet_by_index(0)
+                while contador<datos.nrows:
+                    for i in range(9):
+                        newcli.append(datos.cell_value(contador+1,i))
+                    conexion.Conexion.altaCli(newcli)
+                    conexion.Conexion.cargarTabCli(self)
+                    newcli.clear()
+                    contador=contador+1
 
         except Exception as error:
             print('Error al importar datos desde excel. ', error)
+
+    def exportarDatos(self):
+        try:
+            clientes=[]
+            query = QtSql.QSqlQuery()
+            query.prepare('select dni,apellidos,nombre,Alta,direccion from clientes')
+            if query.exec_():
+                while query.next():
+                    print('')
+
+
+        except Exception as error:
+            print('Error al exportar datos. ',error)
 
 
 
