@@ -62,6 +62,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionRestaurar_base_de_datos.triggered.connect(eventos.Eventos.restaurarBD)
         var.ui.actionImprimir.triggered.connect(eventos.Eventos.Imprimir)
         var.ui.actionImportar_Datos.triggered.connect(clients.Clientes.importarDatos)
+        var.ui.actionExportar_Datos.triggered.connect(clients.Clientes.exportarDatos)
 
 
         '''

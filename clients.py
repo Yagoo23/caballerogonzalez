@@ -1,10 +1,12 @@
 '''
 Funciones gestión clientes
 '''
-import xlrd
-import pandas
-import csv
 
+
+import xlrd
+import pandas as pd
+import csv
+from datetime import *
 import conexion
 import eventos
 import var
@@ -251,14 +253,18 @@ class Clientes():
 
     def exportarDatos(self):
         try:
-            clientes=[]
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y.%m.%d.%H.%M.%S')
+            var.copia = (str(fecha) + '_clientes.csv')
+            option = QtWidgets.QFileDialog.Options()
+            filename = var.dlgabrir.getSaveFileName(None, 'Exportar Excel', 'var.copia', '.csv', options=option)
             query = QtSql.QSqlQuery()
-            query.prepare('select dni,apellidos,nombre,Alta,direccion from clientes')
+            query.prepare('select dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago from clientes')
             if query.exec_():
                 while query.next():
-                    print('')
-
-
+                        clientes={'dni':[query.value(0)],'Alta':[query.value(1)],'apellidos':[query.value(2)],'nombre':[query.value(3)],'direccion':[query.value(4)],'provincia':[query.value(5)],'municipio':[query.value(6)],'sexo':[query.value(7)],'pago':[query.value(8)]}
+                df_clientes=pd.DataFrame(clientes,columns=['dni','Alta','apellidos','nombre','direccion','provincia','municipio','sexo','pago'])
+                df_clientes.to_csv('DATOS.csv', index=False,encoding='utf-8')
         except Exception as error:
             print('Error al exportar datos. ',error)
 
