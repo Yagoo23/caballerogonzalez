@@ -136,7 +136,6 @@ class Clientes():
                 newcli.append('Hombre')
             elif var.ui.rbtFem.isChecked():
                 newcli.append('Mujer')
-
             pagos = []
             if var.ui.chkCargocuenta.isChecked():
                 pagos.append('Cargo cuenta')
@@ -149,6 +148,7 @@ class Clientes():
             pagos = set(pagos)  # evita duplicados
             newcli.append(', '.join(pagos))
             tabCli.append(', '.join(pagos))
+            newcli.append(var.ui.spinEnvio.text())
 
             # cargamos en la tabla
             if dnivalido:
@@ -266,17 +266,17 @@ class Clientes():
         try:
             datos=[]
             query = QtSql.QSqlQuery()
-            query.prepare('select dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago from clientes')
+            query.prepare('select dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago,envio from clientes')
             if query.exec_():
                 while query.next():
                     clientes = {'dni': query.value(0), 'Alta': query.value(1), 'apellidos': query.value(2),
                                 'nombre': query.value(3), 'direccion': query.value(4),
                                 'provincia': query.value(5), 'municipio': query.value(6), 'sexo': query.value(7),
-                                'pago': query.value(8)}
+                                'pago': query.value(8),'envio': query.value(9)}
                     datos.append(clientes)
                 df_clientes = pd.DataFrame(datos,
                                            columns=['dni', 'Alta', 'apellidos', 'nombre', 'direccion', 'provincia',
-                                                    'municipio', 'sexo', 'pago'])
+                                                    'municipio', 'sexo', 'pago','envio'])
                 df_clientes.to_csv('DATOS.csv', index=False,sep=",", encoding='utf-8')
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Exportación')
