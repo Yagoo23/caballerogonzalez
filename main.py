@@ -82,6 +82,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.cargarMuni)
 
         '''
+        Eventos de SpinBox
+        '''
+        var.ui.spinEnvio.valueChanged.connect(clients.Clientes.selEnvio)
+        '''
         Eventos de QTabWidget
         '''
         eventos.Eventos.ResizeTabClientes(self)

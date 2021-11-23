@@ -4,13 +4,9 @@ Funciones gestión clientes
 
 import xlrd
 import pandas as pd
-import csv
-from datetime import *
 import conexion
 import eventos
 import var
-from window import *
-from datetime import date
 from PyQt5 import QtSql, QtWidgets
 
 
@@ -88,6 +84,19 @@ class Clientes():
     #     except Exception as error:
     #         print('Error en módulo cargar provincias,error')
 
+    def selEnvio(self):
+        try:
+            if var.ui.spinEnvio.value() == 0:
+                var.ui.lblEnvio.setText('Recogida cliente.')
+            elif var.ui.spinEnvio.value() == 1:
+                var.ui.lblEnvio.setText('Envío nacional.')
+            elif var.ui.spinEnvio.value() == 2:
+                var.ui.lblEnvio.setText('Envío nacional urgente.')
+            elif var.ui.spinEnvio.value() == 3:
+                var.ui.lblEnvio.setText('Envío internacional.')
+        except Exception as error:
+            print('Error al cargar metodo de envio', error)
+
     def cargarFecha(qDate):
         try:
             data = ('{0}/{1}/{2}'.format(qDate.day(), qDate.month(), qDate.year()))
@@ -127,6 +136,7 @@ class Clientes():
                 newcli.append('Hombre')
             elif var.ui.rbtFem.isChecked():
                 newcli.append('Mujer')
+
             pagos = []
             if var.ui.chkCargocuenta.isChecked():
                 pagos.append('Cargo cuenta')
@@ -275,4 +285,7 @@ class Clientes():
                 msg.exec()
         except Exception as error:
             print('Error al exportar datos. ', error)
+
+
+
 
