@@ -74,7 +74,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <rect>
       <x>50</x>
       <y>40</y>
-      <width>811</width>
+      <width>821</width>
       <height>601</height>
      </rect>
     </property>
@@ -85,7 +85,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -114,7 +114,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         <rect>
          <x>70</x>
          <y>40</y>
-         <width>271</width>
+         <width>257</width>
          <height>31</height>
         </rect>
        </property>
@@ -153,7 +153,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>12</width>
+            <width>13</width>
             <height>26</height>
            </size>
           </property>
@@ -923,19 +923,194 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <attribute name="title">
       <string>Artículos</string>
      </attribute>
-     <widget class="QLabel" name="lblEnConstruccion2">
-      <property name="geometry">
-       <rect>
-        <x>240</x>
-        <y>240</y>
-        <width>281</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>EN CONSTRUCCIÓN PANEL ARTÍCULOS</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <item>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>Datos artículos</string>
+        </property>
+        <widget class="Line" name="line_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>20</y>
+           <width>791</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnGrabaPro">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>230</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Guardar</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnModifPro">
+         <property name="geometry">
+          <rect>
+           <x>300</x>
+           <y>230</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Modificar</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnBajaPro">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>230</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Eliminar</string>
+         </property>
+        </widget>
+        <widget class="Line" name="line_4">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>260</y>
+           <width>791</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QTableWidget" name="tabArticulos">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>280</y>
+           <width>781</width>
+           <height>271</height>
+          </rect>
+         </property>
+         <column>
+          <property name="text">
+           <string>Nombre</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Precio</string>
+          </property>
+         </column>
+        </widget>
+        <widget class="QPushButton" name="btnSalir2">
+         <property name="geometry">
+          <rect>
+           <x>460</x>
+           <y>230</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Salir</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnRecarga2">
+         <property name="geometry">
+          <rect>
+           <x>680</x>
+           <y>40</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>img/recarga.png</normaloff>img/recarga.png</iconset>
+         </property>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>211</x>
+           <y>61</y>
+           <width>313</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QLabel" name="lblNombre">
+            <property name="text">
+             <string>Nombre artículo:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtNombre"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>211</x>
+           <y>121</y>
+           <width>180</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QLabel" name="lblPrecio">
+            <property name="text">
+             <string>Precio-unidad:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="txtPrecio">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>€</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QLabel" name="lblFecha">
@@ -1008,8 +1183,21 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <addaction name="actionCrear_Backup"/>
     <addaction name="actionRestaurar_base_de_datos"/>
    </widget>
+   <widget class="QMenu" name="menuInformes">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="actionListado_Clientes"/>
+   </widget>
+   <widget class="QMenu" name="menuAcerca_de">
+    <property name="title">
+     <string>Acerca de</string>
+    </property>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuHerramientas"/>
+   <addaction name="menuInformes"/>
+   <addaction name="menuAcerca_de"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -1130,15 +1318,20 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <string>Exportar Datos</string>
    </property>
   </action>
+  <action name="actionListado_Clientes">
+   <property name="text">
+    <string>Listado Clientes</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="rbtGroupSex"/>
   <buttongroup name="chkGroupPago">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
-  <buttongroup name="rbtGroupSex"/>
  </buttongroups>
 </ui>

@@ -64,6 +64,15 @@ class Eventos():
         except Exception as error:
             print('Error en limpiar clientes ', error)
 
+    def limpiaFormPro(self):
+        try:
+            cajas=[var.ui.txtNombre,var.ui.txtPrecio]
+            for i in cajas:
+                i.setText('')
+        except Exception as error:
+            print('Error en limpiar artículos ', error)
+
+
     def crearBackup(self):
         try:
             fecha = datetime.today()

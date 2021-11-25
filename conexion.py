@@ -26,8 +26,9 @@ class Conexion():
     def altaCli(newcli):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare('insert into clientes (dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago,envio) '
-                          'VALUES(:dni,:Alta,:apellidos,:nombre,:direccion,:provincia,:municipio,:sexo,:pago,:envio)')
+            query.prepare(
+                'insert into clientes (dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago,envio) '
+                'VALUES(:dni,:Alta,:apellidos,:nombre,:direccion,:provincia,:municipio,:sexo,:pago,:envio)')
             query.bindValue(':dni', str(newcli[0]))
             query.bindValue(':Alta', str(newcli[1]))
             query.bindValue(':apellidos', str(newcli[2]))
@@ -37,7 +38,7 @@ class Conexion():
             query.bindValue(':municipio', str(newcli[6]))
             query.bindValue(':sexo', str(newcli[7]))
             query.bindValue(':pago', str(newcli[8]))
-            query.bindValue(':envio',int(newcli[9]))
+            query.bindValue(':envio', int(newcli[9]))
             if query.exec_():
                 print('Inserción correcta. ')
                 msg = QtWidgets.QMessageBox()
@@ -55,6 +56,33 @@ class Conexion():
 
         except Exception as error:
             print('Problemas en alta de cliente. ', error)
+
+    def altaPro(newpro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('insert into articulos (codigo,nombre,precio) VALUES (:codigo,:nombre,:precio)')
+
+
+            query.bindValue(':nombre', str(newpro[0]))
+            query.bindValue(':precio', str(newpro[1]))
+            if query.exec_():
+                print('Inserción correcta. ')
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Información')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Artículo dado de alta')
+                msg.exec()
+            else:
+                print('Error. ', query.lastError().text())
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+
+
+        except Exception as error:
+            print('Problemas en alta de producto.', error)
 
     def bajaCli(dni):
         try:
@@ -76,6 +104,27 @@ class Conexion():
                 msg.exec()
         except Exception as error:
             print('Error baja cliente en conexión. ', error)
+
+    def bajaPro(nombre):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('delete from articulos where nombre = :nombre')
+            query.bindValue(':nombre', str(nombre))
+            if query.exec_():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Artículo dado de baja')
+                msg.exec()
+            else:
+                print('Error. ', query.lastError().text())
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+        except Exception as error:
+            print('Error baja artículo en conexión. ', error)
 
     def cargarTabCli(self):
         try:
@@ -101,6 +150,24 @@ class Conexion():
 
         except Exception as error:
             print('Problemas en mostrar tabla de cliente. ', error)
+
+    def cargarTabPro(self):
+        try:
+            index = 0
+            query = QtSql.QSqlQuery()
+            query.prepare('select nombre,precio from articulos')
+            if query.exec_():
+                while query.next():
+                    nombre = query.value(0)
+                    precio = query.value(1)
+
+                    var.ui.tabArticulos.setRowCount(index + 1)
+                    var.ui.tabArticulos.setItem(index, 0, QtWidgets.QTableWidgetItem(nombre))
+                    var.ui.tabArticulos.setItem(index, 1, QtWidgets.QTableWidgetItem(precio))
+                    index += 1
+
+        except Exception as error:
+            print('Problemas en mostrar tabla de productos. ', error)
 
     def oneClie(dni):
         try:
@@ -165,7 +232,7 @@ class Conexion():
             query.bindValue(':municipio', str(modcliente[6]))
             query.bindValue(':sexo', str(modcliente[7]))
             query.bindValue(':pago', str(modcliente[8]))
-            query.bindValue(':envio',int(modcliente[9]))
+            query.bindValue(':envio', int(modcliente[9]))
             if query.exec_():
                 print('Inserción correcta. ')
                 msg = QtWidgets.QMessageBox()
@@ -183,4 +250,27 @@ class Conexion():
 
         except Exception as error:
             print('Problemas modificar clientes. ', error)
+
+    def modifPro(modproducto):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('UPDATE articulos set nombre = :nombre, precio = :precio where nombre= :nombre')
+            query.bindValue(':nombre', str(modproducto[0]))
+            query.bindValue(':precio', str(modproducto[1]))
+            if query.exec_():
+                print('Inserción correcta. ')
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Información')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Datos modificados de artículo')
+                msg.exec()
+            else:
+                print('Error. ', query.lastError().text())
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+        except Exception as error:
+            print('Problemas modificar artículos. ', error)
 
