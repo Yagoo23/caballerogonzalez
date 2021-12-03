@@ -474,7 +474,7 @@ class Ui_window(object):
         self.btnFacturar.setGeometry(QtCore.QRect(420, 80, 75, 23))
         self.btnFacturar.setObjectName("btnFacturar")
         self.layoutWidget9 = QtWidgets.QWidget(self.frame)
-        self.layoutWidget9.setGeometry(QtCore.QRect(30, 23, 231, 34))
+        self.layoutWidget9.setGeometry(QtCore.QRect(30, 20, 283, 34))
         self.layoutWidget9.setObjectName("layoutWidget9")
         self.horizontalLayout_14 = QtWidgets.QHBoxLayout(self.layoutWidget9)
         self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)

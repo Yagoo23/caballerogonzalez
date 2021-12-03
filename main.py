@@ -59,6 +59,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModifPro.clicked.connect(productos.Productos.modifPro)
         var.ui.btnBuscaClifac.clicked.connect(invoice.Facturas.buscaCli)
         var.ui.btnFechaFac.clicked.connect(eventos.Eventos.abrircal)
+        var.ui.btnFacturar.clicked.connect(invoice.Facturas.facturar)
         '''
         Eventos de la barra del menú
         '''

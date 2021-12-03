@@ -15,3 +15,16 @@ class Facturas():
             var.ui.txtClienteFac.setText(nombre)
         except Exception as error:
             print('Error al buscar cliente en facturas. ',error)
+
+    def facturar(self):
+        try:
+            registro=[]
+            dni=var.ui.txtDNIfac.text().upper()
+            registro.append(str(dni))
+            var.ui.txtDNIfac.setText(dni)
+            fechafac=var.ui.txtFechaFac.text()
+            registro.append(str(fechafac))
+            conexion.Conexion.buscaClifac(dni)
+            conexion.Conexion.altaFac(registro)
+        except Exception as error:
+            print('Error en alta facturas. ',error)

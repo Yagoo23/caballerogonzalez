@@ -293,6 +293,30 @@ class Conexion():
         except Exception as error:
             print('Error en conexión buscar cliente. ',error)
 
+    def altaFac(registro):
+        try:
+            query=QtSql.QSqlQuery()
+            query.prepare('insert into facturas (dni,fechafac) VALUES (:dni,:fecha)')
+            query.bindValue(':dni', str(registro[0]))
+            query.bindValue(':fecha', str(registro[1]))
+            if query.exec_():
+                print('Inserción correcta. ')
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Información')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Factura dada de alta.')
+                msg.exec()
+            else:
+                print('Error. ', query.lastError().text())
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+
+        except Exception as error:
+            print('Error en conexión alta factura. ',error)
+
 
 
 

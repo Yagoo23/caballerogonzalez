@@ -930,8 +930,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>23</y>
-         <width>231</width>
+         <y>20</y>
+         <width>283</width>
          <height>34</height>
         </rect>
        </property>
