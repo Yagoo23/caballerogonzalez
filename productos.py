@@ -1,7 +1,11 @@
+import locale
+
 import conexion
 import eventos
 import var
+import locale
 from PyQt5 import QtSql, QtWidgets
+locale.setlocale( locale.LC_ALL,'')
 
 
 class Productos():
@@ -18,6 +22,7 @@ class Productos():
                 tabPro.append(i.text())
             conexion.Conexion.altaPro(newpro)
             conexion.Conexion.cargarTabPro(self)
+
 
         except Exception as error:
             print('Error en guardar artículo ', error)

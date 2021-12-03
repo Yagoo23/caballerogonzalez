@@ -222,7 +222,7 @@ class Conexion():
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
-                'UPDATE clientes SET Alta = :Alta,apellidos = :apellidos,nombre = :nombre,direccion = :direccion,provincia= :provincia,municipio = :municipio, sexo = :sexo,pago = :pago,envio = :envio where dni = :dni')
+                'UPDATE clientes SET Alta = :Alta,apellidos = :apellidos,nombre = :nombre,direccion = :direccion,provincia= :provincia,municipio = :municipio, sexo = :sexo,pago = :pago where dni = :dni')
             query.bindValue(':dni', str(modcliente[0]))
             query.bindValue(':Alta', str(modcliente[1]))
             query.bindValue(':apellidos', str(modcliente[2]))
@@ -232,7 +232,7 @@ class Conexion():
             query.bindValue(':municipio', str(modcliente[6]))
             query.bindValue(':sexo', str(modcliente[7]))
             query.bindValue(':pago', str(modcliente[8]))
-            query.bindValue(':envio', int(modcliente[9]))
+
             if query.exec_():
                 print('Inserción correcta. ')
                 msg = QtWidgets.QMessageBox()
@@ -273,4 +273,48 @@ class Conexion():
                 msg.exec()
         except Exception as error:
             print('Problemas modificar artículos. ', error)
+
+
+    """
+    Gestión Facturación
+    """
+
+    def buscaClifac(dni):
+        try:
+            registro=[]
+            query=QtSql.QSqlQuery()
+            query.prepare('select dni,apellidos,nombre from clientes where dni =:dni')
+            query.bindValue(':dni',str(dni))
+            if query.exec_():
+                while query.next():
+                    registro.append(query.value(1))
+                    registro.append(query.value(2))
+            return registro
+        except Exception as error:
+            print('Error en conexión buscar cliente. ',error)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

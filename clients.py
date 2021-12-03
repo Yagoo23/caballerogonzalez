@@ -100,7 +100,10 @@ class Clientes():
     def cargarFecha(qDate):
         try:
             data = ('{0}/{1}/{2}'.format(qDate.day(), qDate.month(), qDate.year()))
-            var.ui.txtAltaCli.setText(str(data))
+            if var.ui.tabPrograma.currentIndex()==0:
+                var.ui.txtAltaCli.setText(str(data))
+            elif var.ui.tabPrograma.currentIndex()==1:
+                var.ui.txtFechaFac.setText(str(data))
             var.dlgcalendar.hide()
         except Exception as error:
             print('Error cargar fecha en txtFecha ', error)
@@ -148,7 +151,7 @@ class Clientes():
             pagos = set(pagos)  # evita duplicados
             newcli.append(', '.join(pagos))
             tabCli.append(', '.join(pagos))
-            newcli.append(var.ui.spinEnvio.text())
+            newcli.append(var.ui.spinspinEnvio.text())
 
             # cargamos en la tabla
             if dnivalido:
@@ -266,7 +269,7 @@ class Clientes():
         try:
             datos=[]
             query = QtSql.QSqlQuery()
-            query.prepare('select dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago,envio from clientes')
+            query.prepare('select dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago from clientes')
             if query.exec_():
                 while query.next():
                     clientes = {'dni': query.value(0), 'Alta': query.value(1), 'apellidos': query.value(2),

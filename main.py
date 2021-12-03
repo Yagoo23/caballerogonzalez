@@ -1,9 +1,6 @@
-import sys, var, eventos, clients, locale
+import sys, var, eventos, clients, locale,invoice,conexion,productos,informes
 
 from datetime import *
-import conexion
-import productos
-import informes
 from window import *
 from windowaviso import *
 from windowcal import *
@@ -47,8 +44,8 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de boton
         '''
-        var.ui.btnSalir.clicked.connect(eventos.Eventos.Salir)
-        var.ui.btnSalir2.clicked.connect(eventos.Eventos.Salir)
+        #var.ui.btnSalir.clicked.connect(eventos.Eventos.Salir)
+        #var.ui.btnSalir2.clicked.connect(eventos.Eventos.Salir)
         # var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.SelSexo)
         # var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.SelPago)
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrircal)
@@ -60,6 +57,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnRecarga2.clicked.connect(eventos.Eventos.limpiaFormPro)
         var.ui.btnBajaPro.clicked.connect(productos.Productos.bajaPro)
         var.ui.btnModifPro.clicked.connect(productos.Productos.modifPro)
+        var.ui.btnBuscaClifac.clicked.connect(invoice.Facturas.buscaCli)
+        var.ui.btnFechaFac.clicked.connect(eventos.Eventos.abrircal)
         '''
         Eventos de la barra del menú
         '''
