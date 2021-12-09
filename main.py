@@ -96,10 +96,12 @@ class Main(QtWidgets.QMainWindow):
         Eventos de QTabWidget
         '''
         eventos.Eventos.ResizeTabClientes(self)
+        eventos.Eventos.ResizeTabFacturas(self)
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabArticulos.clicked.connect(productos.Productos.cargaPro)
         var.ui.tabArticulos.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        var.ui.tabFacturas.clicked.connect(invoice.Facturas.cargaFac)
         '''
         Barra de estado
         '''
@@ -124,6 +126,7 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargarProv(self)
         conexion.Conexion.cargarMuni(self)
         conexion.Conexion.cargarTabPro(self)
+        conexion.Conexion.cargaTabfacturas(self)
 
 
 if __name__ == '__main__':

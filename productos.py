@@ -5,17 +5,18 @@ import eventos
 import var
 import locale
 from PyQt5 import QtSql, QtWidgets
-locale.setlocale( locale.LC_ALL,'')
+
+locale.setlocale(locale.LC_ALL, '')
 
 
 class Productos():
 
     def guardaPro(self):
         try:
-            newpro=[]
-            producto=[var.ui.txtNombre, var.ui.txtPrecio]
-            tabPro=[]
-            product=[var.ui.txtNombre, var.ui.txtPrecio]
+            newpro = []
+            producto = [var.ui.txtNombre, var.ui.txtPrecio]
+            tabPro = []
+            product = [var.ui.txtNombre, var.ui.txtPrecio]
             for i in producto:
                 newpro.append(i.text())
             for i in product:
@@ -31,7 +32,7 @@ class Productos():
         try:
             eventos.Eventos.limpiaFormPro(self)
             fila = var.ui.tabArticulos.selectedItems()
-            datos = [var.ui.txtNombre, var.ui.txtPrecio]
+            datos = [var.ui.lblCod,var.ui.txtNombre, var.ui.txtPrecio]
             if fila:
                 row = [dato.text() for dato in fila]
             for i, dato in enumerate(datos):
@@ -48,7 +49,6 @@ class Productos():
             print(nombre)
         except Exception as error:
             print('Error en dar de baja al artículo. ', error)
-
 
     def modifPro(self):
         try:

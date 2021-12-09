@@ -12,7 +12,8 @@ class Facturas():
             var.ui.txtDNIfac.setText(dni)
             registro=conexion.Conexion.buscaClifac(dni)
             nombre=registro[0] + ','+registro[1]
-            var.ui.txtClienteFac.setText(nombre)
+            var.ui.lblNomFac.setText(nombre)
+            #var.ui.txtClienteFac.setText(nombre)
         except Exception as error:
             print('Error al buscar cliente en facturas. ',error)
 
@@ -28,3 +29,14 @@ class Facturas():
             conexion.Conexion.altaFac(registro)
         except Exception as error:
             print('Error en alta facturas. ',error)
+
+    def cargaFac(self):
+        try:
+            fila=var.ui.tabFacturas.selectedItems()
+            datos=[var.ui.lblNumFac,var.ui.txtFechaFac]
+            if fila:
+                row = [dato.text() for dato in fila]
+            for i, dato in enumerate(datos):
+                dato.setText(row[i])
+        except Exception as error:
+            print('Error al cargar factura. ',error)

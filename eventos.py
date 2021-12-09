@@ -46,6 +46,16 @@ class Eventos():
         except Exception as error:
             print('Error al redimensionar la tabla Clientes. ', error)
 
+    def ResizeTabFacturas(self):
+        try:
+            header = var.ui.tabClientes.horizontalHeader()
+            for i in range(2):
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
+                if i == 0 or i == 2:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+        except Exception as error:
+            print('Error al redimensionar la tabla Clientes. ', error)
+
     def limpiaFormCLi(self):
         try:
             cajas = [var.ui.txtDNI, var.ui.txtApel, var.ui.txtNome, var.ui.txtAltaCli, var.ui.txtDir]
@@ -66,7 +76,7 @@ class Eventos():
 
     def limpiaFormPro(self):
         try:
-            cajas=[var.ui.txtNombre,var.ui.txtPrecio]
+            cajas=[var.ui.lblCod,var.ui.txtNombre,var.ui.txtPrecio]
             for i in cajas:
                 i.setText('')
         except Exception as error:

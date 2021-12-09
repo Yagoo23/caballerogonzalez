@@ -1,4 +1,5 @@
 from PyQt5 import QtSql, QtWidgets
+from PyQt5.uic.properties import QtCore
 
 import var
 
@@ -61,7 +62,6 @@ class Conexion():
         try:
             query = QtSql.QSqlQuery()
             query.prepare('insert into articulos (codigo,nombre,precio) VALUES (:codigo,:nombre,:precio)')
-
 
             query.bindValue(':nombre', str(newpro[0]))
             query.bindValue(':precio', str(newpro[1]))
@@ -155,15 +155,17 @@ class Conexion():
         try:
             index = 0
             query = QtSql.QSqlQuery()
-            query.prepare('select nombre,precio from articulos')
+            query.prepare('select codigo,nombre,precio from articulos')
             if query.exec_():
                 while query.next():
-                    nombre = query.value(0)
-                    precio = query.value(1)
+                    codigo=query.value(0)
+                    nombre = query.value(1)
+                    precio = query.value(2)
 
                     var.ui.tabArticulos.setRowCount(index + 1)
-                    var.ui.tabArticulos.setItem(index, 0, QtWidgets.QTableWidgetItem(nombre))
-                    var.ui.tabArticulos.setItem(index, 1, QtWidgets.QTableWidgetItem(precio))
+                    var.ui.tabArticulos.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codigo)))
+                    var.ui.tabArticulos.setItem(index, 1, QtWidgets.QTableWidgetItem(nombre))
+                    var.ui.tabArticulos.setItem(index, 2, QtWidgets.QTableWidgetItem(precio))
                     index += 1
 
         except Exception as error:
@@ -254,8 +256,8 @@ class Conexion():
     def modifPro(modproducto):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare('UPDATE articulos set nombre = :nombre, precio = :precio where nombre= :nombre')
-            query.bindValue(':nombre', str(modproducto[0]))
+            query.prepare('UPDATE articulos set nombre = :nombre, precio = :precio where codigo= :codigo')
+            query.bindValue(':nombre', str(modproducto[1]))
             query.bindValue(':precio', str(modproducto[1]))
             if query.exec_():
                 print('Inserción correcta. ')
@@ -274,28 +276,27 @@ class Conexion():
         except Exception as error:
             print('Problemas modificar artículos. ', error)
 
-
     """
     Gestión Facturación
     """
 
     def buscaClifac(dni):
         try:
-            registro=[]
-            query=QtSql.QSqlQuery()
+            registro = []
+            query = QtSql.QSqlQuery()
             query.prepare('select dni,apellidos,nombre from clientes where dni =:dni')
-            query.bindValue(':dni',str(dni))
+            query.bindValue(':dni', str(dni))
             if query.exec_():
                 while query.next():
                     registro.append(query.value(1))
                     registro.append(query.value(2))
             return registro
         except Exception as error:
-            print('Error en conexión buscar cliente. ',error)
+            print('Error en conexión buscar cliente. ', error)
 
     def altaFac(registro):
         try:
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             query.prepare('insert into facturas (dni,fechafac) VALUES (:dni,:fecha)')
             query.bindValue(':dni', str(registro[0]))
             query.bindValue(':fecha', str(registro[1]))
@@ -315,30 +316,22 @@ class Conexion():
                 msg.exec()
 
         except Exception as error:
-            print('Error en conexión alta factura. ',error)
+            print('Error en conexión alta factura. ', error)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def cargaTabfacturas(self):
+        try:
+            index=0
+            query=QtSql.QSqlQuery()
+            query.prepare('select codfac,fechafac from facturas order by fechafac DESC')
+            if query.exec_():
+                while query.next():
+                    codfac=query.value(0)
+                    fechafac=query.value(1)
+                    var.ui.tabFacturas.setRowCount(index+1)
+                    var.ui.tabFacturas.setItem(index,0,QtWidgets.QTableWidgetItem(str(codfac)))
+                    var.ui.tabFacturas.setItem(index,1,QtWidgets.QTableWidgetItem(fechafac))
+                    var.ui.tabFacturas.item(index,0).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabFacturas.item(index, 1).setTextAlignment(QtCore.Qt.AlignCenter)
+                    index +=1
+        except Exception as error:
+            print('Error al cargar listado facturas. ', error)
