@@ -53,7 +53,7 @@ class Productos():
     def modifPro(self):
         try:
             modproducto = []
-            producto = [var.ui.txtNombre, var.ui.txtPrecio]
+            producto = [var.ui.lblCod,var.ui.txtNombre, var.ui.txtPrecio]
             for i in producto:
                 modproducto.append(i.text())
             conexion.Conexion.modifPro(modproducto)
