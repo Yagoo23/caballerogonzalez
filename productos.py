@@ -43,10 +43,9 @@ class Productos():
 
     def bajaPro(self):
         try:
-            nombre = var.ui.txtNombre.text()
-            conexion.Conexion.bajaPro(nombre)
+            codigo = var.ui.lblCod.text()
+            conexion.Conexion.bajaPro(codigo)
             conexion.Conexion.cargarTabPro(self)
-            print(nombre)
         except Exception as error:
             print('Error en dar de baja al artículo. ', error)
 

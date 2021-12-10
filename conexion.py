@@ -1,3 +1,5 @@
+import locale
+
 from PyQt5 import QtSql, QtWidgets
 from PyQt5.uic.properties import QtCore
 
@@ -105,11 +107,11 @@ class Conexion():
         except Exception as error:
             print('Error baja cliente en conexión. ', error)
 
-    def bajaPro(nombre):
+    def bajaPro(codigo):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare('delete from articulos where nombre = :nombre')
-            query.bindValue(':nombre', str(nombre))
+            query.prepare('delete from articulos where codigo = :codigo')
+            query.bindValue(':codigo', str(codigo))
             if query.exec_():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
@@ -165,7 +167,7 @@ class Conexion():
                     var.ui.tabArticulos.setRowCount(index + 1)
                     var.ui.tabArticulos.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codigo)))
                     var.ui.tabArticulos.setItem(index, 1, QtWidgets.QTableWidgetItem(nombre))
-                    var.ui.tabArticulos.setItem(index, 2, QtWidgets.QTableWidgetItem(precio))
+                    var.ui.tabArticulos.setItem(index, 2, QtWidgets.QTableWidgetItem(str(precio)))
                     index += 1
 
         except Exception as error:
@@ -256,25 +258,52 @@ class Conexion():
     def modifPro(modproducto):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare('UPDATE articulos set nombre = :nombre, precio = :precio where codigo= :codigo')
+            query.prepare('update productos set nombre =:nombre, precio = :precio where codigo = :cod')
+            query.bindValue(':cod', int(modproducto[0]))
             query.bindValue(':nombre', str(modproducto[1]))
-            query.bindValue(':precio', str(modproducto[1]))
+            modproducto[2] = modproducto[2].replace('€', '')
+            modproducto[2] = modproducto[2].replace(',', '.')
+            modproducto[2] = float(modproducto[2])
+            modproducto[2] = round(modproducto[2], 2)
+            modproducto[2] = str(modproducto[2])
+            modproducto[2] = locale.currency(float(modproducto[2]))
+            query.bindValue(':precio', str(modproducto[2]))
+
             if query.exec_():
-                print('Inserción correcta. ')
                 msg = QtWidgets.QMessageBox()
-                msg.setWindowTitle('Información')
+                msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Information)
-                msg.setText('Datos modificados de artículo')
+                msg.setText('Datos modificados de Producto')
                 msg.exec()
             else:
-                print('Error. ', query.lastError().text())
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Warning)
                 msg.setText(query.lastError().text())
                 msg.exec()
         except Exception as error:
-            print('Problemas modificar artículos. ', error)
+            print('Error modificar producto en conexion: ', error)
+        # try:
+        #     query = QtSql.QSqlQuery()
+        #     query.prepare('UPDATE articulos set nombre = :nombre, precio = :precio where codigo= :codigo')
+        #     query.bindValue(':nombre', str(modproducto[1]))
+        #     query.bindValue(':precio', str(modproducto[1]))
+        #     if query.exec_():
+        #         print('Inserción correcta. ')
+        #         msg = QtWidgets.QMessageBox()
+        #         msg.setWindowTitle('Información')
+        #         msg.setIcon(QtWidgets.QMessageBox.Information)
+        #         msg.setText('Datos modificados de artículo')
+        #         msg.exec()
+        #     else:
+        #         print('Error. ', query.lastError().text())
+        #         msg = QtWidgets.QMessageBox()
+        #         msg.setWindowTitle('Aviso')
+        #         msg.setIcon(QtWidgets.QMessageBox.Warning)
+        #         msg.setText(query.lastError().text())
+        #         msg.exec()
+        # except Exception as error:
+        #     print('Problemas modificar artículos. ', error)
 
     """
     Gestión Facturación
@@ -330,8 +359,6 @@ class Conexion():
                     var.ui.tabFacturas.setRowCount(index+1)
                     var.ui.tabFacturas.setItem(index,0,QtWidgets.QTableWidgetItem(str(codfac)))
                     var.ui.tabFacturas.setItem(index,1,QtWidgets.QTableWidgetItem(fechafac))
-                    var.ui.tabFacturas.item(index,0).setTextAlignment(QtCore.Qt.AlignCenter)
-                    var.ui.tabFacturas.item(index, 1).setTextAlignment(QtCore.Qt.AlignCenter)
                     index +=1
         except Exception as error:
             print('Error al cargar listado facturas. ', error)
