@@ -30,8 +30,8 @@ class Conexion():
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
-                'insert into clientes (dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago,envio) '
-                'VALUES(:dni,:Alta,:apellidos,:nombre,:direccion,:provincia,:municipio,:sexo,:pago,:envio)')
+                'insert into clientes (dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago) '
+                'VALUES(:dni,:Alta,:apellidos,:nombre,:direccion,:provincia,:municipio,:sexo,:pago)')
             query.bindValue(':dni', str(newcli[0]))
             query.bindValue(':Alta', str(newcli[1]))
             query.bindValue(':apellidos', str(newcli[2]))
@@ -41,7 +41,7 @@ class Conexion():
             query.bindValue(':municipio', str(newcli[6]))
             query.bindValue(':sexo', str(newcli[7]))
             query.bindValue(':pago', str(newcli[8]))
-            query.bindValue(':envio', int(newcli[9]))
+            # query.bindValue(':envio', int(newcli[9]))
             if query.exec_():
                 print('Inserción correcta. ')
                 msg = QtWidgets.QMessageBox()
@@ -258,8 +258,8 @@ class Conexion():
     def modifPro(modproducto):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare('update productos set nombre =:nombre, precio = :precio where codigo = :cod')
-            query.bindValue(':cod', int(modproducto[0]))
+            query.prepare('update articulos set nombre = :nombre, precio = :precio where codigo = :codigo')
+            query.bindValue(':codigo', int(modproducto[0]))
             query.bindValue(':nombre', str(modproducto[1]))
             modproducto[2] = modproducto[2].replace('€', '')
             modproducto[2] = modproducto[2].replace(',', '.')
@@ -362,3 +362,16 @@ class Conexion():
                     index +=1
         except Exception as error:
             print('Error al cargar listado facturas. ', error)
+
+    def buscaDNIFac(numfac):
+        try:
+            query=QtSql.QSqlQuery()
+            query.prepare('SELECT dni from facturas where codfac =:numfac')
+            query.bindValue(':numfac',int(numfac))
+            if query.exec_():
+                while query.next():
+                    dni=query.value(0)
+            return dni
+
+        except Exception as error:
+            print('Error al buscar dni',error)

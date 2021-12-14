@@ -1,6 +1,8 @@
 """
 Facturación
 """
+from PyQt5 import QtWidgets
+
 import conexion
 import var
 import window
@@ -11,8 +13,14 @@ class Facturas():
             dni=var.ui.txtDNIfac.text().upper()
             var.ui.txtDNIfac.setText(dni)
             registro=conexion.Conexion.buscaClifac(dni)
-            nombre=registro[0] + ','+registro[1]
-            var.ui.lblNomFac.setText(nombre)
+            if registro:
+                nombre=registro[0] + ','+registro[1]
+                var.ui.lblNomFac.setText(nombre)
+            else:
+                msg=QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.exec()
             #var.ui.txtClienteFac.setText(nombre)
         except Exception as error:
             print('Error al buscar cliente en facturas. ',error)
@@ -27,6 +35,7 @@ class Facturas():
             registro.append(str(fechafac))
             conexion.Conexion.buscaClifac(dni)
             conexion.Conexion.altaFac(registro)
+            conexion.Conexion.cargaTabfacturas(self)
         except Exception as error:
             print('Error en alta facturas. ',error)
 
@@ -38,5 +47,12 @@ class Facturas():
                 row = [dato.text() for dato in fila]
             for i, dato in enumerate(datos):
                 dato.setText(row[i])
+            #Aquí cargamos el dni y nombre del cliente
+            dni=conexion.Conexion.buscaDNIFac(row[0])
+            var.ui.txtDNIfac.setText(str(dni))
+            registro=conexion.Conexion.buscaClifac(dni)
+            if registro:
+                nombre = registro[0] + ',' + registro[1]
+                var.ui.lblNomFac.setText(nombre)
         except Exception as error:
             print('Error al cargar factura. ',error)

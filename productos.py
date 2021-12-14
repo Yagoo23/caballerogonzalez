@@ -13,14 +13,22 @@ class Productos():
 
     def guardaPro(self):
         try:
+            # newpro = []
+            # producto = [var.ui.txtNombre, var.ui.txtPrecio]
+            # tabPro = []
+            # product = [var.ui.txtNombre, var.ui.txtPrecio]
+            # for i in producto:
+            #     newpro.append(i.text())
+            # for i in product:
+            #     tabPro.append(i.text())
             newpro = []
-            producto = [var.ui.txtNombre, var.ui.txtPrecio]
-            tabPro = []
-            product = [var.ui.txtNombre, var.ui.txtPrecio]
-            for i in producto:
-                newpro.append(i.text())
-            for i in product:
-                tabPro.append(i.text())
+            producto = var.ui.txtNombre.text()
+            producto = producto.title()
+            newpro.append(producto)
+            precio = var.ui.txtPrecio.text()
+            precio = precio.replace(',', '.')  # necesita estar con punto como en américa
+            precio = locale.currency(float(precio))
+            newpro.append(precio)
             conexion.Conexion.altaPro(newpro)
             conexion.Conexion.cargarTabPro(self)
 
