@@ -71,7 +71,7 @@ class Informes():
             items = ['Código', 'Nombre', 'Precio']
             var.cv.drawString(65, 675, items[0])
             var.cv.drawString(220, 675, items[1])
-            var.cv.drawString(370, 675, items[2])
+            var.cv.drawString(390, 675, items[2])
             var.cv.line(40, 670, 530, 670)
             query = QtSql.QSqlQuery('select codigo,nombre,precio from articulos order by nombre')
             var.cv.setFont('Helvetica', size=8)
@@ -88,16 +88,16 @@ class Informes():
                         var.cv.drawString(255, 690, textotitulo)
                         var.cv.line(40, 685, 530, 685)
                         items = ['Código', 'Nombre', 'Precio']
-                        var.cv.drawString(65, 675, items[0])
+                        var.cv.drawString(170, 675, items[0])
                         var.cv.drawString(220, 675, items[1])
                         var.cv.drawString(370, 675, items[2])
                         var.cv.line(40, 670, 530, 670)
                         i = 50
                         j = 655
                     var.cv.setFont('Helvetica', size=8)
-                    var.cv.drawString(i,j,str(query.value(0)))
-                    var.cv.drawString(i+140,j,str(query.value(1) + ', '+query.value(2)))
-                    var.cv.drawString(i+310,j,str(query.value(3)))
+                    var.cv.drawString(i+30,j,str(query.value(0)))
+                    var.cv.drawString(i+170,j,str(query.value(1)))
+                    var.cv.drawString(i+340,j,str(query.value(2)))
                     j=j-20
             Informes.pie(textotitulo)
             var.cv.save()
