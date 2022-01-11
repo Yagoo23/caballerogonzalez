@@ -62,6 +62,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnFacturar.clicked.connect(invoice.Facturas.facturar)
         var.ui.btnPDFCli.clicked.connect(informes.Informes.listadoClientes)
         var.ui.btnPDFArt.clicked.connect(informes.Informes.listadoArticulos)
+
         '''
         Eventos de la barra del menú
         '''

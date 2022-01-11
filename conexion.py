@@ -1,7 +1,7 @@
 import locale
 
-from PyQt5 import QtSql, QtWidgets
-from PyQt5.uic.properties import QtCore
+from PyQt5 import QtSql, QtWidgets,QtCore,QtGui
+
 
 import var
 
@@ -354,11 +354,23 @@ class Conexion():
             query.prepare('select codfac,fechafac from facturas order by fechafac DESC')
             if query.exec_():
                 while query.next():
-                    codfac=query.value(0)
-                    fechafac=query.value(1)
-                    var.ui.tabFacturas.setRowCount(index+1)
-                    var.ui.tabFacturas.setItem(index,0,QtWidgets.QTableWidgetItem(str(codfac)))
-                    var.ui.tabFacturas.setItem(index,1,QtWidgets.QTableWidgetItem(fechafac))
+                    codigo = query.value(0)
+                    fechafac = query.value(1)
+                    var.btnfacdel = QtWidgets.QPushButton()
+                    icopapelera = QtGui.QPixmap("img/papelera.png")
+                    var.btnfacdel.setFixedSize(24, 24)
+                    var.btnfacdel.setIcon(QtGui.QIcon(icopapelera))
+                    var.ui.tabFacturas.setRowCount(index + 1)  # creamos la fila y luego cargamos datos
+                    var.ui.tabFacturas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codigo)))
+                    var.ui.tabFacturas.setItem(index, 1, QtWidgets.QTableWidgetItem(fechafac))
+                    cell_widget = QtWidgets.QWidget()
+                    lay_out = QtWidgets.QHBoxLayout(cell_widget)
+                    lay_out.addWidget(var.btnfacdel)
+                    var.btnfacdel.clicked.connect(Conexion.bajaFac)
+                    lay_out.setAlignment(QtCore.Qt.AlignVCenter)
+                    var.ui.tabFacturas.setCellWidget(index, 2, cell_widget)
+                    var.ui.tabFacturas.item(index, 0).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabFacturas.item(index, 1).setTextAlignment(QtCore.Qt.AlignCenter)
                     index +=1
         except Exception as error:
             print('Error al cargar listado facturas. ', error)
@@ -375,3 +387,10 @@ class Conexion():
 
         except Exception as error:
             print('Error al buscar dni',error)
+
+
+    # def bajaFac(self):
+    #     try:
+    #
+    #     except Exception as error:
+    #         print('Error al dar de baja factura ',error)
