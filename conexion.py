@@ -1,8 +1,9 @@
 import locale
 
-from PyQt5 import QtSql, QtWidgets,QtCore,QtGui
+from PyQt5 import QtSql, QtWidgets, QtCore, QtGui
 
-
+import conexion
+import invoice
 import var
 
 
@@ -160,7 +161,7 @@ class Conexion():
             query.prepare('select codigo,nombre,precio from articulos')
             if query.exec_():
                 while query.next():
-                    codigo=query.value(0)
+                    codigo = query.value(0)
                     nombre = query.value(1)
                     precio = query.value(2)
 
@@ -186,6 +187,34 @@ class Conexion():
             return record
         except Exception as error:
             print('Problemas mostrar tablas clientes. ', error)
+
+    # def onePro(codigo):
+    #     try:
+    #         record=[]
+    #         query = QtSql.QSqlQuery()
+    #         query.prepare('select nombre,precio from articulos where codigo= :codigo')
+    #         query.bindValue(':codigo', int(codigo))
+    #         if query.exec_():
+    #             while query.next():
+    #                 for i in range(3):
+    #                     record.append(query.value(i))
+    #         return record
+    #     except Exception as error:
+    #         print('Problemas mostrar tabla productos. ',error)
+    #
+    # def oneFac(codfac):
+    #     try:
+    #         record=[]
+    #         query = QtSql.QSqlQuery()
+    #         query.prepare('select dni,fechafac from articulos where codfac= :codfac')
+    #         query.bindValue(':codigo', int(codfac))
+    #         if query.exec_():
+    #             while query.next():
+    #                 for i in range(3):
+    #                     record.append(query.value(i))
+    #         return record
+    #     except Exception as error:
+    #         print('Problemas mostrar tabla facturas. ', error)
 
     def cargarProv(self):
         try:
@@ -349,8 +378,8 @@ class Conexion():
 
     def cargaTabfacturas(self):
         try:
-            index=0
-            query=QtSql.QSqlQuery()
+            index = 0
+            query = QtSql.QSqlQuery()
             query.prepare('select codfac,fechafac from facturas order by fechafac DESC')
             if query.exec_():
                 while query.next():
@@ -365,32 +394,46 @@ class Conexion():
                     var.ui.tabFacturas.setItem(index, 1, QtWidgets.QTableWidgetItem(fechafac))
                     cell_widget = QtWidgets.QWidget()
                     lay_out = QtWidgets.QHBoxLayout(cell_widget)
+                    lay_out.setContentsMargins(0,0,0,0)
                     lay_out.addWidget(var.btnfacdel)
-                    var.btnfacdel.clicked.connect(Conexion.bajaFac)
+                    var.btnfacdel.clicked.connect(invoice.Facturas.bajaFac)
                     lay_out.setAlignment(QtCore.Qt.AlignVCenter)
                     var.ui.tabFacturas.setCellWidget(index, 2, cell_widget)
                     var.ui.tabFacturas.item(index, 0).setTextAlignment(QtCore.Qt.AlignCenter)
                     var.ui.tabFacturas.item(index, 1).setTextAlignment(QtCore.Qt.AlignCenter)
-                    index +=1
+                    index += 1
         except Exception as error:
             print('Error al cargar listado facturas. ', error)
 
     def buscaDNIFac(numfac):
         try:
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             query.prepare('SELECT dni from facturas where codfac =:numfac')
-            query.bindValue(':numfac',int(numfac))
+            query.bindValue(':numfac', int(numfac))
             if query.exec_():
                 while query.next():
-                    dni=query.value(0)
+                    dni = query.value(0)
             return dni
-
         except Exception as error:
-            print('Error al buscar dni',error)
+            print('Error al buscar dni', error)
 
-
-    # def bajaFac(self):
-    #     try:
-    #
-    #     except Exception as error:
-    #         print('Error al dar de baja factura ',error)
+    def bajaFac(codfac):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('delete from facturas where codfac = :codfac')
+            query.bindValue(':codfac', int(codfac))
+            if query.exec_():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText('Factura dada de baja')
+                msg.exec()
+            else:
+                print('Error. ', query.lastError().text())
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+        except Exception as error:
+            print('Error al dar de baja factura ', error)

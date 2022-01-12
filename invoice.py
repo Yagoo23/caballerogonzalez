@@ -4,6 +4,7 @@ Facturación
 from PyQt5 import QtWidgets
 
 import conexion
+import invoice
 import var
 import window
 
@@ -56,3 +57,12 @@ class Facturas():
                 var.ui.lblNomFac.setText(nombre)
         except Exception as error:
             print('Error al cargar factura. ',error)
+
+    def bajaFac(self):
+        try:
+            codfac = var.ui.lblNumFac.text()
+            print(codfac)
+            conexion.Conexion.bajaFac(codfac)
+            conexion.Conexion.cargaTabfacturas(self)
+        except Exception as error:
+            print('Error en dar de baja al artículo. ', error)

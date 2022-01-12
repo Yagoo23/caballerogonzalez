@@ -45,7 +45,6 @@ class Productos():
                 row = [dato.text() for dato in fila]
             for i, dato in enumerate(datos):
                 dato.setText(row[i])
-
         except Exception as error:
             print('Error en cargar datos de un artículo. ', error)
 

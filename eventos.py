@@ -54,7 +54,7 @@ class Eventos():
                 if i == 0 or i == 2:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
         except Exception as error:
-            print('Error al redimensionar la tabla Clientes. ', error)
+            print('Error al redimensionar la tabla facturas. ', error)
 
     def limpiaFormCLi(self):
         try:
