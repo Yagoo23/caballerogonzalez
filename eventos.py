@@ -52,7 +52,7 @@ class Eventos():
             for i in range(3):
                 header.setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
         except Exception as error:
-            print('Error al redimensionar la tabla facturas. ', error)
+            print('Error al redimensionar la tabla facturas.', error)
 
     def ResizeTabVentas(self):
         try:
