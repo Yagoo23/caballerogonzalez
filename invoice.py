@@ -55,6 +55,7 @@ class Facturas():
             if registro:
                 nombre = registro[0] + ',' + registro[1]
                 var.ui.lblNomFac.setText(nombre)
+            Facturas.cargaVenta1(self)
         except Exception as error:
             print('Error al cargar factura. ',error)
 
@@ -66,3 +67,22 @@ class Facturas():
             conexion.Conexion.cargaTabfacturas(self)
         except Exception as error:
             print('Error en dar de baja al artículo. ', error)
+
+    def prepararTabFac(self):
+        try:
+            pass
+        except Exception as error:
+            print('Error en preparar TabFac',error)
+
+    def cargaLineaVenta(self):
+        try:
+            index=0
+            var.cmbProducto=QtWidgets.QComboBox()
+            var.cmbProducto.setFixedSize(150,25)
+            var.txtCantidad=QtWidgets.QLineEdit()
+            var.txtCantidad.setFixedSize(80,25)
+            var.ui.tabVentas.setRowCount(index+1)
+            var.ui.tabVentas.setCellWidget(index,1,var.cmbProducto)
+            var.ui.tabVentas.setCellWidget(index,3,var.txtCantidad)
+        except Exception as error:
+            print('Error en cargar linea venta',error)

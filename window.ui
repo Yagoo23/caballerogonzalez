@@ -1240,15 +1240,15 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>160</y>
+        <y>189</y>
         <width>180</width>
-        <height>400</height>
+        <height>360</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
         <width>180</width>
-        <height>400</height>
+        <height>300</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -1272,6 +1272,9 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAsNeeded</enum>
       </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
       <property name="autoScrollMargin">
        <number>10</number>
       </property>
@@ -1281,6 +1284,9 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <property name="verticalScrollMode">
        <enum>QAbstractItemView::ScrollPerItem</enum>
       </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
       <attribute name="horizontalHeaderDefaultSectionSize">
        <number>60</number>
       </attribute>
@@ -1305,6 +1311,144 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         <set>AlignLeading|AlignVCenter</set>
        </property>
       </column>
+     </widget>
+     <widget class="QFrame" name="frame_2">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>180</y>
+        <width>641</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QTableWidget" name="tabVentas">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>630</width>
+         <height>360</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>600</width>
+         <height>360</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>650</width>
+         <height>360</height>
+        </size>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <attribute name="verticalHeaderMinimumSectionSize">
+        <number>20</number>
+       </attribute>
+       <attribute name="verticalHeaderDefaultSectionSize">
+        <number>25</number>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>codventa</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>producto</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>precio</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>cantidad</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>total_venta</string>
+        </property>
+       </column>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="lblNomFac_2">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>160</y>
+        <width>150</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(254, 255, 185);</string>
+      </property>
+      <property name="text">
+       <string>VENTAS</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblNomFac_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>160</y>
+        <width>150</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(254, 255, 185);</string>
+      </property>
+      <property name="text">
+       <string>Nº               Fecha</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">

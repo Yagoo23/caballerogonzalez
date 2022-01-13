@@ -100,11 +100,15 @@ class Main(QtWidgets.QMainWindow):
         '''
         eventos.Eventos.ResizeTabClientes(self)
         eventos.Eventos.ResizeTabFacturas(self)
+        eventos.Eventos.ResizeTabVentas(self)
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabArticulos.clicked.connect(productos.Productos.cargaPro)
         var.ui.tabArticulos.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabFacturas.clicked.connect(invoice.Facturas.cargaFac)
+        var.ui.tabVentas.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        invoice.Facturas.cargaLineaVenta(self)
+        #invoice.Facturas.prepararTabFac(self)
         '''
         Barra de estado
         '''

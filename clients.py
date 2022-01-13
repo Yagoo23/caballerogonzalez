@@ -6,6 +6,7 @@ import xlrd
 import pandas as pd
 import conexion
 import eventos
+import invoice
 import var
 from PyQt5 import QtSql, QtWidgets
 
@@ -241,6 +242,7 @@ class Clientes():
                 var.ui.rbtHom.setChecked(True)
             elif str(registro[3]) == 'Mujer':
                 var.ui.rbtFem.setChecked(True)
+
         except Exception as error:
             print('Error en cargar datos de un cliente. ', error)
 
