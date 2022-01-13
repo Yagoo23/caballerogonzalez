@@ -1,7 +1,7 @@
 """
 Facturación
 """
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets,QtCore
 
 import conexion
 import invoice
@@ -80,7 +80,8 @@ class Facturas():
             var.cmbProducto=QtWidgets.QComboBox()
             var.cmbProducto.setFixedSize(150,25)
             var.txtCantidad=QtWidgets.QLineEdit()
-            var.txtCantidad.setFixedSize(80,25)
+            var.txtCantidad.setFixedSize(70,25)
+            var.txtCantidad.setAlignment(QtCore.Qt.AlignCenter)
             var.ui.tabVentas.setRowCount(index+1)
             var.ui.tabVentas.setCellWidget(index,1,var.cmbProducto)
             var.ui.tabVentas.setCellWidget(index,3,var.txtCantidad)
