@@ -40,7 +40,7 @@ class Productos():
         try:
             eventos.Eventos.limpiaFormPro(self)
             fila = var.ui.tabArticulos.selectedItems()
-            datos = [var.ui.lblCod,var.ui.txtNombre, var.ui.txtPrecio]
+            datos = [var.ui.lblCod, var.ui.txtNombre, var.ui.txtPrecio]
             if fila:
                 row = [dato.text() for dato in fila]
             for i, dato in enumerate(datos):
@@ -59,7 +59,7 @@ class Productos():
     def modifPro(self):
         try:
             modproducto = []
-            producto = [var.ui.lblCod,var.ui.txtNombre, var.ui.txtPrecio]
+            producto = [var.ui.lblCod, var.ui.txtNombre, var.ui.txtPrecio]
             for i in producto:
                 modproducto.append(i.text())
             conexion.Conexion.modifPro(modproducto)

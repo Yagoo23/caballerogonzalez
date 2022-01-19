@@ -1,4 +1,4 @@
-import sys, var, eventos, clients, locale,invoice,conexion,productos,informes
+import sys, var, eventos, clients, locale, invoice, conexion, productos, informes
 
 from datetime import *
 from window import *
@@ -41,11 +41,22 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_window()
         var.ui.setupUi(self)
 
+
+        '''
+        Eventos caja de texto
+        '''
+        var.ui.txtDNI.editingFinished.connect(clients.Clientes.validarDNI)
+        var.ui.txtNome.editingFinished.connect(clients.Clientes.letracapital)
+        var.ui.txtApel.editingFinished.connect(clients.Clientes.letracapital)
+        var.ui.txtDir.editingFinished.connect(clients.Clientes.letracapital)
+        var.txtCantidad = QtWidgets.QLineEdit()
+        var.txtCantidad.editingFinished.connect(invoice.Facturas.totalLineaVenta)
+
         '''
         Eventos de boton
         '''
-        #var.ui.btnSalir.clicked.connect(eventos.Eventos.Salir)
-        #var.ui.btnSalir2.clicked.connect(eventos.Eventos.Salir)
+        # var.ui.btnSalir.clicked.connect(eventos.Eventos.Salir)
+        # var.ui.btnSalir2.clicked.connect(eventos.Eventos.Salir)
         # var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.SelSexo)
         # var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.SelPago)
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrircal)
@@ -76,22 +87,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Datos.triggered.connect(clients.Clientes.exportarDatos)
 
         '''
-        Eventos caja de texto
-        '''
-        var.ui.txtDNI.editingFinished.connect(clients.Clientes.validarDNI)
-        var.ui.txtNome.editingFinished.connect(clients.Clientes.letracapital)
-        var.ui.txtApel.editingFinished.connect(clients.Clientes.letracapital)
-        var.ui.txtDir.editingFinished.connect(clients.Clientes.letracapital)
-
-        '''
-        Eventos de comboBox 
-        '''
-        # clients.Clientes.cargaProv_(self)
-
-        # var.ui.cmbProv.activated[str].connect(clients.Clientes.selProv)
-        var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.cargarMuni)
-
-        '''
         Eventos de SpinBox
         '''
         var.ui.spinEnvio.valueChanged.connect(clients.Clientes.selEnvio)
@@ -108,7 +103,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tabFacturas.clicked.connect(invoice.Facturas.cargaFac)
         var.ui.tabVentas.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         invoice.Facturas.cargaLineaVenta(self)
-        #invoice.Facturas.prepararTabFac(self)
+        # invoice.Facturas.prepararTabFac(self)
         '''
         Barra de estado
         '''
@@ -125,6 +120,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarImprimir.triggered.connect(eventos.Eventos.Imprimir)
         var.ui.actionListado_Clientes.triggered.connect(informes.Informes.listadoClientes)
 
+
+
         '''
         Base de datos
         '''
@@ -134,6 +131,17 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargarMuni(self)
         conexion.Conexion.cargarTabPro(self)
         conexion.Conexion.cargaTabfacturas(self)
+
+        '''
+        Eventos de comboBox 
+        '''
+        # clients.Clientes.cargaProv_(self)
+
+        # var.ui.cmbProv.activated[str].connect(clients.Clientes.selProv)
+        var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.cargarMuni)
+
+        conexion.Conexion.cargarCmbProducto(self)
+        var.cmbProducto.currentIndexChanged.connect(invoice.Facturas.proceso_venta)
 
 
 if __name__ == '__main__':

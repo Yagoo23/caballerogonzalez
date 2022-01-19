@@ -7,13 +7,18 @@ Variables de ventana
 '''
 
 global ui
+global cmbProducto
 global dlgaviso
 global dlgcalendar
 global dlgabrir
 global copia
 global cv
 global btnfacdel
+global precio
+global txtCantidad
+
 '''
 Otras variables
 '''
-filedb='bbdd.sqlite'
+filedb = 'bbdd.sqlite'
+

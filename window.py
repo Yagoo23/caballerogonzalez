@@ -667,6 +667,7 @@ class Ui_window(object):
         self.tabVentas.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tabVentas.setHorizontalHeaderItem(4, item)
+        self.tabVentas.verticalHeader().setVisible(False)
         self.tabVentas.verticalHeader().setDefaultSectionSize(25)
         self.tabVentas.verticalHeader().setMinimumSectionSize(20)
         self.lblNomFac_2 = QtWidgets.QLabel(self.tab_2)

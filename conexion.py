@@ -2,7 +2,6 @@ import locale
 
 from PyQt5 import QtSql, QtWidgets, QtCore, QtGui
 
-import conexion
 import invoice
 import var
 
@@ -394,7 +393,7 @@ class Conexion():
                     var.ui.tabFacturas.setItem(index, 1, QtWidgets.QTableWidgetItem(fechafac))
                     cell_widget = QtWidgets.QWidget()
                     lay_out = QtWidgets.QHBoxLayout(cell_widget)
-                    lay_out.setContentsMargins(0,0,0,0)
+                    lay_out.setContentsMargins(0, 0, 0, 0)
                     lay_out.addWidget(var.btnfacdel)
                     var.btnfacdel.clicked.connect(invoice.Facturas.bajaFac)
                     lay_out.setAlignment(QtCore.Qt.AlignVCenter)
@@ -437,3 +436,29 @@ class Conexion():
                 msg.exec()
         except Exception as error:
             print('Error al dar de baja factura ', error)
+
+    def cargarCmbProducto(self):
+        try:
+            var.cmbProducto.clear()
+            query = QtSql.QSqlQuery()
+            var.cmbProducto.addItem('')
+            query.prepare('select nombre from articulos order by nombre')
+            if query.exec_():
+                while query.next():
+                    var.cmbProducto.addItem(str(query.value(0)))
+        except Exception as error:
+            print('Error al cargar cmbProducto ', error)
+
+    def obtenerCodPrecio(articulo):
+        try:
+            dato = []
+            query = QtSql.QSqlQuery()
+            query.prepare('select codigo,precio from articulos where nombre=:nombre')
+            query.bindValue(':nombre', str(articulo))
+            if query.exec_():
+                while query.next():
+                    dato.append(int(query.value(0)))
+                    dato.append(str(query.value(1)))
+            return dato
+        except Exception as error:
+            print('Error al cargar codigo precio en conexion ', error)
