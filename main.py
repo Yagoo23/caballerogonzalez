@@ -50,7 +50,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtApel.editingFinished.connect(clients.Clientes.letracapital)
         var.ui.txtDir.editingFinished.connect(clients.Clientes.letracapital)
         var.txtCantidad = QtWidgets.QLineEdit()
-        var.txtCantidad.editingFinished.connect(invoice.Facturas.totalLineaVenta)
+        var.txtCantidad.returnPressed.connect(invoice.Facturas.totalLineaVenta)
 
         '''
         Eventos de boton

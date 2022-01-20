@@ -15,6 +15,7 @@ global copia
 global cv
 global btnfacdel
 global precio
+global codpro
 global txtCantidad
 
 '''

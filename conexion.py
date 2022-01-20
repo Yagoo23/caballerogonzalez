@@ -4,7 +4,8 @@ from PyQt5 import QtSql, QtWidgets, QtCore, QtGui
 
 import invoice
 import var
-
+import locale
+locale.setlocale(locale.LC_ALL, '')
 
 class Conexion():
     def db_connect(filedb):
@@ -155,6 +156,7 @@ class Conexion():
 
     def cargarTabPro(self):
         try:
+            var.ui.tabArticulos.clear()
             index = 0
             query = QtSql.QSqlQuery()
             query.prepare('select codigo,nombre,precio from articulos')
@@ -377,6 +379,7 @@ class Conexion():
 
     def cargaTabfacturas(self):
         try:
+            var.ui.tabFacturas.clear()
             index = 0
             query = QtSql.QSqlQuery()
             query.prepare('select codfac,fechafac from facturas order by fechafac DESC')
@@ -462,3 +465,31 @@ class Conexion():
             return dato
         except Exception as error:
             print('Error al cargar codigo precio en conexion ', error)
+
+    def cargarVenta(venta):
+        try:
+            query=QtSql.QSqlQuery()
+            query.prepare('insert into ventas(codfac,codpro,precio,cantidad) values(:codfac,:codpro,:precio,:cantidad)')
+            query.bindValue(':codfac',int(venta[0]))
+            query.bindValue(':codpro', int(venta[1]))
+            query.bindValue(':cantidad', float(venta[2]))
+            query.bindValue(':precio', float(venta[3]))
+            if query.exec_():
+                var.ui.lblVenta.setStyleSheet("QLabel{color: green}")
+                var.ui.lblVenta.setText('Venta realizada.')
+            else:
+                var.ui.lblVenta.setStyleSheet("QLabel{color: red}")
+                var.ui.lblVenta.setText('Error en venta.')
+        except Exception as error:
+            print('error al cargar venta ',error)
+
+    def buscaCodfac(self):
+        try:
+            query=QtSql.QSqlQuery
+            query.prepare('select codigo from facturas order by codigo desc limit 1')
+            if query.exec_():
+                while query.next():
+                    dato=query.value(0)
+            return dato
+        except Exception as error:
+            print('Error obtener codigo factura',error)
