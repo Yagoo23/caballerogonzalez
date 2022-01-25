@@ -512,7 +512,6 @@ class Conexion():
         try:
             var.ui.tabVentas.clearContents()
             index = 1
-
             #invoice.Facturas.cargaLineaVenta(0)
             query = QtSql.QSqlQuery()
             query.prepare('select codventa,precio,cantidad,codpro from ventas where codfac= :codfac')
