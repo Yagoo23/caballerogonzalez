@@ -2,10 +2,13 @@ import locale
 
 from PyQt5 import QtSql, QtWidgets, QtCore, QtGui
 
+import conexion
 import invoice
 import var
 import locale
+
 locale.setlocale(locale.LC_ALL, '')
+
 
 class Conexion():
     def db_connect(filedb):
@@ -468,9 +471,9 @@ class Conexion():
 
     def cargarVenta(venta):
         try:
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             query.prepare('insert into ventas(codfac,codpro,precio,cantidad) values(:codfac,:codpro,:precio,:cantidad)')
-            query.bindValue(':codfac',int(venta[0]))
+            query.bindValue(':codfac', int(venta[0]))
             query.bindValue(':codpro', int(venta[1]))
             query.bindValue(':cantidad', float(venta[2]))
             query.bindValue(':precio', float(venta[3]))
@@ -481,15 +484,58 @@ class Conexion():
                 var.ui.lblVenta.setStyleSheet("QLabel{color: red}")
                 var.ui.lblVenta.setText('Error en venta.')
         except Exception as error:
-            print('error al cargar venta ',error)
+            print('error al cargar venta ', error)
 
     def buscaCodfac(self):
         try:
-            query=QtSql.QSqlQuery
+            query = QtSql.QSqlQuery
             query.prepare('select codigo from facturas order by codigo desc limit 1')
             if query.exec_():
                 while query.next():
-                    dato=query.value(0)
+                    dato = query.value(0)
             return dato
         except Exception as error:
-            print('Error obtener codigo factura',error)
+            print('Error obtener codigo factura', error)
+
+    def buscarArt(codigo):
+        try:
+            query=QtSql.QSqlQuery()
+            query.prepare('select nombre from articulos where codigo= :codpro')
+            query.bindValue(':codpro',int(codigo))
+            if query.exec_():
+                while query.next():
+                    return(query.value(0))
+        except Exception as error:
+            print('Error al buscar articulo ',error)
+
+    def cargarLineasVenta(codfac):
+        try:
+            var.ui.tabVentas.clearContents()
+            index = 1
+            #invoice.Facturas.cargaLineaVenta(0)
+            query = QtSql.QSqlQuery()
+            query.prepare('select codventa,precio,cantidad,codpro from ventas where codfac= :codfac')
+            query.bindValue(':codfac', int(codfac))
+            if query.exec_():
+                while query.next():
+                    codventa = query.value(0)
+                    precio = str(query.value(1))
+                    cantidad = query.value(2)
+                    total_venta = round(float(precio) * float(cantidad), 2)
+                    articulo=conexion.Conexion.buscarArt(int(query.value(3)))
+                    var.ui.tabVentas.setRowCount(index + 1)
+                    var.ui.tabVentas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codventa)))
+                    var.ui.tabVentas.setItem(index, 1, QtWidgets.QTableWidgetItem(str(articulo)))
+                    var.ui.tabVentas.setItem(index, 2, QtWidgets.QTableWidgetItem(str(precio) + ' €'))
+                    var.ui.tabVentas.setItem(index, 3, QtWidgets.QTableWidgetItem(str(cantidad)))
+                    var.ui.tabVentas.setItem(index, 4, QtWidgets.QTableWidgetItem(str(total_venta) + ' €'))
+                    var.ui.tabVentas.item(index, 0).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabVentas.item(index, 2).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabVentas.item(index, 3).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabVentas.item(index, 4).setTextAlignment(QtCore.Qt.AlignCenter)
+                    index = index + 1
+            #invoice.Facturas.cargaLineaVenta(index)
+
+
+        except Exception as error:
+            print('Error en cargar linea de venta', error)

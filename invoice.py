@@ -57,6 +57,7 @@ class Facturas():
             if registro:
                 nombre = registro[0] + ',' + registro[1]
                 var.ui.lblNomFac.setText(nombre)
+            conexion.Conexion.cargarLineasVenta(str(var.ui.lblNumFac.text()))
         except Exception as error:
             print('Error al cargar factura. ', error)
 
@@ -117,6 +118,8 @@ class Facturas():
             conexion.Conexion.cargarVenta(venta)
         except Exception as error:
             print('Error en total linea de venta ',error)
+
+
 
 
 
