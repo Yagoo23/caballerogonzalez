@@ -74,6 +74,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnPDFCli.clicked.connect(informes.Informes.listadoClientes)
         var.ui.btnPDFArt.clicked.connect(informes.Informes.listadoArticulos)
         var.ui.btnReportCli.clicked.connect(eventos.Eventos.Imprimir)
+        var.ui.btnImprimirFactura.clicked.connect(informes.Informes.factura)
         '''
         Eventos de la barra del menú
         '''

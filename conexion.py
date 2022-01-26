@@ -1,6 +1,7 @@
 import locale
 
 from PyQt5 import QtSql, QtWidgets, QtCore, QtGui
+from reportlab.pdfgen import canvas
 
 import conexion
 import invoice
@@ -510,9 +511,9 @@ class Conexion():
 
     def cargarLineasVenta(codfac):
         try:
+            suma=0.0
             var.ui.tabVentas.clearContents()
-            index = 1
-            #invoice.Facturas.cargaLineaVenta(0)
+            index = 0
             query = QtSql.QSqlQuery()
             query.prepare('select codventa,precio,cantidad,codpro from ventas where codfac= :codfac')
             query.bindValue(':codfac', int(codfac))
@@ -522,7 +523,8 @@ class Conexion():
                     precio = str(query.value(1))
                     cantidad = query.value(2)
                     total_venta = round(float(precio) * float(cantidad), 2)
-                    articulo=conexion.Conexion.buscarArt(int(query.value(3)))
+                    articulo=Conexion.buscarArt(int(query.value(3)))
+                    suma= suma+(round(float(precio) * float(cantidad), 2))
                     var.ui.tabVentas.setRowCount(index + 1)
                     var.ui.tabVentas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codventa)))
                     var.ui.tabVentas.setItem(index, 1, QtWidgets.QTableWidgetItem(str(articulo)))
@@ -532,8 +534,13 @@ class Conexion():
                     var.ui.tabVentas.item(index, 0).setTextAlignment(QtCore.Qt.AlignCenter)
                     var.ui.tabVentas.item(index, 2).setTextAlignment(QtCore.Qt.AlignCenter)
                     var.ui.tabVentas.item(index, 3).setTextAlignment(QtCore.Qt.AlignCenter)
-                    var.ui.tabVentas.item(index, 4).setTextAlignment(QtCore.Qt.AlignCenter)
+                    var.ui.tabVentas.item(index, 4).setTextAlignment(QtCore.Qt.AlignRight)
                     index = index + 1
+            iva=suma * 0.21
+            total=suma+iva
+            var.ui.lblSubtotal.setText(str(round(suma,2))+' €')
+            var.ui.lblIva.setText(str(round(iva,2))+' €')
+            var.ui.lblTotal.setText(str(round(total,2))+' €')
             #invoice.Facturas.cargaLineaVenta(index)
 
 

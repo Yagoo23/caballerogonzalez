@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>799</height>
+    <height>850</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
     <width>900</width>
-    <height>801</height>
+    <height>900</height>
    </size>
   </property>
   <property name="sizeIncrement">
@@ -87,7 +87,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       <x>20</x>
       <y>40</y>
       <width>861</width>
-      <height>651</height>
+      <height>691</height>
      </rect>
     </property>
     <property name="font">
@@ -1228,6 +1228,29 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         </item>
        </layout>
       </widget>
+      <widget class="QPushButton" name="btnImprimirFactura">
+       <property name="geometry">
+        <rect>
+         <x>780</x>
+         <y>80</y>
+         <width>36</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/impresora.png</normaloff>img/impresora.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
      </widget>
      <widget class="Line" name="line_5">
       <property name="geometry">
@@ -1248,7 +1271,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         <x>0</x>
         <y>190</y>
         <width>200</width>
-        <height>421</height>
+        <height>451</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -1324,7 +1347,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         <x>220</x>
         <y>180</y>
         <width>631</width>
-        <height>381</height>
+        <height>391</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1462,8 +1485,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      <widget class="QLabel" name="lblVenta">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>580</y>
+        <x>450</x>
+        <y>590</y>
         <width>100</width>
         <height>20</height>
        </rect>
@@ -1490,6 +1513,240 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
       </property>
       <property name="styleSheet">
        <string notr="true">background-color:rgb(254, 255, 185);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblVenta_2">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>570</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(254, 255, 185);</string>
+      </property>
+      <property name="text">
+       <string>Subtotal:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblVenta_3">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>600</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(254, 255, 185);</string>
+      </property>
+      <property name="text">
+       <string>IVA:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblVenta_4">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>630</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(254, 255, 185);</string>
+      </property>
+      <property name="text">
+       <string>Total:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblSubtotal">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>570</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(255, 178, 147);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblIva">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>600</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(255, 178, 147);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblTotal">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>630</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(255, 178, 147);</string>
       </property>
       <property name="text">
        <string/>
@@ -1765,7 +2022,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>700</y>
+      <y>750</y>
       <width>91</width>
       <height>16</height>
      </rect>
@@ -1975,11 +2232,11 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="rbtGroupSex"/>
   <buttongroup name="chkGroupPago">
    <property name="exclusive">
     <bool>false</bool>
    </property>
   </buttongroup>
+  <buttongroup name="rbtGroupSex"/>
  </buttongroups>
 </ui>
