@@ -75,6 +75,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnPDFArt.clicked.connect(informes.Informes.listadoArticulos)
         var.ui.btnReportCli.clicked.connect(eventos.Eventos.Imprimir)
         var.ui.btnImprimirFactura.clicked.connect(informes.Informes.factura)
+        var.ui.btnEliminarVenta.clicked.connect(conexion.Conexion.eliminarVenta)
         '''
         Eventos de la barra del menú
         '''
@@ -104,6 +105,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tabFacturas.clicked.connect(invoice.Facturas.cargaFac)
         var.ui.tabVentas.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         invoice.Facturas.cargaLineaVenta(self)
+        var.ui.tabClientes.clicked.connect(invoice.Facturas.cargaCliFac)
         # invoice.Facturas.prepararTabFac(self)
         '''
         Barra de estado

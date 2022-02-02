@@ -75,12 +75,14 @@ class Facturas():
         except Exception as error:
             print('Error en preparar TabFac', error)
 
-    def cargaLineaVenta(self):
+    def cargaLineaVenta(index):
         try:
-            index = 0
             var.cmbProducto = QtWidgets.QComboBox()
+            var.cmbProducto.currentIndexChanged.connect(Facturas.proceso_venta)
+            conexion.Conexion.cargarCmbProducto(self=None)
             var.cmbProducto.setFixedSize(160, 25)
-            conexion.Conexion.cargarCmbProducto(self)
+            var.txtCantidad=QtWidgets.QLineEdit()
+            var.txtCantidad.editingFinished.connect(Facturas.totalLineaVenta)
             var.txtCantidad.setFixedSize(70, 25)
             var.txtCantidad.setAlignment(QtCore.Qt.AlignCenter)
             var.ui.tabVentas.setRowCount(index + 1)
@@ -118,6 +120,21 @@ class Facturas():
             conexion.Conexion.cargarVenta(venta)
         except Exception as error:
             print('Error en total linea de venta ',error)
+
+    def cargaCliFac(self):
+        # carga datos de cliente en Facturación al seleccionar en tabla Clientes
+        try:
+            fila = var.ui.tabClientes.selectedItems()  # seleccionamos fila en tab clientes
+            datos = [var.ui.txtDNIfac, var.ui.lblNomFac]
+            if fila:
+                row = [dato.text() for dato in fila]
+            for i, dato in enumerate(datos):
+                dato.setText(row[i])  # cargamos los datos en las cajas de texto
+            '''carga el dni y los apellidos, falta nombre'''
+
+        except Exception as error:
+            print("Error en cargar datos de un cliente en Facturación", error)
+
 
 
 

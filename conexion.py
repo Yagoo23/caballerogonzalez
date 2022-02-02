@@ -490,7 +490,7 @@ class Conexion():
     def buscaCodfac(self):
         try:
             query = QtSql.QSqlQuery
-            query.prepare('select codigo from facturas order by codigo desc limit 1')
+            query.prepare('select codfac from facturas order by codfac desc limit 1')
             if query.exec_():
                 while query.next():
                     dato = query.value(0)
@@ -515,18 +515,18 @@ class Conexion():
             var.ui.tabVentas.clearContents()
             index = 0
             query = QtSql.QSqlQuery()
-            query.prepare('select codventa,precio,cantidad,codpro from ventas where codfac= :codfac')
+            query.prepare('select codven,precio,cantidad,codpro from ventas where codfac= :codfac')
             query.bindValue(':codfac', int(codfac))
             if query.exec_():
                 while query.next():
-                    codventa = query.value(0)
+                    codven = query.value(0)
                     precio = str(query.value(1))
                     cantidad = query.value(2)
                     total_venta = round(float(precio) * float(cantidad), 2)
                     articulo=Conexion.buscarArt(int(query.value(3)))
                     suma= suma+(round(float(precio) * float(cantidad), 2))
                     var.ui.tabVentas.setRowCount(index + 1)
-                    var.ui.tabVentas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codventa)))
+                    var.ui.tabVentas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codven)))
                     var.ui.tabVentas.setItem(index, 1, QtWidgets.QTableWidgetItem(str(articulo)))
                     var.ui.tabVentas.setItem(index, 2, QtWidgets.QTableWidgetItem(str(precio) + ' €'))
                     var.ui.tabVentas.setItem(index, 3, QtWidgets.QTableWidgetItem(str(cantidad)))
@@ -536,13 +536,30 @@ class Conexion():
                     var.ui.tabVentas.item(index, 3).setTextAlignment(QtCore.Qt.AlignCenter)
                     var.ui.tabVentas.item(index, 4).setTextAlignment(QtCore.Qt.AlignRight)
                     index = index + 1
+                invoice.Facturas.cargaLineaVenta(index)
             iva=suma * 0.21
             total=suma+iva
             var.ui.lblSubtotal.setText(str(round(suma,2))+' €')
             var.ui.lblIva.setText(str(round(iva,2))+' €')
             var.ui.lblTotal.setText(str(round(total,2))+' €')
-            #invoice.Facturas.cargaLineaVenta(index)
-
-
         except Exception as error:
             print('Error en cargar linea de venta', error)
+
+    def eliminarVenta(self):
+        try:
+            row = var.ui.tabVentas.currentRow()
+            codventa = var.ui.tabVentas.item(row, 0).text()
+            query = QtSql.QSqlQuery()
+            query.prepare('delete from ventas where codven = :codven')
+            query.bindValue(':codven', int(codventa))
+            if query.exec_():
+                msg1 = QtWidgets.QMessageBox()
+                msg1.setWindowTitle('Aviso')
+                msg1.setIcon(QtWidgets.QMessageBox.Information)
+                msg1.setText('Venta eliminada')
+                msg1.exec()
+                codfac = var.ui.lblNumFac.text()
+                Conexion.cargarLineasVenta(codfac)
+        except Exception as error:
+            print('Error en eliminar venta ',error)
+
