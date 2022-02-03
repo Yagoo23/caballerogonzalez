@@ -489,7 +489,7 @@ class Conexion():
 
     def buscaCodfac(self):
         try:
-            query = QtSql.QSqlQuery
+            query = QtSql.QSqlQuery()
             query.prepare('select codfac from facturas order by codfac desc limit 1')
             if query.exec_():
                 while query.next():
