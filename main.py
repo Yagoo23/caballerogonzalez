@@ -98,6 +98,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.ResizeTabClientes(self)
         eventos.Eventos.ResizeTabFacturas(self)
         eventos.Eventos.ResizeTabVentas(self)
+        eventos.Eventos.ResizeTabArticulos(self)
         var.ui.tabClientes.clicked.connect(clients.Clientes.cargaCli)
         var.ui.tabClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         var.ui.tabArticulos.clicked.connect(productos.Productos.cargaPro)

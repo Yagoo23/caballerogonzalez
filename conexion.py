@@ -536,12 +536,13 @@ class Conexion():
                     var.ui.tabVentas.item(index, 3).setTextAlignment(QtCore.Qt.AlignCenter)
                     var.ui.tabVentas.item(index, 4).setTextAlignment(QtCore.Qt.AlignRight)
                     index = index + 1
-                invoice.Facturas.cargaLineaVenta(index)
             iva=suma * 0.21
             total=suma+iva
             var.ui.lblSubtotal.setText(str(round(suma,2))+' €')
             var.ui.lblIva.setText(str(round(iva,2))+' €')
             var.ui.lblTotal.setText(str(round(total,2))+' €')
+            invoice.Facturas.cargaLineaVenta(index)
+            var.ui.tabVentas.scrollToBottom()
         except Exception as error:
             print('Error en cargar linea de venta', error)
 

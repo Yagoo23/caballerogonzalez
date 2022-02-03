@@ -64,6 +64,16 @@ class Eventos():
         except Exception as error:
             print('Error al redimensionar la tabla facturas. ', error)
 
+    def ResizeTabArticulos(self):
+        try:
+            header = var.ui.tabArticulos.horizontalHeader()
+            for i in range(3):
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
+                if i == 0 or i == 3:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+        except Exception as error:
+            print('Error al redimensionar la tabla facturas. ', error)
+
     def limpiaFormCLi(self):
         try:
             cajas = [var.ui.txtDNI, var.ui.txtApel, var.ui.txtNome, var.ui.txtAltaCli, var.ui.txtDir]
