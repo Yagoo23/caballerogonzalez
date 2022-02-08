@@ -165,26 +165,25 @@ class Informes():
             var.cv.line(40, 670, 530, 670)
             suma=0.0
             query = QtSql.QSqlQuery()
-            query.prepare('select codventa,precio,cantidad,codpro from ventas where codfac= :codfac')
+            query.prepare('select codven,precio,cantidad,codpro from ventas where codfac= :codfac')
             query.bindValue(':codfac', int(codfac))
             if query.exec_():
                 i = 50
                 j = 655
                 while query.next():
-                    codventa = query.value(0)
-                    precio = str(query.value(1))
+                    codven = query.value(0)
+                    precio = query.value(1)
                     cantidad = query.value(2)
                     total_venta = round(float(precio) * float(cantidad), 2)
                     articulo = conexion.Conexion.buscarArt(int(query.value(3)))
                     suma = suma + (round(float(precio) * float(cantidad), 2))
                     var.cv.setFont('Helvetica-Bold', size=7)
-                    var.cv.drawCentredString(i + 20, j, str(codventa))
+                    var.cv.drawCentredString(i + 20, j, str(codven))
                     var.cv.drawString(i + 105, j, str(articulo))
                     var.cv.drawString(i + 245, j, str(precio)+' €/kg')
                     var.cv.drawString(i + 350, j, str(cantidad))
                     var.cv.drawString(i + 440, j, str(total_venta))
                     j=j-20
-
             var.cv.save()
             cont = 0
             for file in os.listdir(rootPath):
@@ -194,3 +193,5 @@ class Informes():
 
         except Exception as error:
             print('Error en informes productos', error)
+
+

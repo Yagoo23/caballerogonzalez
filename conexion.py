@@ -425,6 +425,8 @@ class Conexion():
 
     def bajaFac(codfac):
         try:
+            numfac=var.ui.lblNumFac.text()
+            Conexion.delVentaFac(numfac)
             query = QtSql.QSqlQuery()
             query.prepare('delete from facturas where codfac = :codfac')
             query.bindValue(':codfac', int(codfac))
@@ -563,4 +565,28 @@ class Conexion():
                 Conexion.cargarLineasVenta(codfac)
         except Exception as error:
             print('Error en eliminar venta ',error)
+
+    def delVentaFac(numfac):
+        try:
+            ventas=[]
+            query=QtSql.QSqlQuery()
+            query.prepare('select codventa from ventas where codfac = :numfac')
+            query.bindValue(':numfac',int(numfac))
+            if query.exec_():
+                while query.next():
+                    ventas.append(query.value(0))
+            for dato in ventas:
+                query1=QtSql.QSqlQuery()
+                query1.prepare('delete from ventas where codventa = :dato')
+                query1.bindValue(':dato',int(dato))
+                if query1.exec_():
+                    pass
+                var.ui.tabVentas.clearContents()
+                invoice.Facturas.cargaLineaVenta(0)
+                var.ui.lblIva.setText('')
+                var.ui.lblSubtotal.setText('')
+                var.ui.lblTotal.setText('')
+        except Exception as error:
+            print('Error en eliminar lineas de venta en delVenFac ',error)
+
 
