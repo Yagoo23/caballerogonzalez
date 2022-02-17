@@ -223,7 +223,7 @@ class Informes():
                     var.cv.setFont('Helvetica-Bold', size=7)
                     var.cv.drawCentredString(i + 20, j, str(codven))
                     var.cv.drawString(i + 105, j, str(articulo))
-                    var.cv.drawString(i + 245, j, str(precio)+' €/kg')
+                    var.cv.drawString(i + 245, j, str(precio)+' €/kg ')
                     var.cv.drawString(i + 350, j, str(cantidad))
                     var.cv.drawString(i + 440, j, str(total_venta))
                     j=j-20
