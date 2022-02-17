@@ -2,14 +2,18 @@
 Facturación
 """
 from PyQt5 import QtWidgets, QtCore,QtSql
-import conexion
-import locale
-import var
+import conexion,locale,var
 locale.setlocale(locale.LC_ALL, '')
 
 
 class Facturas():
     def buscaCli(self):
+        """
+
+        Módulo que se ejecuta con el botón búsqueda. Devuelve datos del cliente para el panel de facturación.
+        :rtype: String
+
+        """
         try:
             dni = var.ui.txtDNIfac.text().upper()
             var.ui.txtDNIfac.setText(dni)
@@ -27,6 +31,13 @@ class Facturas():
             print('Error al buscar cliente en facturas. ', error)
 
     def facturar(self):
+        """
+
+        Módulo que a partir del DNI da de alta una factura con su número,fecha y DNI. Recarga la tabla facturas y busca y muestra
+        en el label el número de la factura general.
+        :rtype: object
+
+        """
         try:
             registro = []
             dni = var.ui.txtDNIfac.text().upper()
@@ -43,6 +54,13 @@ class Facturas():
             print('Error en alta facturas. ', error)
 
     def cargaFac(self):
+        """
+
+        Módulo que al elegir una factura de la tabla Facturas carga sus datos en el panel de facturación.
+        Los datos son : DNI del cliente,fecha factura y nombre del cliente.
+        :rtype: object
+
+        """
         try:
             fila = var.ui.tabFacturas.selectedItems()
             datos = [var.ui.lblNumFac, var.ui.txtFechaFac]
@@ -62,20 +80,29 @@ class Facturas():
             print('Error al cargar factura. ', error)
 
     def bajaFac(self):
+        """
+
+        Módulo para dar de baja la factura.
+        :rtype: object
+
+        """
         try:
             codfac = var.ui.lblNumFac.text()
             conexion.Conexion.bajaFac(codfac)
             conexion.Conexion.cargaTabfacturas(self)
         except Exception as error:
-            print('Error en dar de baja al artículo. ', error)
+            print('Error en dar de baja la factura. ', error)
 
-    def prepararTabFac(self):
-        try:
-            pass
-        except Exception as error:
-            print('Error en preparar TabFac', error)
 
     def cargaLineaVenta(index):
+        """
+
+        Módulo para cargar una línea de venta en la fila de la tabla indicada por index correspondiente a una factura dada.
+        :param: index : la última línea de la tabla que carga las ventas de una factura
+        :type: index : int
+        :rtype: object
+
+        """
         try:
             var.cmbProducto = QtWidgets.QComboBox()
             var.cmbProducto.currentIndexChanged.connect(Facturas.proceso_venta)
@@ -92,6 +119,11 @@ class Facturas():
             print('Error en cargar linea venta', error)
 
     def proceso_venta(self):
+        """
+
+        Módulo que carga el precio de un artículo al seleccionarlo en el combo de artículos.
+
+        """
         try:
             row = var.ui.tabVentas.currentRow()
             articulo = var.cmbProducto.currentText()
@@ -105,6 +137,13 @@ class Facturas():
             print('Error en proceso venta,', error)
 
     def totalLineaVenta(self = None):
+        """
+
+        Módulo que al anotar la cantidad de producto indica el total del precio de la venta realizada.
+        Al mismo tiempo recarga la tabla de líneas de venta incluyendo las anteriores y la realizada.
+        :rtype: object
+
+        """
         try:
             venta=[]
             row=var.ui.tabVentas.currentRow()
@@ -123,7 +162,12 @@ class Facturas():
             print('Error en total linea de venta ',error)
 
     def cargaCliFac(self):
-        # carga datos de cliente en Facturación al seleccionar en tabla Clientes
+        """
+
+        Módulo para cargar datos de cliente en Facturación al seleccionar en tabla Clientes.
+        :rtype: object
+
+        """
         try:
             fila = var.ui.tabClientes.selectedItems()  # seleccionamos fila en tab clientes
             datos = [var.ui.txtDNIfac, var.ui.lblNomFac]
@@ -135,15 +179,3 @@ class Facturas():
 
         except Exception as error:
             print("Error en cargar datos de un cliente en Facturación", error)
-
-
-
-
-
-
-
-
-
-
-
-

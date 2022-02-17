@@ -984,8 +984,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>img/factura.png</normaloff>img/factura.png</iconset>
+        <iconset resource="img/facturar.qrc">
+         <normaloff>:/newPrefix/factura.png</normaloff>:/newPrefix/factura.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -2260,6 +2260,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
  </widget>
  <resources>
   <include location="img/calendar.qrc"/>
+  <include location="img/facturar.qrc"/>
   <include location="img/buscar.qrc"/>
   <include location="img/borrar.qrc"/>
   <include location="img/salir.qrc"/>

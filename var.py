@@ -28,6 +28,8 @@ from img import limpiar
 from img import listaCli
 from img import restaurar
 from img import salir
+from img import facturar
+from img import warning
 
 '''
 Otras variables

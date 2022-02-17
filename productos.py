@@ -1,10 +1,6 @@
-import locale
+import conexion,eventos,var,locale
 
-import conexion
-import eventos
-import var
-import locale
-from PyQt5 import QtSql, QtWidgets
+
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -12,6 +8,12 @@ locale.setlocale(locale.LC_ALL, '')
 class Productos():
 
     def guardaPro(self):
+        """
+
+        Módulo para guardar los productos.
+        :rtype: object
+
+        """
         try:
             # newpro = []
             # producto = [var.ui.txtNombre, var.ui.txtPrecio]
@@ -37,6 +39,12 @@ class Productos():
             print('Error en guardar artículo ', error)
 
     def cargaPro(self):
+        """
+
+        Módulo para cargar los datos de los productos.
+        :rtype: object
+
+        """
         try:
             eventos.Eventos.limpiaFormPro(self)
             fila = var.ui.tabArticulos.selectedItems()
@@ -49,6 +57,12 @@ class Productos():
             print('Error en cargar datos de un artículo. ', error)
 
     def bajaPro(self):
+        """
+
+        Módulo para eliminar los productos.
+        :rtype: object
+
+        """
         try:
             codigo = var.ui.lblCod.text()
             conexion.Conexion.bajaPro(codigo)
@@ -57,6 +71,12 @@ class Productos():
             print('Error en dar de baja al artículo. ', error)
 
     def modifPro(self):
+        """
+
+        Módulo para modificar los productos.
+        :rtype: object
+
+        """
         try:
             modproducto = []
             producto = [var.ui.lblCod, var.ui.txtNombre, var.ui.txtPrecio]

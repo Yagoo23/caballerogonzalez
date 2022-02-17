@@ -13,6 +13,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_window(object):
     def setupUi(self, window):
+        """
+
+        Código obtenido a partir del fichero xml generado por QtDesigner correspondiente a la interfaz gráfica de la ventana.
+        :param: window: interfaz gráfica
+        :type: window: object
+
+        """
         window.setObjectName("window")
         window.resize(900, 850)
         window.setMaximumSize(QtCore.QSize(900, 900))
@@ -42,13 +49,13 @@ class Ui_window(object):
         font.setWeight(9)
         self.lblClientes.setFont(font)
         self.lblClientes.setStyleSheet("QLabel{\n"
-"font: 75 14pt bold \"Calibri\";\n"
-"background-color:\'blue\';\n"
-"color:\'white\';\n"
-"border:3px,solid,white;\n"
-"align:center;\n"
-"background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, stop:0 rgba(10, 62, 194, 255), stop:1 rgba(255, 255, 255, 255))\n"
-"}")
+                                       "font: 75 14pt bold \"Calibri\";\n"
+                                       "background-color:\'blue\';\n"
+                                       "color:\'white\';\n"
+                                       "border:3px,solid,white;\n"
+                                       "align:center;\n"
+                                       "background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, stop:0 rgba(10, 62, 194, 255), stop:1 rgba(255, 255, 255, 255))\n"
+                                       "}")
         self.lblClientes.setObjectName("lblClientes")
         self.tabPrograma = QtWidgets.QTabWidget(self.centralwidget)
         self.tabPrograma.setGeometry(QtCore.QRect(20, 40, 861, 691))
@@ -74,7 +81,8 @@ class Ui_window(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.lblDNI = QtWidgets.QLabel(self.layoutWidget)
         self.lblDNI.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                                           QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lblDNI.sizePolicy().hasHeightForWidth())
@@ -188,7 +196,7 @@ class Ui_window(object):
         font.setBold(False)
         font.setWeight(50)
         self.txtAltaCli.setFont(font)
-        self.txtAltaCli.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.txtAltaCli.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.txtAltaCli.setObjectName("txtAltaCli")
         self.horizontalLayout_7.addWidget(self.txtAltaCli)
         self.btnCalendar = QtWidgets.QPushButton(self.layoutWidget2)
@@ -492,7 +500,7 @@ class Ui_window(object):
         self.btnFacturar.setGeometry(QtCore.QRect(430, 80, 36, 28))
         self.btnFacturar.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("img/factura.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(":/newPrefix/factura.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnFacturar.setIcon(icon4)
         self.btnFacturar.setIconSize(QtCore.QSize(26, 26))
         self.btnFacturar.setObjectName("btnFacturar")
@@ -601,7 +609,8 @@ class Ui_window(object):
         self.txtNumFac.setObjectName("txtNumFac")
         self.horizontalLayout_17.addWidget(self.txtNumFac)
         self.lblNumFac = QtWidgets.QLabel(self.layoutWidget12)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                                           QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lblNumFac.sizePolicy().hasHeightForWidth())
@@ -659,7 +668,7 @@ class Ui_window(object):
         item = QtWidgets.QTableWidgetItem()
         self.tabFacturas.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
-        item.setTextAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        item.setTextAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignVCenter)
         self.tabFacturas.setHorizontalHeaderItem(2, item)
         self.tabFacturas.horizontalHeader().setVisible(False)
         self.tabFacturas.horizontalHeader().setDefaultSectionSize(60)
@@ -870,7 +879,7 @@ class Ui_window(object):
         sizePolicy.setHeightForWidth(self.txtPrecio.sizePolicy().hasHeightForWidth())
         self.txtPrecio.setSizePolicy(sizePolicy)
         self.txtPrecio.setMaximumSize(QtCore.QSize(50, 16777215))
-        self.txtPrecio.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.txtPrecio.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.txtPrecio.setObjectName("txtPrecio")
         self.horizontalLayout_11.addWidget(self.txtPrecio)
         self.btnBuscar = QtWidgets.QPushButton(self.groupBox_2)
@@ -929,7 +938,7 @@ class Ui_window(object):
         font.setFamily("Verdana")
         font.setPointSize(8)
         self.lblFecha.setFont(font)
-        self.lblFecha.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.lblFecha.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
         self.lblFecha.setObjectName("lblFecha")
         window.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(window)
@@ -1030,7 +1039,7 @@ class Ui_window(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(window)
-        self.tabPrograma.setCurrentIndex(2)
+        self.tabPrograma.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(window)
 
     def retranslateUi(self, window):

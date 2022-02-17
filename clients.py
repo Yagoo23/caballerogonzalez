@@ -1,18 +1,19 @@
 '''
 Funciones gestión clientes
 '''
-
-import xlrd
 import pandas as pd
-import conexion
-import eventos
-import invoice
-import var
+import conexion,eventos,var,xlrd
 from PyQt5 import QtSql, QtWidgets
 
 
 class Clientes():
     def validarDNI():
+        """
+
+        Valida el DNI del cliente y nos dice si es correcto.Si no lo es no deja guardarlo.
+        :rtype: object
+
+        """
         try:
             global dnivalido
             dnivalido = False
@@ -85,20 +86,26 @@ class Clientes():
     #     except Exception as error:
     #         print('Error en módulo cargar provincias,error')
 
-    def selEnvio(self):
-        try:
-            if var.ui.spinEnvio.value() == 0:
-                var.ui.lblEnvio.setText('Recogida cliente.')
-            elif var.ui.spinEnvio.value() == 1:
-                var.ui.lblEnvio.setText('Envío nacional.')
-            elif var.ui.spinEnvio.value() == 2:
-                var.ui.lblEnvio.setText('Envío nacional urgente.')
-            elif var.ui.spinEnvio.value() == 3:
-                var.ui.lblEnvio.setText('Envío internacional.')
-        except Exception as error:
-            print('Error al cargar metodo de envio', error)
+    # def selEnvio(self):
+    #     try:
+    #         if var.ui.spinEnvio.value() == 0:
+    #             var.ui.lblEnvio.setText('Recogida cliente.')
+    #         elif var.ui.spinEnvio.value() == 1:
+    #             var.ui.lblEnvio.setText('Envío nacional.')
+    #         elif var.ui.spinEnvio.value() == 2:
+    #             var.ui.lblEnvio.setText('Envío nacional urgente.')
+    #         elif var.ui.spinEnvio.value() == 3:
+    #             var.ui.lblEnvio.setText('Envío internacional.')
+    #     except Exception as error:
+    #         print('Error al cargar metodo de envio', error)
 
     def cargarFecha(qDate):
+        """
+
+        Carga la fecha de del Dialog Calendar.
+        :rtype: String
+
+        """
         try:
             data = (str(qDate.day()).zfill(2) + '/' + str(qDate.month()).zfill(2) + '/' + str(qDate.year()))
             if var.ui.tabPrograma.currentIndex()==0:
@@ -110,6 +117,12 @@ class Clientes():
             print('Error cargar fecha en txtFecha ', error)
 
     def letracapital():
+        """
+
+        Pone la primera letra del nombre y apellidos del cliente en mayúscula. También lo hace con la dirección.
+        :rtype: object
+
+        """
         try:
             nome = var.ui.txtNome.text()
             var.ui.txtNome.setText(nome.title())
@@ -122,6 +135,12 @@ class Clientes():
             print('Error en módulo dirección ', error)
 
     def guardaCli(self):
+        """
+
+        Guarda los datos del cliente en la base de datos y carga la tabla del panel Clientes.
+        :rtype: object
+
+        """
         try:
             # preparamos el registro
             newcli = []  # Base de datos
@@ -152,7 +171,7 @@ class Clientes():
             pagos = set(pagos)  # evita duplicados
             newcli.append(', '.join(pagos))
             tabCli.append(', '.join(pagos))
-            newcli.append(var.ui.spinspinEnvio.text())
+            #newcli.append(var.ui.spinspinEnvio.text())
 
             # cargamos en la tabla
             if dnivalido:
@@ -176,6 +195,13 @@ class Clientes():
             print('Error en guardar clientes ', error)
 
     def modifCli(self):
+        """
+
+        Modifica los datos del cliente y los guarda en la base de datos.
+        Carga en la tabla del panel de Clientes los datos modificados.
+        :rtype: object
+
+        """
         try:
             modcliente = []
             cliente = [var.ui.txtDNI, var.ui.txtAltaCli, var.ui.txtApel, var.ui.txtNome, var.ui.txtDir]
@@ -205,6 +231,12 @@ class Clientes():
             print('Error en modificar cliente. ', error)
 
     def bajaCli(self):
+        """
+
+        Elimina a un Cliente de la base de datos y carga la tabla del panel de Clientes para que no aparezca.
+        :rtype: object
+
+        """
         try:
             dni = var.ui.txtDNI.text()
             conexion.Conexion.bajaCli(dni)
@@ -214,7 +246,9 @@ class Clientes():
 
     def cargaCli(self):
         '''
-        Carga los datos del cliente al seleccionar en tabla
+
+        Carga los datos del cliente al seleccionar en tabla.
+
         '''
         try:
             eventos.Eventos.limpiaFormCLi(self)
@@ -247,6 +281,12 @@ class Clientes():
             print('Error en cargar datos de un cliente. ', error)
 
     def importarDatos(self):
+        """
+
+        Importar los datos que tenemos en Excel.
+        :rtype: object
+
+        """
         try:
             newcli = []
             contador = 0
@@ -268,6 +308,12 @@ class Clientes():
             print('Error al importar datos desde excel. ', error)
 
     def exportarDatos(self):
+        """
+
+        Exporta los datos de los clientes.
+        :rtype: object
+
+        """
         try:
             datos=[]
             query = QtSql.QSqlQuery()

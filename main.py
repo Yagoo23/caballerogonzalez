@@ -40,7 +40,7 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_window()
         var.ui.setupUi(self)
-
+        conexion.Conexion.create_BD(var.filedb)
 
         '''
         Eventos caja de texto
@@ -55,10 +55,6 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de boton
         '''
-        # var.ui.btnSalir.clicked.connect(eventos.Eventos.Salir)
-        # var.ui.btnSalir2.clicked.connect(eventos.Eventos.Salir)
-        # var.ui.rbtGroupSex.buttonClicked.connect(clients.Clientes.SelSexo)
-        # var.ui.chkGroupPago.buttonClicked.connect(clients.Clientes.SelPago)
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrircal)
         var.ui.btnGrabaCli.clicked.connect(clients.Clientes.guardaCli)
         var.ui.btnRecarga.clicked.connect(eventos.Eventos.limpiaFormCLi)
@@ -91,7 +87,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de SpinBox
         '''
-        var.ui.spinEnvio.valueChanged.connect(clients.Clientes.selEnvio)
+        #var.ui.spinEnvio.valueChanged.connect(clients.Clientes.selEnvio)
         '''
         Eventos de QTabWidget
         '''

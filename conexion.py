@@ -1,18 +1,89 @@
-import locale
-
 from PyQt5 import QtSql, QtWidgets, QtCore, QtGui
-from reportlab.pdfgen import canvas
-
-import conexion
-import invoice
-import var
-import locale
-
+import sqlite3,invoice,var,locale,os,csv
 locale.setlocale(locale.LC_ALL, '')
 
 
 class Conexion():
+    def create_BD(filename):
+        """
+
+        Recibe el nombre de la base de datos.
+        Módulo que se ejecuta al principio del programa.
+        Crea las tablas y carga municipios y provincias.
+        Crea los directorios necesarios.
+        :rtype: Object
+
+        """
+        try:
+            con=sqlite3.connect(database=filename)
+            cur=con.cursor()
+            cur.execute('CREATE TABLE IF NOT EXISTS clientes (dni TEXT NOT NULL,alta TEXT,apellidos	TEXT NOT NULL,'
+                        ' nombre TEXT,direccion TEXT,provincia TEXT,municipio TEXT,sexo TEXT,pago TEXT,'
+                        ' envio INTEGER,PRIMARY KEY(dni))')
+            con.commit()
+            cur.execute('CREATE TABLE IF NOT EXISTS ventas(codven INTEGER NOT NULL,'
+                        ' codfac INTEGER NOT NULL,codpro INTEGER NOT NULL,'
+                        ' precio REAL NOT NULL,cantidad REAL NOT NULL,PRIMARY KEY(codven AUTOINCREMENT),'
+                        ' FOREIGN KEY(codpro) REFERENCES articulos(codigo),'
+                        ' FOREIGN KEY(codfac) REFERENCES facturas(codfac))')
+            con.commit()
+            cur.execute('CREATE TABLE IF NOT EXISTS articulos (codigo INTEGER NOT NULL,'
+                        ' nombre TEXT NOT NULL,precio REAL,PRIMARY KEY(codigo AUTOINCREMENT))')
+            con.commit()
+            cur.execute('CREATE TABLE IF NOT EXISTS facturas (codfac INTEGER NOT NULL,dni TEXT,'
+                        ' fechafac	TEXT,PRIMARY KEY(codfac AUTOINCREMENT))')
+            con.commit()
+            cur.execute('CREATE TABLE IF NOT EXISTS provincias (id	INTEGER NOT NULL,'
+                        ' provincia VARCHAR(255) NOT NULL,PRIMARY KEY(id))')
+            con.commit()
+            cur.execute('CREATE TABLE IF NOT EXISTS municipios (provincia_id INTEGER NOT NULL,'
+                        ' municipio	VARCHAR(255) NOT NULL,id INTEGER NOT NULL,PRIMARY KEY(id))')
+            con.commit()
+            cur.execute('select count() from provincias')
+            numero=cur.fetchone()[0]
+            print(numero)
+            con.commit()
+            if int(numero) == 0:
+                print('entró')
+                with open('provincias.csv' ,'r',encoding="utf-8") as fin:
+                    dr=csv.DictReader(fin)
+                    to_db=[(i['id'], i['provincia']) for i in dr]
+                cur.executemany('insert into provincias (id, provincia) VALUES (?,?);', to_db)
+                con.commit()
+            con.close()
+
+            '''creación de directorios'''
+
+            if not os.path.exists('.\\informes'):
+                os.mkdir('.\\informes')
+            if not os.path.exists('.\\img'):
+                os.mkdir('.\\img')
+            #     shutil.
+        except Exception as error:
+            msg=QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Information)
+            msg.setText('error',error)
+            msg.exec()
+
+
+    def existeDNI(dni):
+        try:
+            # signal=True
+            # query=QtSql.QSqlQuery()
+            # query.prepare('select dni from clientes')
+            pass
+        except Exception as error:
+            print('Problemas con DNI repetido' ,error)
+
     def db_connect(filedb):
+        """
+
+        Realiza la conexión con la base de datos al ejecutar el programa.
+        :return: Boolean, True si es correcto,False si hay un error
+        :rtype: Boolean
+
+        """
         try:
             db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
             db.setDatabaseName(filedb)
@@ -27,11 +98,15 @@ class Conexion():
         except Exception as error:
             print('Problemas en conexión. ', error)
 
-    '''
-    Módulos gestión de base de datos cliente
-    '''
+
 
     def altaCli(newcli):
+        """
+
+        Módulo que da de alta a los clientes.
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -66,6 +141,12 @@ class Conexion():
             print('Problemas en alta de cliente. ', error)
 
     def altaPro(newpro):
+        """
+
+        Módulo que recibe datos del producto y los carga en la base de datos.
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('insert into articulos (codigo,nombre,precio) VALUES (:codigo,:nombre,:precio)')
@@ -92,6 +173,12 @@ class Conexion():
             print('Problemas en alta de producto.', error)
 
     def bajaCli(dni):
+        """
+
+        Módulo que recibe el dni del cliente y lo da de baja de la base de datos.
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('delete from clientes where dni = :dni')
@@ -113,6 +200,12 @@ class Conexion():
             print('Error baja cliente en conexión. ', error)
 
     def bajaPro(codigo):
+        """
+
+        Módulo que recibe el código de un producto y lo elimina de la base de datos.
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('delete from articulos where codigo = :codigo')
@@ -134,6 +227,12 @@ class Conexion():
             print('Error baja artículo en conexión. ', error)
 
     def cargarTabCli(self):
+        """
+
+        Módulo que toma datos de los clientes y los carga en la tabla de la interfaz gráfica.
+        :rtype: object
+
+        """
         try:
             index = 0
             query = QtSql.QSqlQuery()
@@ -159,6 +258,12 @@ class Conexion():
             print('Problemas en mostrar tabla de cliente. ', error)
 
     def cargarTabPro(self):
+        """
+
+        Módulo que recarga la tabla del panel de productos siempre que se dé de alta,baja o modificar un producto.
+        :rtype: object
+
+        """
         try:
             var.ui.tabArticulos.clear()
             index = 0
@@ -180,6 +285,13 @@ class Conexion():
             print('Problemas en mostrar tabla de productos. ', error)
 
     def oneClie(dni):
+        """
+
+        Módulo que selecciona un cliente según su DNI y lo devuelve a la función CargaCli del fichero cliente.
+        :return: Devuelve una lista
+        :rtype: object - lista
+
+        """
         try:
             record = []
             query = QtSql.QSqlQuery()
@@ -193,35 +305,14 @@ class Conexion():
         except Exception as error:
             print('Problemas mostrar tablas clientes. ', error)
 
-    # def onePro(codigo):
-    #     try:
-    #         record=[]
-    #         query = QtSql.QSqlQuery()
-    #         query.prepare('select nombre,precio from articulos where codigo= :codigo')
-    #         query.bindValue(':codigo', int(codigo))
-    #         if query.exec_():
-    #             while query.next():
-    #                 for i in range(3):
-    #                     record.append(query.value(i))
-    #         return record
-    #     except Exception as error:
-    #         print('Problemas mostrar tabla productos. ',error)
-    #
-    # def oneFac(codfac):
-    #     try:
-    #         record=[]
-    #         query = QtSql.QSqlQuery()
-    #         query.prepare('select dni,fechafac from articulos where codfac= :codfac')
-    #         query.bindValue(':codigo', int(codfac))
-    #         if query.exec_():
-    #             while query.next():
-    #                 for i in range(3):
-    #                     record.append(query.value(i))
-    #         return record
-    #     except Exception as error:
-    #         print('Problemas mostrar tabla facturas. ', error)
 
     def cargarProv(self):
+        """
+
+        Módulo que carga las provincias en el combo de la interfaz gráfica del panel Clientes.
+        :rtype: object
+
+        """
         try:
             prov = [""]
             var.ui.cmbProv.clear()
@@ -236,6 +327,12 @@ class Conexion():
             print('Problemas al mostrar provincias. ', error)
 
     def cargarMuni(self):
+        """
+
+        Módulo que selecciona los municipios dada una provincia y los carga en el combo municipios del panel Clientes.
+        :rtype: object
+
+        """
         try:
             id = 0
             var.ui.cmbMun.clear()
@@ -257,6 +354,12 @@ class Conexion():
             print('Problemas al mostrar municipios. ', error)
 
     def modifCli(modcliente):
+        """
+
+        Módulo que recibe los cambios del cliente a modificar y lo modifica en la base de datos.
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -290,6 +393,12 @@ class Conexion():
             print('Problemas modificar clientes. ', error)
 
     def modifPro(modproducto):
+        """
+
+        Módulo que recibe el código de un producto y lo modifica en la base de datos.
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('update articulos set nombre = :nombre, precio = :precio where codigo = :codigo')
@@ -339,11 +448,15 @@ class Conexion():
         # except Exception as error:
         #     print('Problemas modificar artículos. ', error)
 
-    """
-    Gestión Facturación
-    """
 
     def buscaClifac(dni):
+        """
+
+        Módulo que busca los datos del cliente a facturar a partir de su DNI.
+        :return: Devuelve datos del cliente a facturar.
+        :rtype: object
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -358,6 +471,12 @@ class Conexion():
             print('Error en conexión buscar cliente. ', error)
 
     def altaFac(registro):
+        """
+
+        Dado el cliente a facturar se dá de alta una factura en la base de datos a nombre de ese cliente(DNI).
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('insert into facturas (dni,fechafac) VALUES (:dni,:fecha)')
@@ -382,6 +501,13 @@ class Conexion():
             print('Error en conexión alta factura. ', error)
 
     def cargaTabfacturas(self):
+        """
+
+        Módulo que se ejecuta cada vez que se dá de alta,baja o modifica una factura recargando en el panel
+        de gestión de facturación de la tabla facturas.
+        :rtype: object
+
+        """
         try:
             var.ui.tabFacturas.clear()
             index = 0
@@ -412,6 +538,13 @@ class Conexion():
             print('Error al cargar listado facturas. ', error)
 
     def buscaDNIFac(numfac):
+        """
+
+        Módulo que busca el DNI de la tabla facturas en la base de datos.
+        :return: Devuelve un DNI
+        :rtype: String
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('SELECT dni from facturas where codfac =:numfac')
@@ -424,6 +557,13 @@ class Conexion():
             print('Error al buscar dni', error)
 
     def bajaFac(codfac):
+        """
+
+        Módulo que dado el código de la factura dará de baja. Además llama al módulo borrar ventas para que elimine
+        todas las ventas asociadas a esa factura de la tabla ventas de la base de datos.
+        :rtype: object
+
+        """
         try:
             numfac=var.ui.lblNumFac.text()
             Conexion.delVentaFac(numfac)
@@ -447,6 +587,13 @@ class Conexion():
             print('Error al dar de baja factura ', error)
 
     def cargarCmbProducto(self):
+        """
+
+        Módulo que toma los datos de los nombre de los productos existentes de la base de datos y los carga
+        en el panel de facturación de la tabla ventas.
+        :rtype: object
+
+        """
         try:
             var.cmbProducto.clear()
             query = QtSql.QSqlQuery()
@@ -459,6 +606,13 @@ class Conexion():
             print('Error al cargar cmbProducto ', error)
 
     def obtenerCodPrecio(articulo):
+        """
+
+        Módulo que dado el nombre del producto obtenemos su precio para realizar los cálculos necesarios en la venta.
+        :return: Devuelve el precio
+        :rtype: object - Array
+
+        """
         try:
             dato = []
             query = QtSql.QSqlQuery()
@@ -473,6 +627,12 @@ class Conexion():
             print('Error al cargar codigo precio en conexion ', error)
 
     def cargarVenta(venta):
+        """
+
+        Módulo que carga el registro de una venta realizada en la tabla ventas de la base de datos.
+        :rtype: object
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('insert into ventas(codfac,codpro,precio,cantidad) values(:codfac,:codpro,:precio,:cantidad)')
@@ -490,6 +650,13 @@ class Conexion():
             print('error al cargar venta ', error)
 
     def buscaCodfac(self):
+        """
+
+        Módulo que selecciona el código de la factura con número más alto o la última en dar de alta.
+        :return: Devuelve el número/código factura
+        :rtype: Int
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('select codfac from facturas order by codfac desc limit 1')
@@ -501,6 +668,13 @@ class Conexion():
             print('Error obtener codigo factura', error)
 
     def buscarArt(codigo):
+        """
+
+        Módulo que busca el nombre de un artículo para usarlo en las ventas a partir de su código.
+        :return: Devuelve el nombre del artículo
+        :rtype: String
+
+        """
         try:
             query=QtSql.QSqlQuery()
             query.prepare('select nombre from articulos where codigo= :codpro')
@@ -512,6 +686,14 @@ class Conexion():
             print('Error al buscar articulo ',error)
 
     def cargarLineasVenta(codfac):
+        """
+
+        Módulo que carga todos las ventas asociadas a una factura en la tabla ventas del panel de facturación.
+        Además realiza los cálculos necesarios para el subtotal,total e iva de la factura.
+        Este módulo se le llama cada vez que se realiza una venta.
+        :rtype: object
+
+        """
         try:
             suma=0.0
             var.ui.tabVentas.clearContents()
@@ -549,6 +731,12 @@ class Conexion():
             print('Error en cargar linea de venta', error)
 
     def eliminarVenta(self):
+        """
+
+        Módulo que elimina una venta de una factura.
+        :rtype: object
+
+        """
         try:
             row = var.ui.tabVentas.currentRow()
             codventa = var.ui.tabVentas.item(row, 0).text()
@@ -566,18 +754,28 @@ class Conexion():
         except Exception as error:
             print('Error en eliminar venta ',error)
 
-    def delVentaFac(numfac):
+    def delVentaFac(self,numfac):
+        """
+
+        :param: numfac valor de la factura
+        :type: numfac: int
+        Módulo que se llama cuándo se dá de baja una factura en la base de datos para que elimine todas las ventas asociadas a esa factura.
+        Recibe el número de factura a borrar.A partir de ese código, primero selecciona todos los códigos de venta asociados a la factura
+        y los guarda en una lista. A continuación a medida que recorre esa lista leyendo los códigos de venta los dá de baja de la tabla
+        ventas de la base de datos. Finalmente, recarga la tabla de ventas del panel de facturación y limpia datos.
+
+        """
         try:
             ventas=[]
             query=QtSql.QSqlQuery()
-            query.prepare('select codventa from ventas where codfac = :numfac')
+            query.prepare('select codven from ventas where codfac = :numfac')
             query.bindValue(':numfac',int(numfac))
             if query.exec_():
                 while query.next():
                     ventas.append(query.value(0))
             for dato in ventas:
                 query1=QtSql.QSqlQuery()
-                query1.prepare('delete from ventas where codventa = :dato')
+                query1.prepare('delete from ventas where codven = :dato')
                 query1.bindValue(':dato',int(dato))
                 if query1.exec_():
                     pass

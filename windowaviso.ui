@@ -74,7 +74,7 @@
     <enum>Qt::PlainText</enum>
    </property>
    <property name="pixmap">
-    <pixmap>img/warning.png</pixmap>
+    <pixmap resource="img/warning.qrc">:/newPrefix/warning.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -87,7 +87,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="img/warning.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>btnBoxAviso</sender>

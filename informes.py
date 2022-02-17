@@ -1,14 +1,19 @@
-import os, var
+import os, var,conexion
 from datetime import datetime
 
 from PyQt5 import QtSql
 from reportlab.pdfgen import canvas
 
-import conexion
 
 
 class Informes():
     def listadoClientes(self):
+        """
+
+        Crear informe de los Clientes
+        :rtype: object
+
+        """
         try:
             var.cv = canvas.Canvas('informes/listadoclientes.pdf')
             var.cv.setTitle('Listado Clientes')
@@ -62,6 +67,11 @@ class Informes():
             print('Error en informe clientes.', error)
 
     def listadoArticulos(self):
+        """
+
+        Crear informe de los Artículos.
+
+        """
         try:
             var.cv = canvas.Canvas('informes/listadoarticulos.pdf')
             var.cv.setTitle('Listado Artículos')
@@ -114,22 +124,35 @@ class Informes():
             print('Error en informe artículos.', error)
 
     def cabecera(self):
+        """
+
+        Crear la cabecera de los informes.
+        :rtype: object
+
+        """
         try:
             logo = '.\\img\logo-empresa.jpg'
             var.cv.line(40, 800, 530, 800)
             var.cv.setFont('Helvetica-Bold', 14)
             var.cv.drawString(50, 785, 'Import-Export Vigo')
+            var.cv.drawString(300, 785, 'Datos cliente')
             var.cv.setFont('Helvetica', 10)
             var.cv.drawString(50, 770, 'CIF: A0000000H')
             var.cv.line(40, 710, 530, 710)
             var.cv.drawString(50, 755, 'Dirección: Avenida Galicia,101')
             var.cv.drawString(50, 740, 'Vigo - 36216 - Spain')
             var.cv.drawString(50, 725, 'e-mail: micorreo@mail.com')
-            var.cv.drawImage(logo, 400, 715)
+            var.cv.drawImage(logo, 480, 715)
         except Exception as error:
             print('Error en la cabecera informe. ', error)
 
     def pie(texto):
+        """
+
+        Crear el pie de los informes.
+        :rtype: object
+
+        """
         try:
             var.cv.line(50, 50, 530, 50)
             fecha = datetime.today()
@@ -143,6 +166,12 @@ class Informes():
             print('Error creación de pie de informe clientes. ', error)
 
     def factura(self):
+        """
+
+        Crear informe de las Facturas.
+        :rtype: object
+
+        """
         try:
             var.cv = canvas.Canvas('informes/factura.pdf')
             var.cv.setTitle('Factura')
@@ -155,7 +184,21 @@ class Informes():
             codfac = var.ui.lblNumFac.text()
             var.cv.drawString(255,690,textotitulo+': '+str(codfac))
             var.cv.line(40,685,530,685)
-            var.cv.setFont('Helvetica-Bold', size=10)
+            var.cv.setFont('Helvetica', size=10)
+            query1=QtSql.QSqlQuery()
+            query1.prepare('select direccion,municipio,provincia from clientes where dni = :dni')
+            query1.bindValue(':dni',str(var.ui.txtDNIfac.text()))
+            if query1.exec_():
+                dir=[]
+                while query1.next():
+                    dir.append(query1.value(0))
+                    dir.append(query1.value(1))
+                    dir.append(query1.value(2))
+            var.cv.drawString(250, 770, 'CIF: ' + var.ui.txtDNIfac.text())
+            var.cv.drawString(250, 755, 'Cliente: ' + var.ui.lblNomFac.text())
+            var.cv.drawString(250,740,'Dirección: '+str(dir[0]))
+            var.cv.drawString(250,725,'Localidad: '+str(dir[1])+" ("+str(dir[2])+")")
+            #var.cv.drawString(340,725,'Provincia: '+str(dir[2]))
             items = ['Venta', 'Artículo', 'Precio','Cantidad','Total']
             var.cv.drawString(60, 675, items[0])
             var.cv.drawString(150, 675, items[1])
@@ -192,6 +235,6 @@ class Informes():
                 cont = cont + 1
 
         except Exception as error:
-            print('Error en informes productos', error)
+            print('Error en informes ventas', error)
 
 

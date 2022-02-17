@@ -1,13 +1,7 @@
 '''
 Fichero de eventos generales
 '''
-import os.path
-import sys
-import zipfile
-import shutil
-
-import conexion
-import var
+import os.path,sys,zipfile,shutil,conexion,var
 from window import *
 from datetime import *
 from PyQt5 import QtPrintSupport
@@ -15,12 +9,24 @@ from PyQt5 import QtPrintSupport
 
 class Eventos():
     def Abrir(self):
+        """
+
+        Abre una nueva pestaña para ver o abrir documentos.
+        :rtype: object
+
+        """
         try:
             var.dlgabrir.show()
         except Exception as error:
             print('Error al abrir cuadro de diálogo', error)
 
     def Salir(self):
+        """
+
+        Módulo para salir del programa.
+        :rtype: object
+
+        """
         try:
             var.dlgaviso.show()
             if var.dlgaviso.exec():
@@ -31,12 +37,24 @@ class Eventos():
             print('Error en módulo salir ', error)
 
     def abrircal(self):
+        """
+
+        Módulo para abrir el Dialog Calendar.
+        :rtype: object
+
+        """
         try:
             var.dlgcalendar.show()
         except Exception as error:
             print('Error al abrir el calendario ', error)
 
     def ResizeTabClientes(self):
+        """
+
+        Módulo para redimensionar la tabla Clientes.
+
+
+        """
         try:
             header = var.ui.tabClientes.horizontalHeader()
             for i in range(5):
@@ -47,6 +65,11 @@ class Eventos():
             print('Error al redimensionar la tabla Clientes. ', error)
 
     def ResizeTabFacturas(self):
+        """
+
+        Módulo para redimensionar la tabla Facturas.
+
+        """
         try:
             header = var.ui.tabFacturas.horizontalHeader()
             for i in range(3):
@@ -55,6 +78,11 @@ class Eventos():
             print('Error al redimensionar la tabla facturas.', error)
 
     def ResizeTabVentas(self):
+        """
+
+        Módulo para redimensionar la tabla Ventas.
+
+        """
         try:
             header = var.ui.tabVentas.horizontalHeader()
             for i in range(5):
@@ -65,6 +93,11 @@ class Eventos():
             print('Error al redimensionar la tabla facturas. ', error)
 
     def ResizeTabArticulos(self):
+        """
+
+        Módulo para redimensionar la tabla Artículos.
+
+        """
         try:
             header = var.ui.tabArticulos.horizontalHeader()
             for i in range(3):
@@ -75,6 +108,12 @@ class Eventos():
             print('Error al redimensionar la tabla facturas. ', error)
 
     def limpiaFormCLi(self):
+        """
+
+        Módulo para limpiar el panel de Clientes y que aparezca vacío.
+        :rtype: object
+
+        """
         try:
             cajas = [var.ui.txtDNI, var.ui.txtApel, var.ui.txtNome, var.ui.txtAltaCli, var.ui.txtDir]
             for i in cajas:
@@ -93,6 +132,12 @@ class Eventos():
             print('Error en limpiar clientes ', error)
 
     def limpiaFormPro(self):
+        """
+
+        Módulo para limpiar el panel de Productos y que aparezca vacío.
+        :rtype: object
+
+        """
         try:
             cajas=[var.ui.lblCod,var.ui.txtNombre,var.ui.txtPrecio]
             for i in cajas:
@@ -102,6 +147,12 @@ class Eventos():
 
 
     def crearBackup(self):
+        """
+
+        Módulo para crear un backup.
+        :rtype: object
+
+        """
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y.%m.%d.%H.%M.%S')
@@ -123,6 +174,12 @@ class Eventos():
             print('Error en crear Backup ', error)
 
     def restaurarBD(self):
+        """
+
+        Módulo para restaurar la base de datos.
+        :rtype: object
+
+        """
         try:
             option = QtWidgets.QFileDialog.Options()
             filename = var.dlgabrir.getOpenFileName(None, 'Restaurar Copia de Seguridad', '', '*.zip', options=option)
@@ -143,6 +200,12 @@ class Eventos():
             print('Error en restaurar base de datos ', error)
 
     def Imprimir(self):
+        """
+
+        Módulo para abrir la ventana de imprimir.
+        :rtype: object
+
+        """
         try:
             printDialog = QtPrintSupport.QPrintDialog()
             if printDialog.exec():
