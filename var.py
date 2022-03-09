@@ -17,6 +17,9 @@ global btnfacdel
 global precio
 global codpro
 global txtCantidad
+global subfac
+global iva
+global fac
 from img import backup2
 from img import borrar
 from img import buscar

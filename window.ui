@@ -97,7 +97,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -848,6 +848,15 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         </item>
         <item>
          <widget class="QLabel" name="lblEnvio">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Verdana</family>
@@ -1930,8 +1939,8 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         <widget class="QPushButton" name="btnBuscar">
          <property name="geometry">
           <rect>
-           <x>410</x>
-           <y>50</y>
+           <x>550</x>
+           <y>90</y>
            <width>41</width>
            <height>31</height>
           </rect>
@@ -2026,7 +2035,7 @@ background:qlineargradient(spread:pad, x1:0.443, y1:0.0170455, x2:0.472, y2:1, s
         <widget class="QPushButton" name="btnPDFArt">
          <property name="geometry">
           <rect>
-           <x>750</x>
+           <x>530</x>
            <y>220</y>
            <width>32</width>
            <height>32</height>

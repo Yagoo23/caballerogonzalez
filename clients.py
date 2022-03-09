@@ -90,11 +90,11 @@ class Clientes():
     #     try:
     #         if var.ui.spinEnvio.value() == 0:
     #             var.ui.lblEnvio.setText('Recogida cliente.')
-    #         elif var.ui.spinEnvio.value() == 1:
+    #         if var.ui.spinEnvio.value() == 1:
     #             var.ui.lblEnvio.setText('Envío nacional.')
-    #         elif var.ui.spinEnvio.value() == 2:
+    #         if var.ui.spinEnvio.value() == 2:
     #             var.ui.lblEnvio.setText('Envío nacional urgente.')
-    #         elif var.ui.spinEnvio.value() == 3:
+    #         if var.ui.spinEnvio.value() == 3:
     #             var.ui.lblEnvio.setText('Envío internacional.')
     #     except Exception as error:
     #         print('Error al cargar metodo de envio', error)
@@ -171,7 +171,7 @@ class Clientes():
             pagos = set(pagos)  # evita duplicados
             newcli.append(', '.join(pagos))
             tabCli.append(', '.join(pagos))
-            #newcli.append(var.ui.spinspinEnvio.text())
+
 
             # cargamos en la tabla
             if dnivalido:
@@ -182,6 +182,7 @@ class Clientes():
                 #         cell=QtWidgets.QTableWidgetItem(str(campo))
                 #         var.ui.tabClientes.setItem(row,column,cell)
                 #         column +=1
+                conexion.Conexion.altaCli(newcli)  # graba en la tabla de la base de datos
                 conexion.Conexion.altaCli(newcli)  # graba en la tabla de la base de datos
                 conexion.Conexion.cargarTabCli(self)  # recarga la tabla
             else:
@@ -276,6 +277,7 @@ class Clientes():
                 var.ui.rbtHom.setChecked(True)
             elif str(registro[3]) == 'Mujer':
                 var.ui.rbtFem.setChecked(True)
+            #var.ui.spinEnvio.setValue(int(registro[4]))
 
         except Exception as error:
             print('Error en cargar datos de un cliente. ', error)

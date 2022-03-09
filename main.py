@@ -72,6 +72,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnReportCli.clicked.connect(eventos.Eventos.Imprimir)
         var.ui.btnImprimirFactura.clicked.connect(informes.Informes.factura)
         var.ui.btnEliminarVenta.clicked.connect(conexion.Conexion.eliminarVenta)
+        var.ui.btnBuscar.clicked.connect(conexion.Conexion.buscaArt)
+
         '''
         Eventos de la barra del menú
         '''

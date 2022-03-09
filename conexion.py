@@ -1,5 +1,6 @@
 from PyQt5 import QtSql, QtWidgets, QtCore, QtGui
-import sqlite3,invoice,var,locale,os,csv
+import sqlite3, invoice, var, locale, os, csv
+
 locale.setlocale(locale.LC_ALL, '')
 
 
@@ -15,8 +16,8 @@ class Conexion():
 
         """
         try:
-            con=sqlite3.connect(database=filename)
-            cur=con.cursor()
+            con = sqlite3.connect(database=filename)
+            cur = con.cursor()
             cur.execute('CREATE TABLE IF NOT EXISTS clientes (dni TEXT NOT NULL,alta TEXT,apellidos	TEXT NOT NULL,'
                         ' nombre TEXT,direccion TEXT,provincia TEXT,municipio TEXT,sexo TEXT,pago TEXT,'
                         ' envio INTEGER,PRIMARY KEY(dni))')
@@ -40,14 +41,14 @@ class Conexion():
                         ' municipio	VARCHAR(255) NOT NULL,id INTEGER NOT NULL,PRIMARY KEY(id))')
             con.commit()
             cur.execute('select count() from provincias')
-            numero=cur.fetchone()[0]
+            numero = cur.fetchone()[0]
             print(numero)
             con.commit()
             if int(numero) == 0:
                 print('entró')
-                with open('provincias.csv' ,'r',encoding="utf-8") as fin:
-                    dr=csv.DictReader(fin)
-                    to_db=[(i['id'], i['provincia']) for i in dr]
+                with open('provincias.csv', 'r', encoding="utf-8") as fin:
+                    dr = csv.DictReader(fin)
+                    to_db = [(i['id'], i['provincia']) for i in dr]
                 cur.executemany('insert into provincias (id, provincia) VALUES (?,?);', to_db)
                 con.commit()
             con.close()
@@ -60,12 +61,11 @@ class Conexion():
                 os.mkdir('.\\img')
             #     shutil.
         except Exception as error:
-            msg=QtWidgets.QMessageBox()
+            msg = QtWidgets.QMessageBox()
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Information)
-            msg.setText('error',error)
+            msg.setText('error', error)
             msg.exec()
-
 
     def existeDNI(dni):
         try:
@@ -74,7 +74,7 @@ class Conexion():
             # query.prepare('select dni from clientes')
             pass
         except Exception as error:
-            print('Problemas con DNI repetido' ,error)
+            print('Problemas con DNI repetido', error)
 
     def db_connect(filedb):
         """
@@ -97,8 +97,6 @@ class Conexion():
                 return True
         except Exception as error:
             print('Problemas en conexión. ', error)
-
-
 
     def altaCli(newcli):
         """
@@ -305,7 +303,6 @@ class Conexion():
         except Exception as error:
             print('Problemas mostrar tablas clientes. ', error)
 
-
     def cargarProv(self):
         """
 
@@ -448,7 +445,6 @@ class Conexion():
         # except Exception as error:
         #     print('Problemas modificar artículos. ', error)
 
-
     def buscaClifac(dni):
         """
 
@@ -565,7 +561,7 @@ class Conexion():
 
         """
         try:
-            numfac=var.ui.lblNumFac.text()
+            numfac = var.ui.lblNumFac.text()
             Conexion.delVentaFac(numfac)
             query = QtSql.QSqlQuery()
             query.prepare('delete from facturas where codfac = :codfac')
@@ -676,14 +672,14 @@ class Conexion():
 
         """
         try:
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             query.prepare('select nombre from articulos where codigo= :codpro')
-            query.bindValue(':codpro',int(codigo))
+            query.bindValue(':codpro', int(codigo))
             if query.exec_():
                 while query.next():
-                    return(query.value(0))
+                    return (query.value(0))
         except Exception as error:
-            print('Error al buscar articulo ',error)
+            print('Error al buscar articulo ', error)
 
     def cargarLineasVenta(codfac):
         """
@@ -695,7 +691,7 @@ class Conexion():
 
         """
         try:
-            suma=0.0
+            suma = 0.0
             var.ui.tabVentas.clearContents()
             index = 0
             query = QtSql.QSqlQuery()
@@ -707,8 +703,8 @@ class Conexion():
                     precio = str(query.value(1))
                     cantidad = query.value(2)
                     total_venta = round(float(precio) * float(cantidad), 2)
-                    articulo=Conexion.buscarArt(int(query.value(3)))
-                    suma= suma+(round(float(precio) * float(cantidad), 2))
+                    articulo = Conexion.buscarArt(int(query.value(3)))
+                    suma = suma + (round(float(precio) * float(cantidad), 2))
                     var.ui.tabVentas.setRowCount(index + 1)
                     var.ui.tabVentas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codven)))
                     var.ui.tabVentas.setItem(index, 1, QtWidgets.QTableWidgetItem(str(articulo)))
@@ -720,11 +716,11 @@ class Conexion():
                     var.ui.tabVentas.item(index, 3).setTextAlignment(QtCore.Qt.AlignCenter)
                     var.ui.tabVentas.item(index, 4).setTextAlignment(QtCore.Qt.AlignRight)
                     index = index + 1
-            iva=suma * 0.21
-            total=suma+iva
-            var.ui.lblSubtotal.setText(str(round(suma,2))+' €')
-            var.ui.lblIva.setText(str(round(iva,2))+' €')
-            var.ui.lblTotal.setText(str(round(total,2))+' €')
+            iva = suma * 0.21
+            total = suma + iva
+            var.ui.lblSubtotal.setText(str(round(suma, 2)) + ' €')
+            var.ui.lblIva.setText(str(round(iva, 2)) + ' €')
+            var.ui.lblTotal.setText(str(round(total, 2)) + ' €')
             invoice.Facturas.cargaLineaVenta(index)
             var.ui.tabVentas.scrollToBottom()
         except Exception as error:
@@ -752,9 +748,9 @@ class Conexion():
                 codfac = var.ui.lblNumFac.text()
                 Conexion.cargarLineasVenta(codfac)
         except Exception as error:
-            print('Error en eliminar venta ',error)
+            print('Error en eliminar venta ', error)
 
-    def delVentaFac(self,numfac):
+    def delVentaFac(numfac):
         """
 
         :param: numfac valor de la factura
@@ -766,17 +762,17 @@ class Conexion():
 
         """
         try:
-            ventas=[]
-            query=QtSql.QSqlQuery()
+            ventas = []
+            query = QtSql.QSqlQuery()
             query.prepare('select codven from ventas where codfac = :numfac')
-            query.bindValue(':numfac',int(numfac))
+            query.bindValue(':numfac', int(numfac))
             if query.exec_():
                 while query.next():
                     ventas.append(query.value(0))
             for dato in ventas:
-                query1=QtSql.QSqlQuery()
+                query1 = QtSql.QSqlQuery()
                 query1.prepare('delete from ventas where codven = :dato')
-                query1.bindValue(':dato',int(dato))
+                query1.bindValue(':dato', int(dato))
                 if query1.exec_():
                     pass
                 var.ui.tabVentas.clearContents()
@@ -785,6 +781,38 @@ class Conexion():
                 var.ui.lblSubtotal.setText('')
                 var.ui.lblTotal.setText('')
         except Exception as error:
-            print('Error en eliminar lineas de venta en delVenFac ',error)
+            print('Error en eliminar lineas de venta en delVenFac ', error)
 
+    def buscaArt(self):
+        try:
+            nomart = var.ui.txtNombre.text().title()
+            query = QtSql.QSqlQuery()
+            index = 0
+            query.prepare('SELECT codigo,nombre,precio FROM articulos WHERE nombre=:nombre ORDER BY codigo')
+            query.bindValue(':nombre', str(nomart))
+            if query.exec_():
+                while query.next():
+                    codigo = query.value(0)
+                    nombre = query.value(1)
+                    precio = query.value(2)
 
+                    var.ui.tabArticulos.setRowCount(index + 1)
+                    var.ui.tabArticulos.setItem(index, 0, QtWidgets.QTableWidgetItem(codigo))
+                    var.ui.tabArticulos.setItem(index, 1, QtWidgets.QTableWidgetItem(nombre))
+                    var.ui.tabArticulos.setItem(index, 2, QtWidgets.QTableWidgetItem(precio))
+
+                    index += 1
+            else:
+                print('Error:', query.lastError().text())
+                msgBox = QtWidgets.QMessageBox()
+                msgBox.setWindowTitle("Aviso")
+                msgBox.setIcon(QtWidgets.QMessageBox.Warning)
+                msgBox.setText("El articulo no ha sido encontrado en la BD")
+                msgBox.exec()
+        except Exception as error:
+            print('Problemas buscar articulo ', error)
+            msgBox = QtWidgets.QMessageBox()
+            msgBox.setWindowTitle("Aviso")
+            msgBox.setIcon((QtWidgets.QMessageBox.Warning))
+            msgBox.setText("Error al buscar articulo")
+            msgBox.exec()

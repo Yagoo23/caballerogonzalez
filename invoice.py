@@ -125,6 +125,7 @@ class Facturas():
 
         """
         try:
+            dato = []
             row = var.ui.tabVentas.currentRow()
             articulo = var.cmbProducto.currentText()
             dato = conexion.Conexion.obtenerCodPrecio(articulo)
