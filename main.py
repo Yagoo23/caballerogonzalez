@@ -89,7 +89,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de SpinBox
         '''
-        #var.ui.spinEnvio.valueChanged.connect(clients.Clientes.selEnvio)
+        var.ui.spinEnvio.valueChanged.connect(clients.Clientes.selEnvio)
         '''
         Eventos de QTabWidget
         '''

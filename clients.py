@@ -86,18 +86,18 @@ class Clientes():
     #     except Exception as error:
     #         print('Error en módulo cargar provincias,error')
 
-    # def selEnvio(self):
-    #     try:
-    #         if var.ui.spinEnvio.value() == 0:
-    #             var.ui.lblEnvio.setText('Recogida cliente.')
-    #         if var.ui.spinEnvio.value() == 1:
-    #             var.ui.lblEnvio.setText('Envío nacional.')
-    #         if var.ui.spinEnvio.value() == 2:
-    #             var.ui.lblEnvio.setText('Envío nacional urgente.')
-    #         if var.ui.spinEnvio.value() == 3:
-    #             var.ui.lblEnvio.setText('Envío internacional.')
-    #     except Exception as error:
-    #         print('Error al cargar metodo de envio', error)
+    def selEnvio(self):
+        try:
+            if var.ui.spinEnvio.value() == 0:
+                var.ui.lblEnvio.setText('Recogida cliente.')
+            if var.ui.spinEnvio.value() == 1:
+                var.ui.lblEnvio.setText('Envío nacional.')
+            if var.ui.spinEnvio.value() == 2:
+                var.ui.lblEnvio.setText('Envío nacional urgente.')
+            if var.ui.spinEnvio.value() == 3:
+                var.ui.lblEnvio.setText('Envío internacional.')
+        except Exception as error:
+            print('Error al cargar metodo de envio', error)
 
     def cargarFecha(qDate):
         """
@@ -171,6 +171,7 @@ class Clientes():
             pagos = set(pagos)  # evita duplicados
             newcli.append(', '.join(pagos))
             tabCli.append(', '.join(pagos))
+            newcli.append(var.ui.spinEnvio.text())
 
 
             # cargamos en la tabla
@@ -225,6 +226,7 @@ class Clientes():
                 pagos.append('Tarjeta')
             pagos = set(pagos)  # evita duplicados
             modcliente.append(', '.join(pagos))
+            modcliente.append(var.ui.spinEnvio.text())
             conexion.Conexion.modifCli(modcliente)
             conexion.Conexion.cargarTabCli(self)
 
@@ -277,7 +279,7 @@ class Clientes():
                 var.ui.rbtHom.setChecked(True)
             elif str(registro[3]) == 'Mujer':
                 var.ui.rbtFem.setChecked(True)
-            #var.ui.spinEnvio.setValue(int(registro[4]))
+            var.ui.spinEnvio.setValue(int(registro[4]))
 
         except Exception as error:
             print('Error en cargar datos de un cliente. ', error)

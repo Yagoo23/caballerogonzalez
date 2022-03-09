@@ -108,8 +108,8 @@ class Conexion():
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
-                'insert into clientes (dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago) '
-                'VALUES(:dni,:Alta,:apellidos,:nombre,:direccion,:provincia,:municipio,:sexo,:pago)')
+                'insert into clientes (dni,Alta,apellidos,nombre,direccion,provincia,municipio,sexo,pago,envio) '
+                'VALUES(:dni,:Alta,:apellidos,:nombre,:direccion,:provincia,:municipio,:sexo,:pago,:envio)')
             query.bindValue(':dni', str(newcli[0]))
             query.bindValue(':Alta', str(newcli[1]))
             query.bindValue(':apellidos', str(newcli[2]))
@@ -119,7 +119,7 @@ class Conexion():
             query.bindValue(':municipio', str(newcli[6]))
             query.bindValue(':sexo', str(newcli[7]))
             query.bindValue(':pago', str(newcli[8]))
-            # query.bindValue(':envio', int(newcli[9]))
+            query.bindValue(':envio', str(newcli[9]))
             if query.exec_():
                 print('Inserción correcta. ')
                 msg = QtWidgets.QMessageBox()
@@ -293,11 +293,11 @@ class Conexion():
         try:
             record = []
             query = QtSql.QSqlQuery()
-            query.prepare('select direccion,provincia,municipio,sexo from clientes where dni= :dni')
+            query.prepare('select direccion,provincia,municipio,sexo,envio from clientes where dni= :dni')
             query.bindValue(':dni', dni)
             if query.exec_():
                 while query.next():
-                    for i in range(5):
+                    for i in range(6):
                         record.append(query.value(i))
             return record
         except Exception as error:
@@ -360,7 +360,7 @@ class Conexion():
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
-                'UPDATE clientes SET Alta = :Alta,apellidos = :apellidos,nombre = :nombre,direccion = :direccion,provincia= :provincia,municipio = :municipio, sexo = :sexo,pago = :pago where dni = :dni')
+                'UPDATE clientes SET Alta = :Alta,apellidos = :apellidos,nombre = :nombre,direccion = :direccion,provincia= :provincia,municipio = :municipio, sexo = :sexo,pago = :pago,envio = :envio where dni = :dni')
             query.bindValue(':dni', str(modcliente[0]))
             query.bindValue(':Alta', str(modcliente[1]))
             query.bindValue(':apellidos', str(modcliente[2]))
@@ -370,6 +370,7 @@ class Conexion():
             query.bindValue(':municipio', str(modcliente[6]))
             query.bindValue(':sexo', str(modcliente[7]))
             query.bindValue(':pago', str(modcliente[8]))
+            query.bindValue(':envio',str(modcliente[9]))
 
             if query.exec_():
                 print('Inserción correcta. ')
